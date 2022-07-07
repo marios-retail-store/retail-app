@@ -1,0 +1,22 @@
+{
+  "name": "retail-app",
+  "version": "1.0.0",
+  "description": "found within the readme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marios-retail-store/retail-app.git"
+  },
+  "author": "Team Mario!",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marios-retail-store/retail-app/issues"
+  },
+  "homepage": "https://github.com/marios-retail-store/retail-app#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
