@@ -1,16 +1,7 @@
+/* eslint-disable import/extensions */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import App from './components/App.jsx';
 
-class App extends React.Component{
-  constructor(props){
-    super(props);
-
-  }
-  render(){
-    return (
-      <div>Hello</div>
-    )
-  }
-}
-
-ReactDOM.render(<App />,document.getElementById('app'));
+const root = createRoot(document.getElementById('app'));
+root.render(<App />);
