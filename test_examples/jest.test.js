@@ -1,9 +1,9 @@
-// https://jestjs.io/docs/
+// // https://jestjs.io/docs/
 
-const sum = require('./jest.js').sum;
+// const sum = require('./jest.js').sum;
 
-console.log('sum');
+// console.log('sum');
 
-test('add 1 + 2', () => {
-  expect(sum(1, 2)).toBe(3);
-});
+// test('add 1 + 2', () => {
+//   expect(sum(1, 2)).toBe(3);
+// });
