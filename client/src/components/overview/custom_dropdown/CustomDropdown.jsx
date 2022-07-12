@@ -75,8 +75,9 @@ function CustomDropdown({
         onClick={() => {
           setOpen(!open);
         }}
+        className="custom-dropdown-selector"
       >
-        {selected}
+        <p>{selected}</p>
         <ArrowStyle className="material-symbols-outlined">
           {open ? 'expand_less' : 'expand_more'}
         </ArrowStyle>
@@ -91,6 +92,7 @@ function CustomDropdown({
             setSelected(option);
             setOpen(false);
           }}
+          className="custom-dropdown-option"
         >
           {option}
         </Option>
