@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const heigth = 40;
-
 const Container = styled('div')`
-  height: ${heigth}px;
-  width: 150px;
+  height: ${(props) => `${props.height}px`};
+  width: ${(props) => `${props.width}px`};
   position: relative;
 `;
 
 const DropdownStyle = styled('div')`
   user-select: none;
-  height: ${heigth}px;
-  width: 100%;
+  height: ${(props) => `${props.height}px`};
+  width: ${(props) => `${props.width}px`};
   display: flex;
   align-items: center;
   position: absolute;
@@ -34,18 +32,19 @@ const Selector = styled(DropdownStyle)`
 
 const Option = styled(DropdownStyle)`
   z-index: 49;
-  top: ${(props) => `${heigth + props.index * heigth}px`};
+  top: ${(props) => `${props.height + props.index * props.height}px`};
 `;
 
 const ArrowStyle = styled('span')`
-  ${'' /* justify-content: flex-end; */}
   margin-left: auto;
   padding-right: 10px;
   z-index: 51;
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
 `;
 
-function CustomDropdown({ placeholder, options }) {
+function CustomDropdown({
+  placeholder, options, width, height,
+}) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(placeholder);
 
@@ -61,13 +60,18 @@ function CustomDropdown({ placeholder, options }) {
     }
     return undefined;
   });
+
   return (
     <Container
+      width={width}
+      height={height}
       onClick={(e) => {
         e.stopPropagation();
       }}
     >
       <Selector
+        width={width}
+        height={height}
         onClick={() => {
           setOpen(!open);
         }}
@@ -79,6 +83,8 @@ function CustomDropdown({ placeholder, options }) {
       </Selector>
       {open && options.map((option, index) => (
         <Option
+          width={width}
+          height={height}
           index={index}
           key={option}
           onClick={() => {
@@ -96,6 +102,8 @@ function CustomDropdown({ placeholder, options }) {
 CustomDropdown.propTypes = {
   placeholder: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
 };
 
 export default CustomDropdown;

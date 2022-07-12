@@ -16,6 +16,8 @@ function Overview() {
           'option4',
           'option5',
         ]}
+        width={150}
+        height={40}
       />
       <GeneralInfo
         product={product}
