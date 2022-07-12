@@ -21,7 +21,7 @@ function ProductCards({ card, style, clickFunc }) {
   return (
     // eslint-disable-next-line max-len
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-    <div className="Product-Card" style={cardStyle} onClick={clickFunc.bind(this)}>
+    <div className="Product-Card" style={cardStyle} onClick={clickFunc.bind(this, card)}>
       <div className="product-image">
         <img data-testid="image" src={productImageURL} alt="product" style={cardImgStyle} />
       </div>
