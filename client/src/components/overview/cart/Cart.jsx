@@ -12,13 +12,11 @@ const ErrorMsg = styled('small')`
 `;
 
 function Cart() {
-  // transforms style's skus into sorted array of {size, quantity, sku_id} objects, where quant > 0
-  // const stock = getStockArrayFromStyle(noStockStyle);
   const stock = getStockArrayFromStyle(style);
 
   const [selectedSKU, setSelectedSKU] = useState(null);
   const [selectedQuantity, setSelectedQuantity] = useState('-');
-  const [sizeDropdownOpen, setSizeDropdownOpen] = useState(false);
+  const [sizeDropdownIsOpen, setSizeDropdownIsOpen] = useState(false);
   const [showSizeError, setShowSizeError] = useState(false);
 
   const setSelectedSKUWrapper = (size) => {
@@ -33,7 +31,7 @@ function Cart() {
 
   const submitAddToCart = () => {
     if (selectedSKU === null) {
-      setSizeDropdownOpen(true);
+      setSizeDropdownIsOpen(true);
       setShowSizeError(true);
       return;
     }
@@ -49,11 +47,11 @@ function Cart() {
     quantityDropdownOptions = quantityDropdownOptions.map((e) => e.toString());
   }
 
-  let sizeDropdownDisplay;
+  let sizeDropdownDisplayedText;
   if (selectedSKU === null) {
-    sizeDropdownDisplay = stock.length !== 0 ? 'SELECT SIZE' : 'OUT OF STOCK';
+    sizeDropdownDisplayedText = stock.length !== 0 ? 'SELECT SIZE' : 'OUT OF STOCK';
   } else {
-    sizeDropdownDisplay = selectedSKU.size;
+    sizeDropdownDisplayedText = selectedSKU.size;
   }
 
   return (
@@ -65,9 +63,9 @@ function Cart() {
         width={150}
         height={30}
         disabled={stock.length === 0}
-        customOpen={sizeDropdownOpen}
-        customSetOpen={setSizeDropdownOpen}
-        customSelected={sizeDropdownDisplay}
+        customOpen={sizeDropdownIsOpen}
+        customSetOpen={setSizeDropdownIsOpen}
+        customSelected={sizeDropdownDisplayedText}
         customSetSelected={setSelectedSKUWrapper}
       />
       {/* <QuantityDropdown   remember to block this button if no size chosen /> */}
