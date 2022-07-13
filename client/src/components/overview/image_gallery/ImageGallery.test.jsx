@@ -79,7 +79,7 @@ describe('Image List', () => {
     render(<ImageGallery
       style={styleWith2Images}
     />);
-    const thumbnails = screen.getAllByAltText('image thumbnail in list');
+    const thumbnails = screen.getAllByAltText('thumbnail of different product view in list');
     expect(thumbnails.length).toBe(2);
     styleWith2Images.photos.forEach((photo, index) => {
       expect(thumbnails[index]).toHaveAttribute('src', photo.thumbnail_url);
@@ -91,7 +91,7 @@ describe('Image List', () => {
       style={styleWith2Images}
     />);
     const mainImage = screen.getByAltText('product image');
-    const thumbnails = screen.getAllByAltText('image thumbnail in list');
+    const thumbnails = screen.getAllByAltText('thumbnail of different product view in list');
     expect(mainImage).toHaveAttribute('src', styleWith2Images.photos[0].url);
     expect(thumbnails[0]).toHaveAttribute('src', styleWith2Images.photos[0].thumbnail_url);
   });
@@ -100,7 +100,7 @@ describe('Image List', () => {
     render(<ImageGallery
       style={styleWith8Images}
     />);
-    const thumbnails = screen.getAllByAltText('image thumbnail in list');
+    const thumbnails = screen.getAllByAltText('thumbnail of different product view in list');
     expect(thumbnails.length).toBe(7);
   });
 
@@ -156,7 +156,7 @@ describe('Image List', () => {
     render(<ImageGallery
       style={styleWith2Images}
     />);
-    const thumbnails = screen.getAllByAltText('image thumbnail in list');
+    const thumbnails = screen.getAllByAltText('thumbnail of different product view in list');
     fireEvent(
       thumbnails[1],
       new MouseEvent('click', {

@@ -99,7 +99,7 @@ function ImageList({
         const onClick = () => { setCurrentImgIndex(index); };
         const content = photo.thumbnail_url === null
           ? <ErrorCross className="material-symbols-outlined" onClick={onClick}>close</ErrorCross>
-          : <ImgThumbnail draggable="false" onClick={onClick} src={photo.thumbnail_url} alt="image thumbnail in list" />;
+          : <ImgThumbnail draggable="false" onClick={onClick} src={photo.thumbnail_url} alt="thumbnail of different product view in list" />;
 
         if (index === currentImgIndex) {
           return (
