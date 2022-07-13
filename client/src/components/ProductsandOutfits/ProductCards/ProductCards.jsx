@@ -5,7 +5,7 @@ function ProductCards({ card, style, clickFunc }) {
   const productDefaultPrice = `$${card.default_price}`;
   const productSalePrice = style.sale_price ? `$${style.sale_price}` : null;
   const productTitle = `${card.name} (${style.name})`;
-  const productImageURL = style.photos[0].url;
+  const productImageURL = style.photos[0].url || 'https://www.beelights.gr/assets/images/empty-image.png';
   const productCategory = card.category;
   const cardImgStyle = {
     width: '100%',
@@ -18,6 +18,14 @@ function ProductCards({ card, style, clickFunc }) {
     margin: '0.5rem',
     width: '300px',
   };
+  const InfoStyle = {
+    height: '100px',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    padding: '0px 10px',
+  };
   return (
     // eslint-disable-next-line max-len
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
@@ -25,23 +33,26 @@ function ProductCards({ card, style, clickFunc }) {
       <div className="product-image">
         <img data-testid="image" src={productImageURL} alt="product" style={cardImgStyle} />
       </div>
-      <div className="product-category">
-        {productCategory}
-      </div>
-      <div className="product-name">
-        {productTitle}
-      </div>
-      <div className="pricing">
-        <div className="product-original-price" style={productSalePrice && { textDecoration: 'line-through' }}>
-          {productDefaultPrice}
+      <div className="product-info" style={InfoStyle}>
+        <div className="product-category">
+          {productCategory.toUpperCase()}
         </div>
-        {productSalePrice && (
-          <div className="product-sale-price" style={{ color: 'red' }}>
-            {productSalePrice}
+        <div className="product-name">
+          <b>{productTitle}</b>
+        </div>
+        <div className="pricing">
+          <div className="product-original-price">
+            <small style={productSalePrice && { textDecoration: 'line-through' }}>{productDefaultPrice}</small>
           </div>
-        )}
+          {productSalePrice && (
+          <div className="product-sale-price">
+            <small style={{ color: 'red' }}>{productSalePrice}</small>
+          </div>
+          )}
+        </div>
+        <div className="product-rating" />
       </div>
-      <div className="product-rating" />
+
     </div>
   );
 }
