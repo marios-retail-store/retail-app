@@ -1,12 +1,14 @@
 import React from 'react';
 import GeneralInfo from './overview/product_info/GeneralInfo.jsx';
 import CustomDropdown from './overview/custom_dropdown/CustomDropdown.jsx';
+import ImageGallery from './overview/image_gallery/ImageGallery.jsx';
 import Slogan from './overview/product_info/Slogan.jsx';
 import { product, style } from './overview/exampledata.js';
 
 function Overview() {
   return (
     <>
+      <ImageGallery />
       <CustomDropdown
         placeholder="select option"
         options={[
