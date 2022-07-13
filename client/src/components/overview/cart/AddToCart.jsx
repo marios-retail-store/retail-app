@@ -5,7 +5,11 @@ function AddToCart({ submitAddToCart }) {
   return (
     <button
       type="button"
-      onClick={submitAddToCart}
+      onClick={(e) => {
+        submitAddToCart();
+        // so that dropdown can open upon clicking add with no size selected
+        e.stopPropagation();
+      }}
     >
       Add to Cart
     </button>
