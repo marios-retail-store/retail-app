@@ -138,6 +138,22 @@ describe('Cart', () => {
     expect(quantityDropdown.textContent).toBe('1');
   });
 
+  it('quantity dropdown should be disabled before a size was chosen', () => {
+    render(<Cart
+      style={styleAllInStock}
+    />);
+    const quantityDropdown = screen.getByText('-');
+    fireEvent(
+      quantityDropdown,
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+    const tryFindOption1 = () => { screen.getByText('1'); };
+    expect(tryFindOption1).toThrow();
+  });
+
   it('quantity dropdown options should contain all options from 1 up to the stock quantity of a style', () => {
     render(<Cart
       style={styleAllInStock}
