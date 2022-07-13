@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ImageList from './ImageList.jsx';
+import ExpandedView from './ExpandedView.jsx';
 
 const ImageGalleryContainer = styled('div')`
   position: relative;
@@ -86,6 +87,14 @@ function ImageGallery({ style }) {
     }
     setCurrentImgIndex(index);
   };
+
+  // expanded state test
+  return (
+    <ExpandedView
+      photos={photos}
+      currentImgIndex={currentImgIndex}
+    />
+  );
 
   return (
     <div>
