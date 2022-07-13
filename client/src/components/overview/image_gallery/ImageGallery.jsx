@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { style } from '../exampledata.js';
 import ImageList from './ImageList.jsx';
 
 const ImgContainer = styled('div')`
@@ -47,7 +47,7 @@ const Arrow = styled('span')`
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
 `;
 
-function ImageGallery() {
+function ImageGallery({ style }) {
   const { photos } = style;
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
@@ -109,5 +109,14 @@ function ImageGallery() {
     </div>
   );
 }
+
+ImageGallery.propTypes = {
+  style: PropTypes.shape({
+    photos: PropTypes.arrayOf(PropTypes.shape({
+      thumbnail_url: PropTypes.string,
+      url: PropTypes.string,
+    })).isRequired,
+  }).isRequired,
+};
 
 export default ImageGallery;

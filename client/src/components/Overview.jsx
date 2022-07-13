@@ -8,7 +8,9 @@ import { product, style } from './overview/exampledata.js';
 function Overview() {
   return (
     <>
-      <ImageGallery />
+      <ImageGallery
+        style={style}
+      />
       <CustomDropdown
         placeholder="select option"
         options={[
