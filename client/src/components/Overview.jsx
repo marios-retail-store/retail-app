@@ -2,7 +2,8 @@ import React from 'react';
 import GeneralInfo from './overview/product_info/GeneralInfo.jsx';
 import Slogan from './overview/product_info/Slogan.jsx';
 import Cart from './overview/cart/Cart.jsx';
-import { product, style } from './overview/exampledata.js';
+// eslint-disable-next-line no-unused-vars
+import { product, style, noStockStyle } from './overview/exampledata.js';
 
 function Overview() {
   return (
@@ -11,7 +12,9 @@ function Overview() {
         product={product}
         style={style}
       />
-      <Cart />
+      <Cart
+        style={style}
+      />
       <Slogan
         product={product}
       />

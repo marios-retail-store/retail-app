@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
 import AddToCart from './AddToCart.jsx';
-import { style, noStockStyle } from '../exampledata.js';
 import getStockArrayFromStyle from './getStockArrayFromStyle.js';
 import CustomDropdown from './CustomDropdown.jsx';
 
@@ -11,7 +11,7 @@ const ErrorMsg = styled('small')`
   color: red;
 `;
 
-function Cart() {
+function Cart({ style }) {
   const stock = getStockArrayFromStyle(style);
 
   const [selectedSKU, setSelectedSKU] = useState(null);
@@ -86,5 +86,17 @@ function Cart() {
     </div>
   );
 }
+
+// let skus = Object.entries(style.skus);
+Cart.propTypes = {
+  style: PropTypes.shape({
+    skus: PropTypes.objectOf(
+      PropTypes.objectOf(PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ])),
+    ).isRequired,
+  }).isRequired,
+};
 
 export default Cart;
