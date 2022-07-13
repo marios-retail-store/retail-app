@@ -76,12 +76,15 @@ function ImageList({
         renderButtonContainers && (
           // the empty arrow containers ensures that the list always stays centered
           // eg. only one arrow is showing, but both empty containers still exist
-          <EmptyArrowContainer>
+          <EmptyArrowContainer data-testid="list-left-empty-arrow-container">
             {renderLeftButton && (
               <ArrowContainer
                 onClick={() => { shiftList('left'); }}
               >
-                <Arrow className="material-symbols-outlined">
+                <Arrow
+                  className="material-symbols-outlined"
+                  data-testid="list-left-arrow"
+                >
                   chevron_left
                 </Arrow>
               </ArrowContainer>
@@ -96,7 +99,7 @@ function ImageList({
         const onClick = () => { setCurrentImgIndex(index); };
         const content = photo.thumbnail_url === null
           ? <ErrorCross className="material-symbols-outlined" onClick={onClick}>close</ErrorCross>
-          : <ImgThumbnail draggable="false" onClick={onClick} src={photo.thumbnail_url} />;
+          : <ImgThumbnail draggable="false" onClick={onClick} src={photo.thumbnail_url} alt="image thumbnail in list" />;
 
         if (index === currentImgIndex) {
           return (
@@ -113,12 +116,15 @@ function ImageList({
       })}
       {
         renderButtonContainers && (
-          <EmptyArrowContainer>
+          <EmptyArrowContainer data-testid="list-right-empty-arrow-container">
             {renderRightButton && (
               <ArrowContainer
                 onClick={() => { shiftList('right'); }}
               >
-                <Arrow className="material-symbols-outlined">
+                <Arrow
+                  className="material-symbols-outlined"
+                  data-testid="list-right-arrow"
+                >
                   chevron_right
                 </Arrow>
               </ArrowContainer>

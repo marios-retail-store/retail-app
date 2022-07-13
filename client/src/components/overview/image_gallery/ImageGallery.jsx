@@ -93,13 +93,16 @@ function ImageGallery({ style }) {
         <ImageContainer>
           {photos[currentImgIndex].url === null
             ? <ErrorMsg>No Image Found</ErrorMsg>
-            : <StyledImg draggable="false" src={photos[currentImgIndex].url} />}
+            : <StyledImg draggable="false" src={photos[currentImgIndex].url} alt="product image" />}
         </ImageContainer>
         {currentImgIndex > 0 && (
           <ArrowContainerLeft
             onClick={() => { setCurrentImgIndexWrapper(currentImgIndex - 1); }}
           >
-            <Arrow className="material-symbols-outlined">
+            <Arrow
+              data-testid="main-left-arrow"
+              className="material-symbols-outlined"
+            >
               chevron_left
             </Arrow>
           </ArrowContainerLeft>
@@ -108,7 +111,10 @@ function ImageGallery({ style }) {
           <ArrowContainerRight
             onClick={() => { setCurrentImgIndexWrapper(currentImgIndex + 1); }}
           >
-            <Arrow className="material-symbols-outlined">
+            <Arrow
+              data-testid="main-right-arrow"
+              className="material-symbols-outlined"
+            >
               chevron_right
             </Arrow>
           </ArrowContainerRight>
