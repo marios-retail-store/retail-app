@@ -3,21 +3,19 @@ import React from 'react';
 import ProductCards from './ProductsandOutfits/ProductCards/ProductCards.jsx';
 // eslint-disable-next-line no-unused-vars
 import { products, pStyles } from './ProductsandOutfits/exampleData.js';
-import Carousel from './Carousel.jsx';
+import Carousel from './ProductsandOutfits/Carousel/Carousel.jsx';
 
 function ProductsAndOutfits() {
-  // eslint-disable-next-line max-len
+  // dupe jogger style (goldenRod), so that i can test card height with a sale active
+  const SaleTestStyle = [{ product_id: '40346', results: [pStyles[pStyles.findIndex((style) => style.product_id === '40346')].results.find((result) => result.style_id === 240512)] }];
   return (
     <>
       <p>ProductsAndOutfits</p>
       <Carousel
         moveLeft={(event) => console.log('Move Left Clicked\n', 'EventTarget:', event.target)}
         moveRight={(event) => console.log('Move Right Clicked\n', 'EventTarget:', event.target)}
-        cards={products.map((p, i) => {
-          const filter = pStyles[i].results.filter((style) => style['default?'] === true);
-          const style = filter.length ? filter[0] : pStyles[i].results[0];
-          return <ProductCards key={p.id} card={p} style={style} clickFunc={(card) => console.log('cardClicked\n', 'data:', card)} />;
-        })}
+        products={[products[pStyles.findIndex((style) => style.product_id === '40346')]].concat(products)}
+        styles={SaleTestStyle.concat(pStyles)}
       />
     </>
   );
