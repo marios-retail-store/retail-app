@@ -6,5 +6,8 @@
     "es6": true,
     "jest": true
   },
-  "ignorePatterns": "bundle.js"
+  "ignorePatterns": "bundle.js",
+  "rules": {
+    "import/extensions": "off"
+  }
 }
