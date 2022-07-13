@@ -1,14 +1,14 @@
 import React from 'react';
-import Overview from './Overview';
-import ProductsAndOutfits from './ProductsAndOutfits';
-import QuestionsAndAnswers from './QuestionsAndAnswers';
+import Overview from './Overview.jsx';
+import ProductsAndOutfits from './ProductsAndOutfits.jsx';
+import QuestionsAndAnswers from './QuestionsAndAnswers.jsx';
 
 function App() {
   return (
     <div>
       <Overview />
       <ProductsAndOutfits />
-      <QuestionsAndAnswers />
+      <QuestionsAndAnswers productId={'40344'} />
     </div>
   );
 }
