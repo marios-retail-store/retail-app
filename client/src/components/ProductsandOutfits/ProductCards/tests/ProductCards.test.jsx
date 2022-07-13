@@ -21,7 +21,7 @@ describe('rendering of Product Cards', () => {
 
   it('Contains the Category of a product', () => {
     render(<ProductCards card={joggerCard} style={goldenStyle} clickFunc={() => {}} />);
-    const category = screen.getByText('Pants');
+    const category = screen.getByText('PANTS');
     // screen.debug(); // this 'console logs' the test DOM
     expect(category).toBeInTheDocument();
   });
