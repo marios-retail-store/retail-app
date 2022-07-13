@@ -87,7 +87,6 @@ function Cart({ style }) {
   );
 }
 
-// let skus = Object.entries(style.skus);
 Cart.propTypes = {
   style: PropTypes.shape({
     skus: PropTypes.objectOf(
