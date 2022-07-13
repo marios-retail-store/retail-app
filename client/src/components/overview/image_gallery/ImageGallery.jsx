@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ImageList from './ImageList.jsx';
 
-const ImgContainer = styled('div')`
+const ImageGalleryContainer = styled('div')`
   position: relative;
   height: 600px;
   width: 800px;
@@ -11,8 +11,20 @@ const ImgContainer = styled('div')`
   justify-content: center;
 `;
 
-const StyledImg = styled('img')`
+const ErrorMsg = styled('p')`
+  color: gray;
+`;
+
+const ImageContainer = styled('div')`
   position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledImg = styled('img')`
   height: 100%;
   width: 100%;
   object-fit: cover;
@@ -77,8 +89,12 @@ function ImageGallery({ style }) {
 
   return (
     <div>
-      <ImgContainer>
-        <StyledImg draggable="false" src={photos[currentImgIndex].url} />
+      <ImageGalleryContainer>
+        <ImageContainer>
+          {photos[currentImgIndex].url === null
+            ? <ErrorMsg>No Image Found</ErrorMsg>
+            : <StyledImg draggable="false" src={photos[currentImgIndex].url} />}
+        </ImageContainer>
         {currentImgIndex > 0 && (
           <ArrowContainerLeft
             onClick={() => { setCurrentImgIndexWrapper(currentImgIndex - 1); }}
@@ -105,7 +121,7 @@ function ImageGallery({ style }) {
           maxIndexInList={maxIndexInList}
           shiftList={shiftList}
         />
-      </ImgContainer>
+      </ImageGalleryContainer>
     </div>
   );
 }

@@ -20,7 +20,7 @@ const product = {
   ],
 };
 
-const style = {
+const style1 = {
   style_id: 240512,
   name: 'Goldenrod',
   original_price: '40.00',
@@ -92,7 +92,36 @@ const style = {
   },
 };
 
+const style2 = {
+  style_id: 240506,
+  name: 'Black Lenses & Black Frame',
+  original_price: '69.00',
+  sale_price: null,
+  'default?': false,
+  photos: [
+    {
+      thumbnail_url: null,
+      url: null,
+    },
+    {
+      thumbnail_url: null,
+      url: null,
+    },
+    {
+      thumbnail_url: null,
+      url: null,
+    },
+  ],
+  skus: {
+    null: {
+      quantity: null,
+      size: null,
+    },
+  },
+};
+
 export {
   product,
-  style,
+  style1,
+  style2,
 };

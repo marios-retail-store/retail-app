@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GeneralInfo from './overview/product_info/GeneralInfo.jsx';
 import CustomDropdown from './overview/custom_dropdown/CustomDropdown.jsx';
 import ImageGallery from './overview/image_gallery/ImageGallery.jsx';
 import Slogan from './overview/product_info/Slogan.jsx';
-import { product, style } from './overview/exampledata.js';
+import { product, style1, style2 } from './overview/exampledata.js';
 
 function Overview() {
+  const [currentStyle, setCurrentStyle] = useState(style1);
+
   return (
     <>
+      <button type="button" onClick={() => setCurrentStyle(style2)}>toggle style</button>
       <ImageGallery
-        style={style}
+        style={currentStyle}
       />
       <CustomDropdown
         placeholder="select option"
@@ -25,7 +28,7 @@ function Overview() {
       />
       <GeneralInfo
         product={product}
-        style={style}
+        style={currentStyle}
       />
       <Slogan
         product={product}

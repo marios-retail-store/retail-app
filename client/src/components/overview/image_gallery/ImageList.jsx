@@ -8,10 +8,19 @@ const ListContainer = styled('div')`
   bottom: 15px;
 `;
 
-const ImgThumbnailContainer = styled('div')`
+const ThumbnailContainer = styled('div')`
   height: 55px;
   width: 55px;
   margin: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(0, 0, 0, 0);
+`;
+
+const ThumbnailContainerHighlight = styled(ThumbnailContainer)`
+  cursor: default;
+  border: 2px solid red;
 `;
 
 const ImgThumbnail = styled('img')`
@@ -20,12 +29,6 @@ const ImgThumbnail = styled('img')`
   width: 100%;
   object-fit: cover;
   z-index: 1;
-  border: 2px solid rgba(0, 0, 0, 0);
-`;
-
-const ImgThumbnailHighlight = styled(ImgThumbnail)`
-  cursor: default;
-  border: 2px solid white;
 `;
 
 const EmptyArrowContainer = styled('div')`
@@ -48,8 +51,16 @@ const ArrowContainer = styled('div')`
 `;
 
 const Arrow = styled('span')`
+  user-select: none;
   z-index: 2;
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+`;
+
+const ErrorCross = styled('span')`
+  user-select: none;
+  color: gray;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  cursor: pointer;
 `;
 
 function ImageList({
@@ -83,13 +94,21 @@ function ImageList({
           return undefined;
         }
         const onClick = () => { setCurrentImgIndex(index); };
-        const imgThumbnail = currentImgIndex === index
-          ? <ImgThumbnailHighlight draggable="false" onClick={onClick} src={photo.thumbnail_url} />
+        const content = photo.thumbnail_url === null
+          ? <ErrorCross className="material-symbols-outlined" onClick={onClick}>close</ErrorCross>
           : <ImgThumbnail draggable="false" onClick={onClick} src={photo.thumbnail_url} />;
+
+        if (index === currentImgIndex) {
+          return (
+            <ThumbnailContainerHighlight>
+              {content}
+            </ThumbnailContainerHighlight>
+          );
+        }
         return (
-          <ImgThumbnailContainer>
-            {imgThumbnail}
-          </ImgThumbnailContainer>
+          <ThumbnailContainer>
+            {content}
+          </ThumbnailContainer>
         );
       })}
       {
@@ -112,9 +131,9 @@ function ImageList({
 }
 
 ImageList.propTypes = {
-  photos: PropTypes.objectOf(PropTypes.shape({
-    thumbnail_url: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
+  photos: PropTypes.arrayOf(PropTypes.shape({
+    thumbnail_url: PropTypes.string,
+    url: PropTypes.string,
   })).isRequired,
   currentImgIndex: PropTypes.number.isRequired,
   setCurrentImgIndex: PropTypes.func.isRequired,
