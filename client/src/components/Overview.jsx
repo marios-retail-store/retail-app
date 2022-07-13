@@ -8,9 +8,17 @@ import { product, style1, style2 } from './overview/exampledata.js';
 function Overview() {
   const [currentStyle, setCurrentStyle] = useState(style1);
 
+  const toggleStyle = () => {
+    if (currentStyle === style1) {
+      setCurrentStyle(style2);
+    } else {
+      setCurrentStyle(style1);
+    }
+  };
+
   return (
     <>
-      <button type="button" onClick={() => setCurrentStyle(style2)}>toggle style</button>
+      <button type="button" onClick={toggleStyle}>toggle style</button>
       <ImageGallery
         style={currentStyle}
       />
