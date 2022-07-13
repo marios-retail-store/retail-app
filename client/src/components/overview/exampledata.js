@@ -20,7 +20,7 @@ const product = {
   ],
 };
 
-const style = {
+const styleAllInStock = {
   style_id: 240512,
   name: 'Goldenrod',
   original_price: '40.00',
@@ -80,7 +80,7 @@ const style = {
   },
 };
 
-const noStockStyle = {
+const styleNoneInStock = {
   style_id: 240512,
   name: 'Goldenrod',
   original_price: '40.00',
@@ -502,7 +502,7 @@ const styles = {
 
 export {
   product,
-  style,
-  noStockStyle,
+  styleAllInStock,
+  styleNoneInStock,
   styles,
 };

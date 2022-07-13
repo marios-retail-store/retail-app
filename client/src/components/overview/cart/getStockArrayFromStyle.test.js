@@ -1,5 +1,5 @@
 import getStockArrayFromStyle from './getStockArrayFromStyle.js';
-import { style, noStockStyle } from '../exampledata';
+import { styleAllInStock, styleNoneInStock } from '../exampledata';
 
 // expected:
 //   input: style
@@ -11,8 +11,8 @@ describe('testing getStockArrayFromStyle helper function', () => {
   let stockNoQuantity;
 
   beforeAll(() => {
-    stock = getStockArrayFromStyle(style);
-    stockNoQuantity = getStockArrayFromStyle(noStockStyle);
+    stock = getStockArrayFromStyle(styleAllInStock);
+    stockNoQuantity = getStockArrayFromStyle(styleNoneInStock);
   });
 
   test('returns an array in the correct format', () => {
