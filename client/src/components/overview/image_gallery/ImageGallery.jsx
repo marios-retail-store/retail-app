@@ -93,6 +93,7 @@ function ImageGallery({ style }) {
     <ExpandedView
       photos={photos}
       currentImgIndex={currentImgIndex}
+      setCurrentImgIndex={setCurrentImgIndex}
     />
   );
 
