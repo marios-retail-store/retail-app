@@ -10,6 +10,7 @@ describe('rendering of Carousel', () => {
     render(<Carousel
       products={products}
       styles={pStyles}
+      type="related"
     />);
     const accessories = screen.getByText('ACCESSORIES');
     const pants = screen.getByText('PANTS');
