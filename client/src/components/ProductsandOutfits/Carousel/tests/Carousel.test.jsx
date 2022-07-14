@@ -8,46 +8,38 @@ import { products, pStyles } from '../../exampleData.js';
 describe('rendering of Carousel', () => {
   it('Contains a product card\'s Category', () => {
     render(<Carousel
-      moveLeft={(event) => console.log('Move Left Clicked\n', 'EventTarget:', event.target)}
-      moveRight={(event) => console.log('Move Right Clicked\n', 'EventTarget:', event.target)}
       products={products}
       styles={pStyles}
     />);
     const accessories = screen.getByText('ACCESSORIES');
     const pants = screen.getByText('PANTS');
     const kicks = screen.getByText('KICKS');
-    const dressShoes = screen.getByText('DRESS SHOES');
     // screen.debug(); // this 'console logs' the test DOM
     expect(accessories).toBeInTheDocument();
     expect(pants).toBeInTheDocument();
     expect(kicks).toBeInTheDocument();
-    expect(dressShoes).toBeInTheDocument();
   });
 
   it('Contains a product card\'s Name', () => {
     render(<Carousel
-      moveLeft={(event) => console.log('Move Left Clicked\n', 'EventTarget:', event.target)}
-      moveRight={(event) => console.log('Move Right Clicked\n', 'EventTarget:', event.target)}
       products={products}
       styles={pStyles}
+      type="related"
     />);
     const accessory = screen.getByText('Bright Future Sunglasses (Black Lenses & Gold Frame)');
     const pants = screen.getByText('Morning Joggers (Black)');
     const kicks = screen.getByText('YEasy 350 (White)');
-    const dressShoes = screen.getByText('Blues Suede Shoes (White Sole)');
     // screen.debug(); // this 'console logs' the test DOM
     expect(accessory).toBeInTheDocument();
     expect(pants).toBeInTheDocument();
     expect(kicks).toBeInTheDocument();
-    expect(dressShoes).toBeInTheDocument();
   });
 
-  it('Displays 4 Cards In the Carousel', () => {
+  it('Displays 4 Cards In the Carousel even though there are 3 visible', () => {
     render(<Carousel
-      moveLeft={(event) => console.log('Move Left Clicked\n', 'EventTarget:', event.target)}
-      moveRight={(event) => console.log('Move Right Clicked\n', 'EventTarget:', event.target)}
       products={products}
       styles={pStyles}
+      type="related"
     />);
     const carousel = screen.getByTestId('Carousel');
     const Cards = screen.getAllByText(/00/);
@@ -61,10 +53,9 @@ describe('rendering of Carousel', () => {
 
   it('Is a flex container', () => {
     render(<Carousel
-      moveLeft={(event) => console.log('Move Left Clicked\n', 'EventTarget:', event.target)}
-      moveRight={(event) => console.log('Move Right Clicked\n', 'EventTarget:', event.target)}
       products={products}
       styles={pStyles}
+      type="related"
     />);
     const carousel = screen.getByTestId('Carousel');
     expect(carousel).toBeInTheDocument();
@@ -74,10 +65,9 @@ describe('rendering of Carousel', () => {
 
   it('flows left to right with no wrap', () => {
     render(<Carousel
-      moveLeft={(event) => console.log('Move Left Clicked\n', 'EventTarget:', event.target)}
-      moveRight={(event) => console.log('Move Right Clicked\n', 'EventTarget:', event.target)}
       products={products}
       styles={pStyles}
+      type="related"
     />);
     const carousel = screen.getByTestId('Carousel');
     expect(carousel).toBeInTheDocument();
@@ -89,10 +79,9 @@ describe('rendering of Carousel', () => {
 
   it('Aligns cards from the end of the flex container ', () => {
     render(<Carousel
-      moveLeft={(event) => console.log('Move Left Clicked\n', 'EventTarget:', event.target)}
-      moveRight={(event) => console.log('Move Right Clicked\n', 'EventTarget:', event.target)}
       products={products}
       styles={pStyles}
+      type="related"
     />);
     const carousel = screen.getByTestId('Carousel');
     expect(carousel).toBeInTheDocument();
