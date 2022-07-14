@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import ArrowButton from './ArrowButton.jsx'
+import ArrowButton from './ArrowButton.jsx';
+import IconList from './IconList.jsx';
 
 const BlackBackground = styled('div')`
   background-color: rgba(0, 0, 0, .5);
@@ -24,14 +26,13 @@ const MainImageContainer = styled('div')`
         width: calc(100% - 60px - 80px - 60px);
         height: calc(100% - 60px - 70px);
       `;
-    } else {
-      return `
-        top: 30px;
-        left: 30px;
-        width: calc(100% - 60px);
-        height: calc(100% - 60px);
-      `;
     }
+    return `
+        top: 10px;
+        left: 10px;
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+      `;
   }}
   user-select: none;
   overflow: hidden
@@ -66,42 +67,25 @@ const ArrowButtonContainerRight = styled(ArrowButtonContainer)`
   right: 30px;
 `;
 
-const IconContainer = styled('div')`
-  position: fixed;
-  z-index: 92;
-  bottom: 30px;
-  height: 40px;
-  ${(props) => {
-    // margin is 5px either side
-    // icon is 24px wide
-    // so 34px per icon + extra 5 on each end
-    const width = 10 + 34 * props.photoCount;
-    return `
-      width: ${width}px;
-      left: calc(50% - ${width / 2}px);
-    `
-  }}
-  background-color: white;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Icon = styled('span')`
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-  user-select: none;
-  cursor: pointer;
-  margin: 0 5px;
-`;
-
-const IconSelected = styled(Icon)`
-  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-  cursor: default;
-`;
-
 function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
   const [isZoomedIn, setIsZoomedIn] = useState(false);
+  const [mousePosition, setMousePosition] = useState([0, 0]);
+
+  useEffect(() => {
+    if (isZoomedIn) {
+      const moveListener = (e) => {
+        mousePosition[0] = e.clientX;
+        mousePosition[1] = e.clientY;
+        setMousePosition(mousePosition);
+        console.log(mousePosition);
+      };
+      document.addEventListener('mousemove', moveListener);
+      return () => {
+        document.removeEventListener('mousemove', moveListener);
+      };
+    }
+    return undefined;
+  });
 
   const showLeftArrow = currentImgIndex !== 0;
   const showRightArrow = currentImgIndex !== photos.length - 1;
@@ -114,37 +98,39 @@ function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
       console.log('zooming');
       setIsZoomedIn(true);
     }
-  }
+  };
 
   return (
     <BlackBackground>
       <MainImageContainer
         isZoomedIn={isZoomedIn}
       >
-        {displayUI &&
-          showLeftArrow &&
-            <ArrowButtonContainerLeft
-              onClick={() => {setCurrentImgIndex(currentImgIndex - 1)}}
-            >
-              <ArrowButton
-                size={40}
-                direction="left"
-                zIndex="92"
-              />
-            </ArrowButtonContainerLeft>
-        }
-        {displayUI &&
-          showRightArrow &&
-            <ArrowButtonContainerRight
-              onClick={() => {setCurrentImgIndex(currentImgIndex + 1)}}
-            >
-              <ArrowButton
-                size={40}
-                direction="right"
-                zIndex={92}
-              />
-            </ArrowButtonContainerRight>
-        }
+        {displayUI
+          && showLeftArrow
+            && (
+              <ArrowButtonContainerLeft
+                onClick={() => { setCurrentImgIndex(currentImgIndex - 1); }}
+              >
+                <ArrowButton
+                  size={40}
+                  direction="left"
+                  zIndex="92"
+                />
+              </ArrowButtonContainerLeft>
+            )}
+        {displayUI
+          && showRightArrow
+            && (
+              <ArrowButtonContainerRight
+                onClick={() => { setCurrentImgIndex(currentImgIndex + 1); }}
+              >
+                <ArrowButton
+                  size={40}
+                  direction="right"
+                  zIndex={92}
+                />
+              </ArrowButtonContainerRight>
+            )}
         <StyledImg
           onClick={toggleZoom}
           draggable="false"
@@ -152,31 +138,25 @@ function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
           isZoomedIn={isZoomedIn}
         />
       </MainImageContainer>
-      {displayUI &&
-        <IconContainer
-          photoCount={photos.length}
-        >
-          {photos.map((photo, index) => {
-            if (index === currentImgIndex) {
-              return (
-                <IconSelected className="material-symbols-outlined">
-                  fiber_manual_record
-                </IconSelected>
-              )
-            }
-            return (
-              <Icon
-                className="material-symbols-outlined"
-                onClick={() => {setCurrentImgIndex(index)}}
-              >
-                fiber_manual_record
-              </Icon>
-            );
-          })}
-        </IconContainer>
-      }
+      {displayUI
+        && (
+          <IconList
+            listLength={photos.length}
+            currentIconIndex={currentImgIndex}
+            setCurrentIconIndex={setCurrentImgIndex}
+          />
+        )}
     </BlackBackground>
   );
 }
+
+ExpandedView.propTypes = {
+  photos: PropTypes.arrayOf(PropTypes.shape({
+    thumbnail_url: PropTypes.string,
+    url: PropTypes.string,
+  })).isRequired,
+  currentImgIndex: PropTypes.number.isRequired,
+  setCurrentImgIndex: PropTypes.func.isRequired,
+};
 
 export default ExpandedView;
