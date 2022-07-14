@@ -5,20 +5,44 @@ import ProductCards from './ProductsandOutfits/ProductCards/ProductCards.jsx';
 import { products, pStyles } from './ProductsandOutfits/exampleData.js';
 import Carousel from './ProductsandOutfits/Carousel/Carousel.jsx';
 
-function ProductsAndOutfits() {
-  // dupe jogger style (goldenRod), so that i can test card height with a sale active
-  const SaleTestStyle = [{ product_id: '40346', results: [pStyles[pStyles.findIndex((style) => style.product_id === '40346')].results.find((result) => result.style_id === 240512)] }];
-  return (
-    <>
-      <p>ProductsAndOutfits</p>
-      <Carousel
-        moveLeft={(event) => console.log('Move Left Clicked\n', 'EventTarget:', event.target)}
-        moveRight={(event) => console.log('Move Right Clicked\n', 'EventTarget:', event.target)}
-        products={[products[pStyles.findIndex((style) => style.product_id === '40346')]].concat(products)}
-        styles={SaleTestStyle.concat(pStyles)}
-      />
-    </>
-  );
+const productTest = [products[pStyles.findIndex((style) => style.product_id === '40346')]].concat(products);
+const styleTest = [{ product_id: '40346', results: [pStyles[pStyles.findIndex((style) => style.product_id === '40346')].results.find((result) => result.style_id === 240512)] }].concat(pStyles);
+class ProductsAndOutfits extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      relatedProducts: {
+        products: productTest,
+        styles: styleTest,
+      },
+      myOutfit: {
+        products: productTest,
+        styles: styleTest,
+      },
+    };
+  }
+
+  render() {
+    const { relatedProducts } = this.state;
+    const { myOutfit } = this.state;
+    return (
+      <>
+        <p>Related Products</p>
+        <Carousel
+          products={relatedProducts.products}
+          styles={relatedProducts.styles}
+          type="related"
+        />
+        <p>My Outfit</p>
+        <Carousel
+          products={myOutfit.products}
+          styles={myOutfit.styles}
+          type="outfit"
+        />
+      </>
+    );
+  }
 }
 
 export default ProductsAndOutfits;
