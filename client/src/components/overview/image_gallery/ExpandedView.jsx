@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ArrowButton from './ArrowButton.jsx';
 import IconList from './IconList.jsx';
+import ExpandedViewImage from './ExpandedViewImage.jsx';
 
 const BlackBackground = styled('div')`
   background-color: rgba(0, 0, 0, .5);
@@ -38,20 +39,6 @@ const MainImageContainer = styled('div')`
   overflow: hidden
 `;
 
-const StyledImg = styled('img')`
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-  ${(props) => {
-    if (props.isZoomedIn) {
-      return `
-        transform: scale(2.5);
-      `;
-    }
-    return '';
-  }}
-`;
-
 const ArrowButtonContainer = styled('div')`
   position: fixed;
   top: calc(50% - 20px - 35px);
@@ -69,15 +56,20 @@ const ArrowButtonContainerRight = styled(ArrowButtonContainer)`
 
 function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
   const [isZoomedIn, setIsZoomedIn] = useState(false);
-  const [mousePosition, setMousePosition] = useState([0, 0]);
+  const [lastMousePosition, setLastMousePosition] = useState({ x: 0, y: 0 });
+  const [timeOfLastMove, setTimeOfLastMove] = useState(new Date());
+  const [timeSinceLastMove, setTimeSinceLastMove] = useState(new Date());
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (isZoomedIn) {
       const moveListener = (e) => {
-        mousePosition[0] = e.clientX;
-        mousePosition[1] = e.clientY;
-        setMousePosition(mousePosition);
-        console.log(mousePosition);
+        const pos = { x: e.clientX, y: e.clientY };
+        const now = new Date();
+        setTimeSinceLastMove(now - timeOfLastMove);
+        setTimeOfLastMove(now);
+        setLastMousePosition(mousePosition);
+        setMousePosition(pos);
       };
       document.addEventListener('mousemove', moveListener);
       return () => {
@@ -95,7 +87,6 @@ function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
     if (isZoomedIn) {
       setIsZoomedIn(false);
     } else {
-      console.log('zooming');
       setIsZoomedIn(true);
     }
   };
@@ -114,7 +105,7 @@ function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
                 <ArrowButton
                   size={40}
                   direction="left"
-                  zIndex="92"
+                  zIndex={92}
                 />
               </ArrowButtonContainerLeft>
             )}
@@ -131,11 +122,13 @@ function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
                 />
               </ArrowButtonContainerRight>
             )}
-        <StyledImg
-          onClick={toggleZoom}
-          draggable="false"
-          src={photos[currentImgIndex].url}
+        <ExpandedViewImage
+          toggleZoom={toggleZoom}
+          url={photos[currentImgIndex].url}
           isZoomedIn={isZoomedIn}
+          mousePosition={mousePosition}
+          lastMousePosition={lastMousePosition}
+          timeSinceLastMove={Number(timeSinceLastMove)}
         />
       </MainImageContainer>
       {displayUI
