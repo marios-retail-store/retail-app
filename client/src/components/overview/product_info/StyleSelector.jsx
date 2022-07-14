@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { styles } from '../exampledata.js';
-import Style from './Style.jsx';
+import StyleThumbnail from './StyleThumbnail.jsx';
 
 const StyleContainer = styled('div')`
   display: grid;
@@ -17,7 +17,7 @@ function StyleSelector() {
   return (
     <StyleContainer>
       {styles.results.map((style, index) => (
-        <Style
+        <StyleThumbnail
           key={style.style_id}
           style={style}
           selected={index === selectedStyleIndex}

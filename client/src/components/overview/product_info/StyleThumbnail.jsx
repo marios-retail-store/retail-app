@@ -13,7 +13,7 @@ const StyleImg = styled('div')`
   ${(props) => props.selected && 'border: 2px solid red;'};
 `;
 
-function Style({ style, selected, selectStyle }) {
+function StyleThumbnail({ style, selected, selectStyle }) {
   return (
     <StyleImg
       selected={selected}
@@ -24,7 +24,7 @@ function Style({ style, selected, selectStyle }) {
   );
 }
 
-Style.propTypes = {
+StyleThumbnail.propTypes = {
   style: PropTypes.shape({
     photos: PropTypes.arrayOf(PropTypes.shape({
       thumbnail_url: PropTypes.string,
@@ -35,4 +35,4 @@ Style.propTypes = {
   selectStyle: PropTypes.func.isRequired,
 };
 
-export default Style;
+export default StyleThumbnail;
