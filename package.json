@@ -4,7 +4,7 @@
   "description": "found within the readme",
   "main": "index.js",
   "scripts": {
-    "test": "jest --env=jsdom",
+    "test": "jest --env=jsdom --collectCoverage",
     "lint": "lint-staged",
     "build": "webpack",
     "client-dev": "webpack --watch",
