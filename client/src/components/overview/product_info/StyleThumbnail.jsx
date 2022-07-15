@@ -44,7 +44,7 @@ function StyleThumbnail({ style, selected, selectStyle }) {
       <StyleImg
         onClick={selectStyle}
         src={style.photos[0].thumbnail_url}
-        alt="product thumbnail for style selector"
+        alt="thumbnail in style selector"
         draggable="false"
       />
       {selected && (
