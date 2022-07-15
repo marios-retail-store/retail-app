@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { styles } from '../exampledata.js';
 import StyleThumbnail from './StyleThumbnail.jsx';
 
 const StyleContainer = styled('div')`
@@ -10,26 +9,37 @@ const StyleContainer = styled('div')`
   margin: 5px 0;
 `;
 
-function StyleSelector() {
+function StyleSelector({ styles }) {
   // lift later
   const [selectedStyleIndex, setSelectedStyleIndex] = useState(0);
 
   return (
-    <StyleContainer>
-      {styles.results.map((style, index) => (
-        <StyleThumbnail
-          key={style.style_id}
-          style={style}
-          selected={index === selectedStyleIndex}
-          selectStyle={() => setSelectedStyleIndex(index)}
-        />
-      ))}
-    </StyleContainer>
+    <>
+      <h3>{`Style: ${styles.results[selectedStyleIndex].name}`}</h3>
+      <StyleContainer>
+        {styles.results.map((style, index) => (
+          <StyleThumbnail
+            key={style.style_id}
+            style={style}
+            selected={index === selectedStyleIndex}
+            selectStyle={() => setSelectedStyleIndex(index)}
+          />
+        ))}
+      </StyleContainer>
+    </>
   );
 }
 
 StyleSelector.propTypes = {
-
+  styles: PropTypes.shape({
+    results: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      photos: PropTypes.arrayOf(PropTypes.shape({
+        url: PropTypes.string,
+        thumbnail_url: PropTypes.string,
+      })).isRequired,
+    })).isRequired,
+  }).isRequired,
 };
 
 export default StyleSelector;
