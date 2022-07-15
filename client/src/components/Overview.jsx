@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import GeneralInfo from './overview/product_info/GeneralInfo.jsx';
-import CustomDropdown from './overview/custom_dropdown/CustomDropdown.jsx';
 import ImageGallery from './overview/image_gallery/ImageGallery.jsx';
 import Slogan from './overview/product_info/Slogan.jsx';
 import Cart from './overview/cart/Cart.jsx';
@@ -11,7 +10,7 @@ function Overview() {
   return (
     <>
       <ImageGallery
-        style={currentStyle}
+        style={styleAllInStock}
       />
       <GeneralInfo
         product={product}
