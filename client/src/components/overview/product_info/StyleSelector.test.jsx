@@ -1,5 +1,7 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import {
+  render, screen, fireEvent, within,
+} from '@testing-library/react';
 // eslint-disable-next-line no-unused-vars
 import { toBeInTheDocument, toHaveStyle, toHaveAttribute } from '@testing-library/jest-dom';
 // ^ used in all tests, but somehow does not get recognized
@@ -90,7 +92,48 @@ const styles = {
 };
 
 describe('style selector', () => {
-  it('displays product name and category', () => {
+  it('selects first style by default', () => {
+    render(<StyleSelector
+      styles={styles}
+    />);
+    const thumbnails = screen.getAllByAltText('thumbnail in style selector');
+    const thumbnailContainers = thumbnails.map((thumbnail) => thumbnail.closest('div'));
+    const checkmark = within(thumbnailContainers[0]).getByText('check');
+    expect(checkmark).toBeInTheDocument();
+  });
 
+  it('displays style name', () => {
+    render(<StyleSelector
+      styles={styles}
+    />);
+    const styleText = screen.getByText(/Black/);
+    expect(styleText).toBeInTheDocument();
+  });
+
+  it('displays all styles', () => {
+    render(<StyleSelector
+      styles={styles}
+    />);
+    const thumbnails = screen.getAllByAltText('thumbnail in style selector');
+    thumbnails.forEach((thumbnail, index) => {
+      expect(thumbnail).toHaveAttribute('src', styles.results[index].photos[0].thumbnail_url);
+    });
+  });
+
+  it('clicking an unselected thumbnail switches it to being selected', () => {
+    render(<StyleSelector
+      styles={styles}
+    />);
+    const thumbnails = screen.getAllByAltText('thumbnail in style selector');
+    fireEvent(
+      thumbnails[1],
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+    const thumbnailContainers = thumbnails.map((thumbnail) => thumbnail.closest('div'));
+    expect(() => { within(thumbnailContainers[0]).getByText('check'); }).toThrow();
+    expect(() => { within(thumbnailContainers[1]).getByText('check'); }).not.toThrow();
   });
 });
