@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -10,8 +10,10 @@ const StyledImg = styled('img')`
     if (props.isZoomedIn) {
       return `
         object-fit: none;
+        transform: scale(2.5);
+        object-position: -50% 0;
         ${'' /* transform: scale(2.5) translate(${props.mousePosition.x}px, ${props.mousePosition.y}px); */}
-        transform: scale(2.5) translate(50%, 0);
+        ${'' /* transform: scale(2.5) translate(50%, 0); */}
 
       `;
     }
@@ -42,9 +44,20 @@ const StyledImg = styled('img')`
 function ExpandedViewImage({
   toggleZoom, url, isZoomedIn, mousePosition, lastMousePosition, timeSinceLastMove,
 }) {
+  // const screenDimensions
+  const [dimensions, setDimensions] = useState({ x: 0, y: 0 });
+  const img = useRef(null);
   // const position = moveTowards(lastMousePosition, mousePosition, 0.05 * timeSinceLastMove);
+  console.log(img.current, img.current?.clientWidth, img.current?.clientHeight);
+  console.log(img.current?.parentNode, img.current?.parentNode.clientWidth, img.current?.parentNode.clientHeight);
+
+  useEffect(() => {
+    setDimensions({ x: img.current.clientWidth, y: img.current.clientHeight });
+  }, []);
+
   return (
     <StyledImg
+      ref={img}
       onClick={toggleZoom}
       draggable="false"
       src={url}
