@@ -1,75 +1,160 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import axios from 'axios';
-const configobj = require('../../../../config.js');
-import AddAQuestion from './AddAQuestion.jsx';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import Moment from 'react-moment';
+import QuestionModal from './QuestionModal.jsx';
 import HelpfulNess from './HelpfulNess.jsx';
-import AddaAnswer from './AddaAnswer.jsx';
+import AnswerModal from './AnswerModal.jsx';
+import MoreAandQ from './MoreAandQ.jsx';
 
-export default function QandA({ qalist }) {
+const configobj = require('../../../../config.js');
 
+const Container = styled('div')`
+  display:flex;
+  direction:row;
+  flex-wrap:wrap
+`;
+
+const Button = styled('button')`
+  border:none;
+  background:none;
+  text-decoration:underline;
+  cursor:pointer;
+`;
+const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
+export default function QandA({ qalist, productName }) {
+  console.log('show productName: ', productName);
+  // console.log('show product id: ', typeof (qalist.product_id), qalist.product_id);
   let results = [];
-  let sellerAns = [];
-  let sortedAns = [];
-
-  //sort the questions and answers list for answer with priority from 'seller' or with higher helpfulness scores
-  //sort the questions and answers lists for questions with higher helpfulness scores
+  // sort the questions and answers list for answer with priority from 'seller'
+  // or with higher helpfulness scores
+  // sort the questions and answers lists for questions with higher helpfulness scores
+  // eslint-disable-next-line react/prop-types
   if (qalist.results) {
-    results = qalist.results.map((ele) => {
-      return {
-        id: ele.question_id,
-        questionText: ele.question_body,
-        helpfulness: ele.question_helpfulness,
-        answerslist: ele.answers//object(key=>object)
-        /*
-        Object.values(ele.answers).sort((a, b) => {
-          if (a.answerer_name.toLowerCase() === 'seller') {
-            return -1;
-          } else if (b.answerer_name.toLowerCase() === 'seller') {
-            return 1;
-          }
-          return 0;
-        })
-        .slice(0, 2)
-        */
-      }
-    })
+    results = qalist.results.map((ele) => ({
+      id: ele.question_id,
+      questionText: ele.question_body,
+      helpfulness: ele.question_helpfulness,
+      answerslist: Object.values(ele.answers).sort((a, b) => {
+        if (a.answerer_name.toLowerCase() === 'seller') {
+          return -1;
+        } if (b.answerer_name.toLowerCase() === 'seller') {
+          return 1;
+        }
+        return (b.helpfulness - a.helpfulness);
+      })
+        .slice(0, 2),
+
+    }))
       .sort((a, b) => b.helpfulness - a.helpfulness)
       .slice(0, 4);
   }
- // console.log(results);
 
-  if (results.length > 0) {
-    const messagePeople = results.map(e => Object.values(e.answerslist).slice(0, 2));
-    sellerAns = messagePeople.map(item => item.filter(e => e.answerer_name.toLowerCase() === 'seller')).slice(0,1);
-    sortedAns = messagePeople.map(item => item.filter(e => e.answerer_name.toLowerCase() !== 'seller').sort((a, b) => b.helpfulness - a.helpfulness)).slice(0,1);
-  }
+  const [showModal, setShowModal] = useState(false);
+  const [questionId, setQuestionId] = useState(0);
+  const [questionText, setQuestionText] = useState('');
+  const [report, setReport] = useState(false);
+
+  const handleClickAddAnsButton = function (event, id) {
+    setShowModal(true);
+    setQuestionText(event.target.value);
+    setQuestionId(event.target.id);
+  };
+  const handleReport = function (event, reportingId) {
+    const options = {
+      url: `${url}qa/questions/${reportingId}/report`,
+      method: 'PUT',
+      headers: {
+        Authorization: configobj.TOKEN,
+      },
+      data: {
+        reported: true,
+      },
+    };
+    if (!report) {
+      axios(options).then(() => {
+        setReport(true);
+      }).catch((err) => { console.log('Error during reporing request'); });
+    } else {
+      alert('Have received your report. Thanks');
+    }
+  };
 
   return (
     <div>
       <div>
+        <br />
+        {showModal && (
+          <AnswerModal
+            setShowModal={setShowModal}
+            questionText={questionText}
+            productName={productName}
+            questionId={questionId}
+          />
+        )}
         {results.length > 0 ? results.map((ele, index) => (
           <div key={index}>
-            <div><h4>Q:{ele.questionText}</h4></div>
-            <HelpfulNess />
-            {/* {ele.answerslist.map((a, a_index) => (
-              <div key={a_index}>
-                A:{a.body}
+            <Container>
+              <h4>
+                Q:
+                {ele.questionText}
+              </h4>
+              <HelpfulNess
+                style={{ textAlign: 'center', padding: '25px' }}
+                id={ele.id}
+                count={ele.helpfulness}
+              />
+              <div style={{ padding: '25px', display: 'flex', flexWrap: 'wrap' }}>
+                | &nbsp; &nbsp;
+                <span>
+                  <Button type="button" value={ele.questionText} id={ele.id} onClick={(event) => handleClickAddAnsButton(event)}>Add Answer</Button>
+                </span>
               </div>
-            ))} */}
-            <AddaAnswer />
-            <div>
-              {sellerAns.length>0 && sellerAns.map((item,index)=>item.map((e,e_index)=><div key={e_index}>A:{e.body}</div>))}
-              {sortedAns.length>0 && sortedAns.map((item,index)=>item.map((e,e_index)=><div key={e_index}>A:{e.body}</div>))}
-            </div>
+            </Container>
+            {ele.answerslist.map((a, aIndex) => (
+              <div key={aIndex}>
+                A:
+                {a.body}
+                <div style={{ padding: '10px', display: 'flex', flexWrap: 'wrap' }}>
+                  {' '}
+                  by  &nbsp;
+                  {a.answerer_name.toLowerCase() === 'seller' ? <b>Seller</b> : a.answerer_name }
+                  ,
+                  &nbsp;
+                  <span>
+                    {' '}
+                    <Moment format="MMMM-DD-YYYY" date={a.date} />
+                  </span>
+                   &nbsp; &nbsp;
+                  | &nbsp; &nbsp;
+                  <HelpfulNess id={a.id} count={a.helpfulness} />
+                  <span>
+                    &nbsp; | &nbsp;
+                    <Button type="button" id={ele.id} onClick={(event) => handleReport(event, event.target.id)}>Report</Button>
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
-        )) : <AddAQuestion />}
+        )) : <QuestionModal productId={qalist.product_id} />}
       </div>
-
-
-
+      <MoreAandQ />
+      <br />
+      <QuestionModal />
     </div>
 
-  )
-
+  );
 }
 
+QandA.propTypes = {
+  productName: PropTypes.string.isRequired,
+  qalist: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+    PropTypes.array,
+  ]).isRequired,
+};

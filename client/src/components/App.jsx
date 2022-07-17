@@ -8,7 +8,7 @@ function App() {
     <div>
       <Overview />
       <ProductsAndOutfits />
-      <QuestionsAndAnswers productId={'40344'} />
+      <QuestionsAndAnswers productId={40344} productName="hoodies" />
     </div>
   );
 }
