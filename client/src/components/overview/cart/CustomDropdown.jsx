@@ -31,7 +31,7 @@ const Selector = styled(DropdownStyle)`
 `;
 
 const Option = styled(DropdownStyle)`
-  z-index: 49;
+  z-index: 51;
   top: ${(props) => `${props.height + props.index * props.height}px`};
 `;
 
@@ -43,10 +43,22 @@ const ArrowStyle = styled('span')`
 `;
 
 function CustomDropdown({
-  placeholder, options, width, height,
+  placeholder, options, width, height, disabled,
+  // below are optional to override open + selected states from a parent
+  customOpen, customSetOpen, customSelected, customSetSelected,
 }) {
-  const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(placeholder);
+  let [open, setOpen] = useState(false);
+  let [selected, setSelected] = useState(placeholder);
+
+  if (customOpen) {
+    open = customOpen;
+    setOpen = customSetOpen;
+  }
+
+  if (customSelected) {
+    selected = customSelected;
+    setSelected = customSetSelected;
+  }
 
   useEffect(() => {
     if (open) {
@@ -73,7 +85,9 @@ function CustomDropdown({
         width={width}
         height={height}
         onClick={() => {
-          setOpen(!open);
+          if (!disabled) {
+            setOpen(!open);
+          }
         }}
         className="custom-dropdown-selector"
       >
@@ -102,10 +116,23 @@ function CustomDropdown({
 }
 
 CustomDropdown.propTypes = {
-  placeholder: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  placeholder: PropTypes.string,
+  customOpen: PropTypes.bool,
+  customSetOpen: PropTypes.func,
+  customSelected: PropTypes.string,
+  customSetSelected: PropTypes.func,
+};
+
+CustomDropdown.defaultProps = {
+  placeholder: 'select option',
+  customOpen: undefined,
+  customSetOpen: undefined,
+  customSelected: undefined,
+  customSetSelected: undefined,
 };
 
 export default CustomDropdown;
