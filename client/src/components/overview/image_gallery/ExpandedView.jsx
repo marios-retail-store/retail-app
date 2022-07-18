@@ -56,19 +56,12 @@ const ArrowButtonContainerRight = styled(ArrowButtonContainer)`
 
 function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
   const [isZoomedIn, setIsZoomedIn] = useState(false);
-  const [lastMousePosition, setLastMousePosition] = useState({ x: 0, y: 0 });
-  const [timeOfLastMove, setTimeOfLastMove] = useState(new Date());
-  const [timeSinceLastMove, setTimeSinceLastMove] = useState(new Date());
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (isZoomedIn) {
       const moveListener = (e) => {
         const pos = { x: e.clientX, y: e.clientY };
-        const now = new Date();
-        setTimeSinceLastMove(now - timeOfLastMove);
-        setTimeOfLastMove(now);
-        setLastMousePosition(mousePosition);
         setMousePosition(pos);
       };
       document.addEventListener('mousemove', moveListener);
@@ -83,7 +76,7 @@ function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
   const showRightArrow = currentImgIndex !== photos.length - 1;
   const displayUI = !isZoomedIn;
 
-  const toggleZoom = () => {
+  const toggleZoom = (e) => {
     if (isZoomedIn) {
       setIsZoomedIn(false);
     } else {
@@ -92,8 +85,15 @@ function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
   };
 
   return (
-    <BlackBackground>
+    <BlackBackground
+      onClick={() => {
+        console.log('closing');
+      }}
+    >
       <MainImageContainer
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
         isZoomedIn={isZoomedIn}
       >
         {displayUI
@@ -127,8 +127,6 @@ function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
           url={photos[currentImgIndex].url}
           isZoomedIn={isZoomedIn}
           mousePosition={mousePosition}
-          lastMousePosition={lastMousePosition}
-          timeSinceLastMove={Number(timeSinceLastMove)}
         />
       </MainImageContainer>
       {displayUI
