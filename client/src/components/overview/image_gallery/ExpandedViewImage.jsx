@@ -3,21 +3,27 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const StyledImg = styled('img')`
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
   ${(props) => {
-    if (props.isZoomedIn) {
+    if (!props.isZoomedIn) {
       return `
-        object-fit: none;
-        transform: scale(2.5);
-        object-position: -50% 0;
-        ${'' /* transform: scale(2.5) translate(${props.mousePosition.x}px, ${props.mousePosition.y}px); */}
-        ${'' /* transform: scale(2.5) translate(50%, 0); */}
-
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
       `;
     }
-    return '';
+    return `
+      object-fit: none;
+      ${'' /* transform: scale(2.5) translate(
+        calc(${props.imagePosition.x}%),
+        calc(${props.imagePosition.y}%)
+      ); */}
+      height: ${props.screenSize.x}px;
+      width: calc(${props.screenSize.y}px);
+      transform: scale(2.5) translate(
+        calc(${props.imagePosition.x}%),
+        calc(${props.imagePosition.y}%)
+      );
+    `;
   }}
 `;
 
@@ -45,15 +51,62 @@ function ExpandedViewImage({
   toggleZoom, url, isZoomedIn, mousePosition, lastMousePosition, timeSinceLastMove,
 }) {
   // const screenDimensions
-  const [dimensions, setDimensions] = useState({ x: 0, y: 0 });
+  const [imageContainerDimensions, setImageContainerDimensions] = useState({ x: 0, y: 0 });
+  const [screenDimensions, setScreenDimensions] = useState({ x: 0, y: 0 });
   const img = useRef(null);
   // const position = moveTowards(lastMousePosition, mousePosition, 0.05 * timeSinceLastMove);
-  console.log(img.current, img.current?.clientWidth, img.current?.clientHeight);
-  console.log(img.current?.parentNode, img.current?.parentNode.clientWidth, img.current?.parentNode.clientHeight);
 
   useEffect(() => {
-    setDimensions({ x: img.current.clientWidth, y: img.current.clientHeight });
+    if (img !== null) {
+      setImageContainerDimensions({
+        x: img.current.parentNode.clientWidth,
+        y: img.current.parentNode.clientHeight,
+      });
+      setScreenDimensions({
+        x: img.current.parentNode.parentNode.clientWidth,
+        y: img.current.parentNode.parentNode.clientHeight,
+      });
+    }
   }, []);
+
+  const borderThickness = {
+    x: 10,
+    y: 10,
+  };
+
+  const screenSize = {
+    x: window.innerWidth,
+    y: window.innerHeight,
+  };
+
+  const mouse0to1 = {
+    x: mousePosition.x / screenSize.x,
+    y: mousePosition.y / screenSize.y,
+  };
+
+  const mouse0to1Flipped = {
+    x: (mouse0to1.x - 1) * -1,
+    y: (mouse0to1.y - 1) * -1,
+  };
+
+  const imagePosition = {
+    x: mouse0to1Flipped.x * 100 - 50,
+    y: mouse0to1Flipped.y * 100 - 50,
+  };
+
+  // at mouse 0: offset should be -half screen size
+  // at mouse 1: offset should be half screen size
+  // const imageOffset = {
+  //   x: screenSize.x * mouse0to1.x - screenSize.x / 2,
+  //   y: screenSize.y * mouse0to1.y - screenSize.y / 2,
+  // };
+
+  const imageOffset = {
+    x: 0,
+    y: 0,
+  };
+
+  console.log(screenSize, imageOffset);
 
   return (
     <StyledImg
@@ -62,10 +115,9 @@ function ExpandedViewImage({
       draggable="false"
       src={url}
       isZoomedIn={isZoomedIn}
-      mousePosition={mousePosition}
-      style={{
-        // transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
-      }}
+      imagePosition={imagePosition}
+      imageOffset={imageOffset}
+      screenSize={screenSize}
     />
   );
 }
