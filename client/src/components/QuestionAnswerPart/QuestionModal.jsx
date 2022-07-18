@@ -30,14 +30,14 @@ export default function QuestionModal({ productId, productName }) {
     setErrMessage('');
   };
 
-  const IsvalidEmail = function (value) {
+  const isValidEmail = function (value) {
     const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return validEmail.test(value);
   };
 
   const handleSubmit = function () {
     const messages = [];
-    if (!IsvalidEmail(quesEmail)) {
+    if (!isValidEmail(quesEmail)) {
       messages.push('Email');
     }
     if (!quesText.length) {
