@@ -1,16 +1,14 @@
-/* eslint-disable no-console */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import SearchBar from './QuestionAnswerPart/SearchBar.jsx';
-import AddAQuestion from './QuestionAnswerPart/AddAQuestion.jsx';
 import QandA from './QuestionAnswerPart/QandA.jsx';
-import MoreAandQ from './QuestionAnswerPart/MoreAandQ.jsx';
 
 const configobj = require('../../../config.js');
 
-export default function QuestionsAndAnswers({ productId }) {
+export default function QuestionsAndAnswers({ productId, productName }) {
   const [qalist, setQalist] = useState({});
   const [pageNum, setPageNum] = useState(1);
 
@@ -36,24 +34,25 @@ export default function QuestionsAndAnswers({ productId }) {
   useEffect(() => {
     axios(options)
       .then((response) => {
+        console.log('axios get request', response.data);
         setQalist(response.data);
         setPageNum(pageNum + 1);
       })
       .catch((err) => console.log('Error during get request on Q/A part for questions and answers list'));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
 
     <div>
       <div><h3 style={{ textAlign: 'left' }}>QUESTIONS & ANSWERS</h3></div>
       <SearchBar />
-      <QandA qalist={qalist} />
+      <QandA qalist={qalist} productName={productName} />
       <br />
-      <MoreAandQ />
-      <br />
-      <AddAQuestion />
     </div>
 
   );
 }
+
+QuestionsAndAnswers.propTypes = {
+  productId: PropTypes.number.isRequired,
+  productName: PropTypes.string.isRequired,
+};

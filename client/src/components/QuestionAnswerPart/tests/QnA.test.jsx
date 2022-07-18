@@ -7,14 +7,14 @@ import SearchBar from '../SearchBar.jsx';
 
 describe('QuestionsAndAnswers component', () => {
   it('render h3 element', () => {
-    render(<QuestionsAndAnswers />);
+    render(<QuestionsAndAnswers productId={40344} productName="hoodies" />);
     expect(
       screen.getByText('QUESTIONS & ANSWERS'),
     ).toBeInTheDocument();
   });
 
   it('render h3 element', () => {
-    render(<QuestionsAndAnswers />);
+    render(<QuestionsAndAnswers productId={40344} productName="hoodies" />);
     const text = screen.getByText('QUESTIONS & ANSWERS');
     expect(text).toHaveStyle('textAlign:left');
   });

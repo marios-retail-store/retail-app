@@ -1,7 +1,8 @@
-import React,{useState} from 'react';
-const axios = require('axios');
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
+const axios = require('axios');
 
 const SearchContainer = styled('input')`
   height:45px;
@@ -10,16 +11,12 @@ const SearchContainer = styled('input')`
   background:#EAF6F6;
 `;
 
-
-
-
-function SearchBar(){
-
+function SearchBar() {
   return (
     <div>
-      <SearchContainer type="text"  placeholder={`HAVE A QUESTION? SEARCH FOR ANSWERS ......`}></SearchContainer>
+      <SearchContainer type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS ......" />
     </div>
-  )
+  );
 }
 
 export default SearchBar;
