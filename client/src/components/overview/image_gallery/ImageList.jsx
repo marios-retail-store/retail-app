@@ -103,13 +103,13 @@ function ImageList({
 
         if (index === currentImgIndex) {
           return (
-            <ThumbnailContainerHighlight key={photo.thumbnail_url}>
+            <ThumbnailContainerHighlight>
               {content}
             </ThumbnailContainerHighlight>
           );
         }
         return (
-          <ThumbnailContainer key={photo.thumbnail_url}>
+          <ThumbnailContainer>
             {content}
           </ThumbnailContainer>
         );
