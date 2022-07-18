@@ -7,7 +7,7 @@ const addCard = {
   style: { style_id: 999999, name: 'add', photos: [{ url: 'https://cdn.vectorstock.com/i/preview-1x/24/78/gray-add-plus-icon-isolated-on-background-modern-vector-21462478.webp' }] },
 };
 function Carousel({
-  products, styles, type,
+  products, styles, type, actionBtnFunc,
 }) {
   const carouselCardStyle = {
     display: 'flex',
@@ -19,7 +19,6 @@ function Carousel({
     alignSelf: 'center',
     position: 'relative',
   };
-
   const [current, setCurrent] = useState(0);
   const { length } = products;
   const cardAmount = type === 'related' ? 3 : 2;
@@ -31,7 +30,7 @@ function Carousel({
   };
   return (
     <div className="carousel" data-testid="Carousel" style={carouselCardStyle}>
-      <button className="button-left" type="button" onClick={prev} style={({ ...buttonStyle, left: '2%', visibility: current === 0 ? 'hidden' : 'visible' })}>{'<'}</button>
+      <button className="button-left" type="button" onClick={prev} style={({ ...buttonStyle, left: '40px', visibility: current === 0 ? 'hidden' : 'visible' })}>{'<'}</button>
       {type === 'outfit' && <ProductCards card={addCard.product} style={addCard.style} clickFunc={() => console.log('hi')} />}
       {products.map((p, i) => {
         const filter = styles[i].results.filter((style) => style['default?'] === true);
@@ -39,11 +38,12 @@ function Carousel({
         const isVisible = (i >= current && i < current + cardAmount);
         return (
           <div className="Card" style={{ contentVisibility: isVisible ? 'visible' : 'hidden' }} key={style.style_id}>
-            <ProductCards key={style.style_id} card={p} style={style} clickFunc={(card) => console.log('cardClicked\n', 'ProductData:', card, '\nStyleData:', style)} />
+            <button className="button-actionButton" type="button" style={{ ...buttonStyle, top: '38px', left: '275px' }} onClick={actionBtnFunc.bind(this, i)}>X</button>
+            {products[i] && <ProductCards key={style.style_id} card={p} style={style} clickFunc={(card) => console.log('cardClicked\n', 'ProductData:', card, '\nStyleData:', style)} />}
           </div>
         );
       })}
-      <button className="button-right" type="button" onClick={next} style={({ ...buttonStyle, right: '2%', visibility: current + cardAmount >= length ? 'hidden' : 'visible' })}>{'>'}</button>
+      <button className="button-right" type="button" onClick={next} style={({ ...buttonStyle, right: '40px', visibility: current + cardAmount >= length ? 'hidden' : 'visible' })}>{'>'}</button>
     </div>
   );
 }
@@ -69,5 +69,6 @@ Carousel.propTypes = {
     })).isRequired,
   })).isRequired,
   type: PropTypes.string.isRequired,
+  actionBtnFunc: PropTypes.func.isRequired,
 };
 export default Carousel;
