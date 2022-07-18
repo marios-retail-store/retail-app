@@ -59,24 +59,21 @@ function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (isZoomedIn) {
-      const moveListener = (e) => {
-        const pos = { x: e.clientX, y: e.clientY };
-        setMousePosition(pos);
-      };
-      document.addEventListener('mousemove', moveListener);
-      return () => {
-        document.removeEventListener('mousemove', moveListener);
-      };
-    }
-    return undefined;
+    const moveListener = (e) => {
+      const pos = { x: e.clientX, y: e.clientY };
+      setMousePosition(pos);
+    };
+    document.addEventListener('mousemove', moveListener);
+    return () => {
+      document.removeEventListener('mousemove', moveListener);
+    };
   });
 
   const showLeftArrow = currentImgIndex !== 0;
   const showRightArrow = currentImgIndex !== photos.length - 1;
   const displayUI = !isZoomedIn;
 
-  const toggleZoom = (e) => {
+  const toggleZoom = () => {
     if (isZoomedIn) {
       setIsZoomedIn(false);
     } else {

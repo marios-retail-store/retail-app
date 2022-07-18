@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -30,6 +30,9 @@ function ExpandedViewImage({
   const img = useRef(null);
   const container = useRef(null);
 
+  const [containerSize, setContainerSize] = useState({ x: 0, y: 0 })
+  const [imgSize, setImgSize] = useState({ x: 0, y: 0 })
+
   const screenSize = {
     x: window.innerWidth,
     y: window.innerHeight,
@@ -40,38 +43,30 @@ function ExpandedViewImage({
     y: mousePosition.y / screenSize.y,
   };
 
-  let conSize = { x: 0, y: 0 };
-  if (container.current !== null) {
-    conSize = {
+  useEffect(() => {
+    setContainerSize({
       x: container.current.clientWidth,
       y: container.current.clientHeight,
-    };
-  }
-
-  let imSize = { x: 0, y: 0 };
-  if (img.current !== null) {
-    imSize = {
+    });
+    setImgSize({
       x: img.current.clientWidth,
       y: img.current.clientHeight,
-    };
-  }
+    });
+  }, [isZoomedIn]);
 
   // when mouse is in the middle: 50
-  // get difference between container and img
-  // offset is -half that difference
-
+  // - get difference between container and img
+  // - offset is -half that difference
   // when mouse is at left: 0
-  // get difference between container and img
-  // offset is 0
-
+  // - get difference between container and img
+  // - offset is 0
   // when mouse is at right: 100
-  // get difference between container and img
-  // offset is -that difference
-
+  // - get difference between container and img
+  // - offset is -that difference
   const imgOffset = {
-    x: mousePercentage.x * (conSize.x - imSize.x),
-    y: mousePercentage.y * (conSize.y - imSize.y),
-  }
+    x: mousePercentage.x * (containerSize.x - imgSize.x),
+    y: mousePercentage.y * (containerSize.y - imgSize.y),
+  };
 
   return (
     <Container ref={container}>
