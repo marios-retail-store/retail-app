@@ -61,7 +61,7 @@ export default function AnswerModal({
     }
   };
 
-  const IsvalidEmail = function (value) {
+  const isValidEmail = function (value) {
     const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return validEmail.test(value);
   };
@@ -80,7 +80,7 @@ export default function AnswerModal({
       },
     };
     const messages = [];
-    if (!IsvalidEmail(email)) {
+    if (!isValidEmail(email)) {
       messages.push('Email');
     }
     if (!answer.length) {
