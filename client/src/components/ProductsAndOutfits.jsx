@@ -13,14 +13,22 @@ class ProductsAndOutfits extends React.Component {
 
     this.state = {
       relatedProducts: {
-        products: productTest,
-        styles: styleTest,
+        products: [...productTest],
+        styles: [...styleTest],
       },
       myOutfit: {
-        products: productTest,
-        styles: styleTest,
+        products: [...productTest],
+        styles: [...styleTest],
       },
     };
+    this.deleteOutfitCard = this.deleteOutfitCard.bind(this);
+  }
+
+  deleteOutfitCard(cardIndex) {
+    const { myOutfit } = this.state;
+    myOutfit.products.splice(cardIndex, 1);
+    myOutfit.styles.splice(cardIndex, 1);
+    this.setState({ myOutfit });
   }
 
   render() {
@@ -33,12 +41,14 @@ class ProductsAndOutfits extends React.Component {
           products={relatedProducts.products}
           styles={relatedProducts.styles}
           type="related"
+          actionBtnFunc={() => console.log('comparison modal here')}
         />
         <p>My Outfit</p>
         <Carousel
           products={myOutfit.products}
           styles={myOutfit.styles}
           type="outfit"
+          actionBtnFunc={this.deleteOutfitCard}
         />
       </>
     );
