@@ -19,7 +19,6 @@ const StyledImg = styled('img')`
     return `
       height: 250%;
       width: auto;
-      transform: translate(${props.imgOffset.x}px, ${props.imgOffset.y}px);
     `;
   }}
 `;
@@ -77,6 +76,9 @@ function ExpandedViewImage({
         src={url}
         isZoomedIn={isZoomedIn}
         imgOffset={imgOffset}
+        style={{
+          transform: `translate(${imgOffset.x}px, ${imgOffset.y}px)`,
+        }}
       />
     </Container>
   );
