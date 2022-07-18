@@ -29,8 +29,8 @@ function ExpandedViewImage({
   const img = useRef(null);
   const container = useRef(null);
 
-  const [containerSize, setContainerSize] = useState({ x: 0, y: 0 })
-  const [imgSize, setImgSize] = useState({ x: 0, y: 0 })
+  const [containerSize, setContainerSize] = useState({ x: 0, y: 0 });
+  const [imgSize, setImgSize] = useState({ x: 0, y: 0 });
 
   const screenSize = {
     x: window.innerWidth,
@@ -63,9 +63,21 @@ function ExpandedViewImage({
   // - get difference between container and img
   // - offset is -that difference
   const imgOffset = {
-    x: mousePercentage.x * (containerSize.x - imgSize.x),
-    y: mousePercentage.y * (containerSize.y - imgSize.y),
+    x: containerSize.x < imgSize.x
+      ? mousePercentage.x * (containerSize.x - imgSize.x)
+      : (containerSize.x - imgSize.x) / 2,
+    y: containerSize.y < imgSize.y
+      ? mousePercentage.y * (containerSize.y - imgSize.y)
+      : (containerSize.y - imgSize.y) / 2,
   };
+
+  let style = {};
+
+  if (isZoomedIn) {
+    style = {
+      transform: `translate(${imgOffset.x}px, ${imgOffset.y}px)`,
+    };
+  }
 
   return (
     <Container ref={container}>
@@ -76,9 +88,7 @@ function ExpandedViewImage({
         src={url}
         isZoomedIn={isZoomedIn}
         imgOffset={imgOffset}
-        style={{
-          transform: `translate(${imgOffset.x}px, ${imgOffset.y}px)`,
-        }}
+        style={style}
       />
     </Container>
   );
