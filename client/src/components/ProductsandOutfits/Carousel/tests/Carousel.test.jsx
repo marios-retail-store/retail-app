@@ -11,6 +11,7 @@ describe('rendering of Carousel', () => {
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
     const accessories = screen.getByText('ACCESSORIES');
     const pants = screen.getByText('PANTS');
@@ -26,6 +27,7 @@ describe('rendering of Carousel', () => {
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
     const accessory = screen.getByText('Bright Future Sunglasses (Black Lenses & Gold Frame)');
     const pants = screen.getByText('Morning Joggers (Black)');
@@ -41,6 +43,7 @@ describe('rendering of Carousel', () => {
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
     const carousel = screen.getByTestId('Carousel');
     const Cards = screen.getAllByText(/00/);
@@ -57,6 +60,7 @@ describe('rendering of Carousel', () => {
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
     const carousel = screen.getByTestId('Carousel');
     expect(carousel).toBeInTheDocument();
@@ -69,6 +73,7 @@ describe('rendering of Carousel', () => {
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
     const carousel = screen.getByTestId('Carousel');
     expect(carousel).toBeInTheDocument();
@@ -83,6 +88,7 @@ describe('rendering of Carousel', () => {
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
     const carousel = screen.getByTestId('Carousel');
     expect(carousel).toBeInTheDocument();
