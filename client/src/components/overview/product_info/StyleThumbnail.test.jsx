@@ -25,7 +25,7 @@ describe('style selector thumbnails', () => {
   it('displays the thumbnail image of the passed style', () => {
     render(<StyleThumbnail
       style={style}
-      selected="false"
+      selected={false}
       selectStyle={() => {}}
     />);
     const thumbnail = screen.getByAltText('thumbnail in style selector');
@@ -36,7 +36,7 @@ describe('style selector thumbnails', () => {
   it('displays a checkmark if the style is selected', () => {
     render(<StyleThumbnail
       style={style}
-      selected="true"
+      selected
       selectStyle={() => {}}
     />);
     const checkmark = screen.getByText('check');
