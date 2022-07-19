@@ -184,7 +184,7 @@ describe('Main Image', () => {
     />);
     const tryFindLeftArrow = () => screen.getByTestId('main-left-arrow');
     const tryFindRightArrow = () => screen.getByTestId('main-right-arrow');
-    const rightArrow = tryFindRightArrow();
+    let rightArrow = tryFindRightArrow();
     expect(tryFindLeftArrow).toThrow();
     fireEvent(
       rightArrow,
@@ -193,7 +193,18 @@ describe('Main Image', () => {
         cancelable: true,
       }),
     );
-    expect(tryFindLeftArrow).not.toThrow();
+    const leftArrow = tryFindLeftArrow();
+    expect(leftArrow).toBeInTheDocument();
     expect(rightArrow).not.toBeInTheDocument();
+    fireEvent(
+      leftArrow,
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+    expect(leftArrow).not.toBeInTheDocument();
+    rightArrow = tryFindRightArrow();
+    expect(rightArrow).toBeInTheDocument();
   });
 });
