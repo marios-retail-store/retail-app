@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ImageList from './ImageList.jsx';
+import ExpandedView from './ExpandedView.jsx';
 
 const ImageGalleryContainer = styled('div')`
   position: relative;
@@ -36,6 +37,7 @@ const ArrowContainer = styled('div')`
   border-radius: 5px;
   cursor: pointer;
   position: absolute;
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,6 +67,7 @@ function ImageGallery({ style }) {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [minIndexInList, setMinIndexInList] = useState(0);
   const [maxIndexInList, setMaxIndexInList] = useState(Math.min(photos.length, 6));
+  const [inExpandedState, setInExpandedState] = useState(false);
 
   const shiftList = (direction) => {
     if (direction === 'left') {
@@ -88,47 +91,59 @@ function ImageGallery({ style }) {
   };
 
   return (
-    <div>
-      <ImageGalleryContainer>
-        <ImageContainer>
-          {photos[currentImgIndex].url === null
-            ? <ErrorMsg>No Image Found</ErrorMsg>
-            : <StyledImg draggable="false" src={photos[currentImgIndex].url} alt="product image" />}
-        </ImageContainer>
-        {currentImgIndex > 0 && (
-          <ArrowContainerLeft
-            onClick={() => { setCurrentImgIndexWrapper(currentImgIndex - 1); }}
-          >
-            <Arrow
-              data-testid="main-left-arrow"
-              className="material-symbols-outlined"
-            >
-              chevron_left
-            </Arrow>
-          </ArrowContainerLeft>
-        )}
-        {currentImgIndex < photos.length - 1 && (
-          <ArrowContainerRight
-            onClick={() => { setCurrentImgIndexWrapper(currentImgIndex + 1); }}
-          >
-            <Arrow
-              data-testid="main-right-arrow"
-              className="material-symbols-outlined"
-            >
-              chevron_right
-            </Arrow>
-          </ArrowContainerRight>
-        )}
-        <ImageList
+    <>
+      {inExpandedState && (
+        <ExpandedView
           photos={photos}
           currentImgIndex={currentImgIndex}
           setCurrentImgIndex={setCurrentImgIndex}
-          minIndexInList={minIndexInList}
-          maxIndexInList={maxIndexInList}
-          shiftList={shiftList}
+          closeView={() => { setInExpandedState(false); }}
         />
-      </ImageGalleryContainer>
-    </div>
+      )}
+      <div>
+        <ImageGalleryContainer>
+          <ImageContainer
+            onClick={() => { setInExpandedState(true); }}
+          >
+            {photos[currentImgIndex].url === null
+              ? <ErrorMsg>No Image Found</ErrorMsg>
+              : <StyledImg draggable="false" src={photos[currentImgIndex].url} alt="product image" />}
+          </ImageContainer>
+          {currentImgIndex > 0 && (
+            <ArrowContainerLeft
+              onClick={() => { setCurrentImgIndexWrapper(currentImgIndex - 1); }}
+            >
+              <Arrow
+                data-testid="main-left-arrow"
+                className="material-symbols-outlined"
+              >
+                chevron_left
+              </Arrow>
+            </ArrowContainerLeft>
+          )}
+          {currentImgIndex < photos.length - 1 && (
+            <ArrowContainerRight
+              onClick={() => { setCurrentImgIndexWrapper(currentImgIndex + 1); }}
+            >
+              <Arrow
+                data-testid="main-right-arrow"
+                className="material-symbols-outlined"
+              >
+                chevron_right
+              </Arrow>
+            </ArrowContainerRight>
+          )}
+          <ImageList
+            photos={photos}
+            currentImgIndex={currentImgIndex}
+            setCurrentImgIndex={setCurrentImgIndex}
+            minIndexInList={minIndexInList}
+            maxIndexInList={maxIndexInList}
+            shiftList={shiftList}
+          />
+        </ImageGalleryContainer>
+      </div>
+    </>
   );
 }
 
