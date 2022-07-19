@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import axios from 'axios';
 import _ from 'underscore';
 import AddToCart from './AddToCart.jsx';
 import getStockArrayFromStyle from './getStockArrayFromStyle.js';
@@ -38,7 +39,20 @@ function Cart({ style }) {
     if (showSizeError) {
       setShowSizeError(false);
     }
-    console.log(`API call to add ${selectedQuantity} of ${selectedSKU.size} to cart!`);
+    console.log(`API call to add ${selectedQuantity} of ${selectedSKU.size} to cart! (id: ${selectedSKU.sku_id})`);
+    for (let i = 0; i < selectedQuantity; i += 1) {
+      axios({
+        url: '/cart',
+        method: 'post',
+        data: { sku_id: selectedSKU.sku_id },
+      })
+        .then(() => {
+          console.log('added to cart');
+        })
+        .catch((err) => {
+          console.error('failed adding item to cart:', err);
+        });
+    }
   };
 
   let quantityDropdownOptions = [];
