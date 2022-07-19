@@ -1,12 +1,20 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import SearchBar from './QuestionAnswerPart/SearchBar.jsx';
+import styled from 'styled-components';
 import QACard from './QuestionAnswerPart/QACard.jsx';
 import QuestionModal from './QuestionAnswerPart/QuestionModal.jsx';
 
 const configobj = require('../../../config.js');
+
+const SearchContainer = styled('input')`
+  height:45px;
+  width:600px;
+  border-radius:5px;
+  background:#EAF6F6;
+`;
 
 export default function QuestionsAndAnswers({ productId, productName }) {
   const [qalist, setQalist] = useState([]);
@@ -40,6 +48,14 @@ export default function QuestionsAndAnswers({ productId, productName }) {
       .catch((err) => console.log('Error during get request on Q/A part for questions and answers list'));
   }, []);
 
+  const [searchText, setSearchText] = useState('');
+  const handleSearch = function (event) {
+    if (event.target.value.length >= 3 || event.target.value.length === 0) {
+      setSearchText(event.target.value);
+      setMorePageNum(0);
+    }
+  };
+
   const handleLoadMoreQuestions = function () {
     setMorePageNum(morePageNum + 1);
     if (4 + morePageNum * 2 >= qalist.length) {
@@ -47,7 +63,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
     }
   };
 
-  const handleCollapseBtn = function() {
+  const handleCollapseBtn = function () {
     setMorePageNum(0);
   };
 
@@ -55,10 +71,12 @@ export default function QuestionsAndAnswers({ productId, productName }) {
 
     <div>
       <div><h3 style={{ textAlign: 'left' }}>QUESTIONS & ANSWERS</h3></div>
-      <SearchBar />
+      <SearchContainer type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS ......" onChange={(event) => handleSearch(event)} />
       <div style={{ maxHeight: '800px', overflow: 'scroll' }}>
         {qalist.length > 0
-          ? (qalist.slice(0, 4 + morePageNum * 2)
+          ? (qalist
+            .filter((obj) => obj.question_body.includes(searchText))
+            .slice(0, 4 + morePageNum * 2)
             .map((ele, index) => (
               <QACard
                 ele={ele}
