@@ -89,6 +89,7 @@ function ExpandedViewImage({
         isZoomedIn={isZoomedIn}
         imgOffset={imgOffset}
         style={style}
+        alt="expanded view of product"
       />
     </Container>
   );

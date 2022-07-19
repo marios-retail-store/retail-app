@@ -46,6 +46,7 @@ function IconList({ listLength, currentIconIndex, setCurrentIconIndex }) {
           return (
             <IconSelected
               // check if this causes problems------------------------------------------------
+              data-testid="selected-icon"
               // eslint-disable-next-line react/no-array-index-key
               key={index}
               className="material-symbols-outlined"
