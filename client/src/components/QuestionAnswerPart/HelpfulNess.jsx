@@ -24,7 +24,6 @@ export default function HelpfulNess({ count, id }) {
       url: `${url}qa/questions/${id}/helpful`,
       method: 'PUT',
       headers: {
-        // 'User-Agent': 'request',
         Authorization: configobj.TOKEN,
       },
       data: {
