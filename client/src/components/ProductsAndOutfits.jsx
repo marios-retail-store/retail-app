@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
-import ProductCards from './ProductsandOutfits/ProductCards/ProductCards.jsx';
+import PropTypes from 'prop-types';
 // eslint-disable-next-line no-unused-vars
 import { products, pStyles } from './ProductsandOutfits/exampleData.js';
 import Carousel from './ProductsandOutfits/Carousel/Carousel.jsx';
@@ -10,7 +10,6 @@ const styleTest = [{ product_id: '40346', results: [pStyles[pStyles.findIndex((s
 class ProductsAndOutfits extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       relatedProducts: {
         products: [...productTest],
@@ -22,6 +21,11 @@ class ProductsAndOutfits extends React.Component {
       },
     };
     this.deleteOutfitCard = this.deleteOutfitCard.bind(this);
+    this.showModal = this.showModal.bind(this);
+  }
+
+  showModal(cardIndex, data) {
+    console.log(cardIndex, data, this.currentProduct);
   }
 
   deleteOutfitCard(cardIndex) {
@@ -41,7 +45,7 @@ class ProductsAndOutfits extends React.Component {
           products={relatedProducts.products}
           styles={relatedProducts.styles}
           type="related"
-          actionBtnFunc={() => console.log('comparison modal here')}
+          actionBtnFunc={this.showModal}
         />
         <p>My Outfit</p>
         <Carousel
@@ -54,5 +58,6 @@ class ProductsAndOutfits extends React.Component {
     );
   }
 }
-
+ProductsAndOutfits.propTypes = {
+};
 export default ProductsAndOutfits;
