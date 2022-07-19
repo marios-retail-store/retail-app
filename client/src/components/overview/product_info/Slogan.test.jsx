@@ -18,7 +18,7 @@ const productWithDesc = {
   description: 'some description',
 };
 
-describe('rendering App', () => {
+describe('Slogan', () => {
   it('displays slogan and description', () => {
     render(
       <Slogan
