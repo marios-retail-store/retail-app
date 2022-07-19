@@ -32,7 +32,7 @@ function SocialsSharing() {
           data-layout="button"
           style={{ color: 'white' }}
         >
-          Share On Facebook
+          Share on Facebook
         </div>
       </ButtonContainer>
       <ButtonContainer>
@@ -50,7 +50,7 @@ function SocialsSharing() {
           href="https://www.pinterest.com/pin/create/button/"
           style={{ color: 'white' }}
         >
-          Save To Pinterest
+          Save to Pinterest
         </a>
       </ButtonContainer>
     </Container>
