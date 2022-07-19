@@ -20,7 +20,7 @@ const styleOnSale = {
   sale_price: '35.00',
 };
 
-describe('rendering App', () => {
+describe('General Info', () => {
   it('displays product name and category', () => {
     render(
       <GeneralInfo
