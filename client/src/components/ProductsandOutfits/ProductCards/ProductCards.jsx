@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ProductCards({ card, style, clickFunc }) {
+function ProductCards({
+  card, style, clickFunc, actionButton,
+}) {
   const productDefaultPrice = card.default_price ? `$${card.default_price}` : null;
   const productSalePrice = style.sale_price ? `$${style.sale_price}` : null;
   const productTitle = `${card.name} (${style.name})`;
@@ -15,8 +17,20 @@ function ProductCards({ card, style, clickFunc }) {
   };
   const cardStyle = {
     border: '1px solid grey',
-    margin: '0.5rem',
-    width: '300px',
+    margin: '1rem',
+    maxWidth: '300px',
+    width: '100%',
+    display: 'inline-flex',
+    flexDirection: 'column',
+    position: 'relative',
+  };
+
+  const actionButtonStyle = {
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    right: '15px',
+    top: '15px',
+
   };
   const InfoStyle = {
     height: '100px',
@@ -25,11 +39,13 @@ function ProductCards({ card, style, clickFunc }) {
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
     padding: '0px 10px',
+    whiteSpace: 'normal',
   };
   return (
     // eslint-disable-next-line max-len
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
     <div className="product-card" style={cardStyle} onClick={clickFunc.bind(this, card)}>
+      {style.name !== 'add' && <button className="action-Button" type="button" style={actionButtonStyle} onClick={actionButton}>x</button>}
       <div className="product-image">
         <img data-testid="image" src={productImageURL} alt="product" style={cardImgStyle} />
       </div>
@@ -80,6 +96,7 @@ ProductCards.propTypes = {
     })),
   }).isRequired,
   clickFunc: PropTypes.func.isRequired,
+  actionButton: PropTypes.func.isRequired,
 };
 
 export default ProductCards;
