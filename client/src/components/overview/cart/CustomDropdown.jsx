@@ -119,7 +119,7 @@ CustomDropdown.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   placeholder: PropTypes.string,
   customOpen: PropTypes.bool,
   customSetOpen: PropTypes.func,
@@ -128,6 +128,7 @@ CustomDropdown.propTypes = {
 };
 
 CustomDropdown.defaultProps = {
+  disabled: false,
   placeholder: 'select option',
   customOpen: undefined,
   customSetOpen: undefined,
