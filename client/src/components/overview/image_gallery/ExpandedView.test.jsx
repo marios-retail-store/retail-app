@@ -25,7 +25,7 @@ const style = {
   ],
 };
 
-describe('Image List', () => {
+describe('Expanded View', () => {
   it('should display the image at the current index', () => {
     let currentImgIndex = 0;
     const setCurrentImgIndex = (index) => { currentImgIndex = index; };
