@@ -1,6 +1,6 @@
 import getStarValuesFromAvgRating from './getStarValuesFromAvgRating.js';
 
-describe('testing getStockArrayFromStyle helper function', () => {
+describe('getStarValuesFromAvgRating', () => {
   test('correctly reformats a numeric average between 0 - 5 into an array of 5 star values', () => {
     expect(getStarValuesFromAvgRating(1)).toEqual([1, 0, 0, 0, 0]);
     expect(getStarValuesFromAvgRating(2)).toEqual([1, 1, 0, 0, 0]);
