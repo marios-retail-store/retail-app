@@ -37,6 +37,7 @@ const ArrowContainer = styled('div')`
   border-radius: 5px;
   cursor: pointer;
   position: absolute;
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
