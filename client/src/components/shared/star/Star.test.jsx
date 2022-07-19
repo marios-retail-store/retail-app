@@ -5,7 +5,7 @@ import { toBeInTheDocument, toHaveBeenCalledWith } from '@testing-library/jest-d
 // eslint-disable-next-line no-unused-vars
 import Star from './Star.jsx';
 
-describe('Image List', () => {
+describe('Star', () => {
   it('should throw an error for an invalid filled argument', () => {
     const renderStar = () => render(<Star
       filled={0.3}
