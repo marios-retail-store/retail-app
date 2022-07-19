@@ -5,7 +5,7 @@ import { toBeInTheDocument } from '@testing-library/jest-dom';
 // eslint-disable-next-line no-unused-vars
 import StarRating from './StarRating.jsx';
 
-describe('Image List', () => {
+describe('Star Rating', () => {
   it('should display 5 empty outlines for a rating of 0', () => {
     render(<StarRating
       averageRating={0}
