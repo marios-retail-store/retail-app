@@ -8,6 +8,7 @@ import Moment from 'react-moment';
 import QuestionModal from './QuestionModal.jsx';
 import HelpfulNess from './HelpfulNess.jsx';
 import AnswerModal from './AnswerModal.jsx';
+import AnswerPhotos from './AnswerPhotos.jsx';
 
 const configobj = require('../../../../config.js');
 
@@ -24,7 +25,7 @@ const Button = styled('button')`
   cursor:pointer;
 `;
 const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
-export default function QandA({ ele, key, productName }) {
+export default function QACard({ ele, productName }) {
   const answerslist = Object.values(ele.answers).sort((a, b) => {
     if (a.answerer_name.toLowerCase() === 'seller') {
       return -1;
@@ -127,6 +128,9 @@ export default function QandA({ ele, key, productName }) {
                 <Button type="button" id={ele.id} onClick={(event) => handleReport(event, event.target.id)}>Report</Button>
               </span>
             </div>
+            {a.photos.length > 0 && a.photos.map(
+              (photo, index) => (<AnswerPhotos photo={photo} key={index} />),
+            )}
           </div>
         ))}
         {(answerslist.length > 2 && !showCollapseBtn) && <button type="button" onClick={() => handleLoadMoreBtn()}>LOAD MORE ANSWERS</button>}
@@ -136,9 +140,8 @@ export default function QandA({ ele, key, productName }) {
   );
 }
 
-QandA.propTypes = {
+QACard.propTypes = {
   productName: PropTypes.string.isRequired,
-  key: PropTypes.number.isRequired,
   ele: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
