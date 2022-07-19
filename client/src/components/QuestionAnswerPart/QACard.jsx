@@ -44,11 +44,31 @@ export default function QandA({ ele, key, productName }) {
   //   })
   //     .sort((a, b) => b.helpfulness - a.helpfulness);
   // }
-  const answerslist = Object.values(ele.answers);
+  const answerslist = Object.values(ele.answers).sort((a, b) => {
+    if (a.answerer_name.toLowerCase() === 'seller') {
+      return -1;
+    } if (b.answerer_name.toLowerCase() === 'seller') {
+      return 1;
+    }
+    return (b.helpfulness - a.helpfulness);
+  });
   const [showModal, setShowModal] = useState(false);
   const [questionId, setQuestionId] = useState(0);
   const [questionText, setQuestionText] = useState('');
   const [report, setReport] = useState(false);
+  const [displayedAns, setDisplayedAns] = useState(answerslist.slice(0, 2));
+  const [showCollapseBtn, setShowCollapeBtn] = useState(false);
+  const [showLoadMoreBtn, setShowLoadMoreBtn] = useState(true);
+
+  const handleLoadMoreBtn = function () {
+    setShowCollapeBtn(true);
+    setDisplayedAns(answerslist.slice());
+  };
+
+  const handleCollapseBtn = function () {
+    setShowCollapeBtn(false);
+    setDisplayedAns(answerslist.slice(0, 2));
+  };
 
   const handleClickAddAnsButton = function (event, id) {
     setShowModal(true);
@@ -104,8 +124,8 @@ export default function QandA({ ele, key, productName }) {
             </span>
           </div>
         </Container>
-        {answerslist.map((a, aIndex) => (
-          <div key={aIndex}>
+        {displayedAns.map((a, aIndex) => (
+          <div key={aIndex} style={{ maxHeight: '200px', overflow: 'scroll' }}>
             A:
             {a.body}
             <div style={{ padding: '10px', display: 'flex', flexWrap: 'wrap' }}>
@@ -128,9 +148,10 @@ export default function QandA({ ele, key, productName }) {
             </div>
           </div>
         ))}
+        {(answerslist.length > 2 && !showCollapseBtn) && <button type="button" onClick={() => handleLoadMoreBtn()}>LOAD MORE ANSWERS</button>}
+        {(answerslist.length > 2 && showCollapseBtn) && <button type="button" onClick={() => handleCollapseBtn()}>COLLAPSE ANSWERS</button>}
       </div>
     </div>
-
   );
 }
 
