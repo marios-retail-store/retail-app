@@ -11,6 +11,7 @@ describe('rendering of Carousel', () => {
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
     const accessories = screen.getByText('ACCESSORIES');
     const pants = screen.getByText('PANTS');
@@ -26,6 +27,7 @@ describe('rendering of Carousel', () => {
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
     const accessory = screen.getByText('Bright Future Sunglasses (Black Lenses & Gold Frame)');
     const pants = screen.getByText('Morning Joggers (Black)');
@@ -36,11 +38,12 @@ describe('rendering of Carousel', () => {
     expect(kicks).toBeInTheDocument();
   });
 
-  it('Displays 4 Cards In the Carousel even though there are 3 visible', () => {
+  it('Displays 4 Cards In the Carousel', () => {
     render(<Carousel
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
     const carousel = screen.getByTestId('Carousel');
     const Cards = screen.getAllByText(/00/);
@@ -52,41 +55,61 @@ describe('rendering of Carousel', () => {
     // screen.debug(); // this 'console logs' the test DOM
   });
 
-  it('Is a flex container', () => {
+  it('Has a parent carousel div that has an overflow property of hidden', () => {
     render(<Carousel
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
     const carousel = screen.getByTestId('Carousel');
     expect(carousel).toBeInTheDocument();
-    expect(carousel).toHaveStyle('display: flex');
+    expect(carousel).toHaveStyle('overflow: hidden');
     // screen.debug(); // this 'console logs' the test DOM
   });
 
-  it('flows left to right with no wrap', () => {
+  it('Has an inner container div that has a whitespace property of nowrap', () => {
     render(<Carousel
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
-    const carousel = screen.getByTestId('Carousel');
-    expect(carousel).toBeInTheDocument();
-    expect(carousel).toHaveStyle({
-      flexDirection: 'row',
-      flexWrap: 'nowrap',
+    const container = screen.getByTestId('Container');
+    expect(container).toBeInTheDocument();
+    expect(container).toHaveStyle({
+      whiteSpace: 'nowrap',
     });
   });
 
-  it('Aligns cards from the end of the flex container ', () => {
+  it('Has an inner container div that has a transition property of 600ms', () => {
     render(<Carousel
       products={products}
       styles={pStyles}
       type="related"
+      actionBtnFunc={() => console.log('test')}
     />);
-    const carousel = screen.getByTestId('Carousel');
-    expect(carousel).toBeInTheDocument();
-    expect(carousel).toHaveStyle('align-items: flex-end');
+    const container = screen.getByTestId('Container');
+    expect(container).toBeInTheDocument();
+    expect(container).toHaveStyle({
+      transition: '0.6s',
+    });
+  });
+
+  it('Never shows the left button on initial load', () => {
+    render(<Carousel
+      products={products}
+      styles={pStyles}
+      type="related"
+      actionBtnFunc={() => console.log('test')}
+    />);
+    console.log(screen);
+    const leftBtn = screen.getByTestId('leftButton');
+    const rightBtn = screen.getByTestId('rightButton');
+    expect(leftBtn).toBeInTheDocument();
+    expect(rightBtn).toBeInTheDocument();
+    expect(leftBtn).toHaveStyle('visibility: hidden');
+    expect(rightBtn).toHaveStyle('visibility: visible');
     // screen.debug(); // this 'console logs' the test DOM
   });
 });
