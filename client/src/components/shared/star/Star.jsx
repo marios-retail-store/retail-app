@@ -49,12 +49,14 @@ function Star({ filled }) {
 
   return (
     <StarContainer>
-      <StyledStar
-        className="material-symbols-outlined"
-        filledPercentage={filledPercentage}
-      >
-        grade
-      </StyledStar>
+      {filledPercentage !== 100 && (
+        <StyledStar
+          className="material-symbols-outlined"
+          filledPercentage={filledPercentage}
+        >
+          grade
+        </StyledStar>
+      )}
       {filledPercentage !== 0 && (
         <FilledStar
           data-testid="filled-star"

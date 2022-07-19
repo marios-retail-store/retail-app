@@ -12,12 +12,27 @@ describe('Image List', () => {
     />);
     const stars = screen.getAllByText('grade');
     expect(stars.length).toBe(5);
+    const tryFindFilledStar = () => screen.getAllByTestId('filled-star');
+    expect(tryFindFilledStar).toThrow();
   });
-  it('should display 10 stars for a rating that averages to be higher or equal to 4.25', () => {
+
+  it('should display 5 filled stars for a rating of 5, and no outlines', () => {
+    render(<StarRating
+      averageRating={5}
+    />);
+    const stars = screen.getAllByText('grade');
+    expect(stars.length).toBe(5);
+    const filledStars = screen.getAllByTestId('filled-star');
+    expect(filledStars.length).toBe(5);
+  });
+
+  it('should display 6 stars for ratings between 0 and 5. The half filled star will have an outline star, and a filled star', () => {
     render(<StarRating
       averageRating={4.2}
     />);
     const stars = screen.getAllByText('grade');
-    expect(stars.length).toBe(10);
+    expect(stars.length).toBe(6);
+    const filledStars = screen.getAllByTestId('filled-star');
+    expect(filledStars.length).toBe(5);
   });
 });
