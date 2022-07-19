@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const IconContainer = styled('div')`
-  position: fixed;
-  z-index: 92;
-  bottom: 30px;
   height: 40px;
   ${(props) => {
     // margin is 5px either side
@@ -14,7 +11,7 @@ const IconContainer = styled('div')`
     const width = 10 + 34 * props.listLength;
     return `
       width: ${width}px;
-      left: calc(50% - ${width / 2}px);
+      ${'' /* left: calc(50% - ${width / 2}px); */}
     `;
   }}
   background-color: white;
@@ -71,7 +68,7 @@ function IconList({ listLength, currentIconIndex, setCurrentIconIndex }) {
       })}
     </IconContainer>
   );
-};
+}
 
 IconList.propTypes = {
   listLength: PropTypes.number.isRequired,

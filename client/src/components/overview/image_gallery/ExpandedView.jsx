@@ -2,18 +2,24 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ArrowButton from './ArrowButton.jsx';
-import IconList from './IconList.jsx';
 import ExpandedViewImage from './ExpandedViewImage.jsx';
+import ExpandedViewBottomUI from './ExpandedViewBottomUI.jsx';
 
-const BlackBackground = styled('div')`
-  background-color: rgba(0, 0, 0, .5);
+const ModalBackground = styled('div')`
+  background-color: rgba(200, 200, 200, .5);
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   position: fixed;
   z-index: 90;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(50px);
+`;
+
+const BottomUIContainer = styled('div')`
+  position: fixed;
+  bottom: 30px;
+
 `;
 
 const MainImageContainer = styled('div')`
@@ -54,7 +60,9 @@ const ArrowButtonContainerRight = styled(ArrowButtonContainer)`
   right: 30px;
 `;
 
-function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
+function ExpandedView({
+  photos, currentImgIndex, setCurrentImgIndex, closeView,
+}) {
   const [isZoomedIn, setIsZoomedIn] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -82,11 +90,7 @@ function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
   };
 
   return (
-    <BlackBackground
-      onClick={() => {
-        console.log('closing');
-      }}
-    >
+    <ModalBackground>
       <MainImageContainer
         onClick={(e) => {
           e.stopPropagation();
@@ -128,13 +132,16 @@ function ExpandedView({ photos, currentImgIndex, setCurrentImgIndex }) {
       </MainImageContainer>
       {displayUI
         && (
-          <IconList
-            listLength={photos.length}
-            currentIconIndex={currentImgIndex}
-            setCurrentIconIndex={setCurrentImgIndex}
-          />
+          <BottomUIContainer>
+            <ExpandedViewBottomUI
+              listLength={photos.length}
+              currentIconIndex={currentImgIndex}
+              setCurrentIconIndex={setCurrentImgIndex}
+              closeView={closeView}
+            />
+          </BottomUIContainer>
         )}
-    </BlackBackground>
+    </ModalBackground>
   );
 }
 
@@ -145,6 +152,7 @@ ExpandedView.propTypes = {
   })).isRequired,
   currentImgIndex: PropTypes.number.isRequired,
   setCurrentImgIndex: PropTypes.func.isRequired,
+  closeView: PropTypes.func.isRequired,
 };
 
 export default ExpandedView;
