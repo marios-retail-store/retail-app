@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -11,7 +10,6 @@ const configobj = require('../../../config.js');
 
 export default function QuestionsAndAnswers({ productId, productName }) {
   const [qalist, setQalist] = useState([]);
-  const [qaButtonVisible, setQaButtonVisible] = useState(true);
   const [morePageNum, setMorePageNum] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
 
@@ -49,6 +47,10 @@ export default function QuestionsAndAnswers({ productId, productName }) {
     }
   };
 
+  const handleCollapseBtn = function() {
+    setMorePageNum(0);
+  };
+
   return (
 
     <div>
@@ -75,6 +77,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
           MORE ANSWERED QUESTIONS
         </button>
       )}
+      {qalist.slice(0, 4 + morePageNum * 2).length > 4 && <button type="button" onClick={() => handleCollapseBtn()}>COLLAPSE ALL</button>}
       <QuestionModal productId={qalist.product_id} productName={productName} />
     </div>
 
