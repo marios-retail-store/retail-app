@@ -20,7 +20,6 @@ export default function QuestionsAndAnswers({ productId, productName }) {
     url: `${url}qa/questions`,
     method: 'GET',
     headers: {
-      // 'User-Agent': 'request',
       Authorization: configobj.TOKEN,
     },
     params: {
@@ -30,11 +29,9 @@ export default function QuestionsAndAnswers({ productId, productName }) {
     },
   };
 
-  // component did mount
   useEffect(() => {
     axios(options)
       .then((response) => {
-        console.log('axios get request', response.data);
         setQalist(response.data);
         setPageNum(pageNum + 1);
       })

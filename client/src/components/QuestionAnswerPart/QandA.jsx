@@ -26,13 +26,7 @@ const Button = styled('button')`
 `;
 const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
 export default function QandA({ qalist, productName }) {
-  console.log('show productName: ', productName);
-  // console.log('show product id: ', typeof (qalist.product_id), qalist.product_id);
   let results = [];
-  // sort the questions and answers list for answer with priority from 'seller'
-  // or with higher helpfulness scores
-  // sort the questions and answers lists for questions with higher helpfulness scores
-  // eslint-disable-next-line react/prop-types
   if (qalist.results) {
     results = qalist.results.map((ele) => ({
       id: ele.question_id,
@@ -139,11 +133,11 @@ export default function QandA({ qalist, productName }) {
               </div>
             ))}
           </div>
-        )) : <QuestionModal productId={qalist.product_id} />}
+        )) : <QuestionModal productId={qalist.product_id} productName={productName} />}
       </div>
       <MoreAandQ />
       <br />
-      <QuestionModal />
+      <QuestionModal productId={qalist.product_id} productName={productName} />
     </div>
 
   );

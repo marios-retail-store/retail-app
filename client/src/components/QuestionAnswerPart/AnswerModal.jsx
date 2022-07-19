@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -26,17 +27,13 @@ export default function AnswerModal({
   const [email, setEmail] = useState('');
   const [photosUrl, setPhotosUrl] = useState([]);
   const [photosUploadFile, setPhotosUpload] = useState([]);
-  const [errMessage, setErrMessage] = useState([]);
 
   const handlePhotosChange = function (event) {
-    // console.log('show files name: ', event.target.files);
     setPhotosUpload(event.target.files); // object
-  // console.log('show photos upload array: ', photosUploadFile);
   };
 
   const handlePhotosUpload = async function (event, files) {
     event.preventDefault();
-    // console.log('show files in handle photos upload :', files);
     if (files.length <= 5) {
       const url = [];
       const promisesUpload = [];
@@ -63,7 +60,6 @@ export default function AnswerModal({
       alert('No More Than 5 Photos PLEASE');
     }
   };
-    // console.log('show photosUrl state array: ', photosUrl);
 
   const isValidEmail = function (value) {
     const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -83,25 +79,24 @@ export default function AnswerModal({
         photosUrl,
       },
     };
-
+    const messages = [];
     if (!isValidEmail(email)) {
-      setErrMessage([...errMessage, 'Email']);
+      messages.push('Email');
     }
-    if (!answer.leng) {
-      setErrMessage([...errMessage, 'Answer']);
+    if (!answer.length) {
+      messages.push('Answer');
     }
     if (!nickname.length) {
-      setErrMessage([...errMessage, 'Nickname']);
-      console.log('show nickname: ',nickname);
+      messages.push('Nickname');
     }
     if (photosUrl.length !== photosUploadFile.length) {
-      setErrMessage([...errMessage, 'Photo Uploading']);
+      messages.push('Files invalid');
     }
-    if (errMessage.length) {
-      alert(`Please enter correct values in the following fields: ${errMessage.join(',')}`);
+    if (messages.length) {
+      alert(`Please enter correct values in the following fields: ${messages.join(',')}`);
     } else {
       axios(option).then(() => setShowModal(false))
-        .catch((err) => console.log('Error during submit form'));
+        .catch((err) => console.log('Error during submit answer form'));
     }
   };
 
@@ -143,18 +138,18 @@ export default function AnswerModal({
         <label htmlFor="nickname">
           Nickname *  &nbsp;
           <input
-            placeholder="Example: jack543!"
-            maxLength={66}
+            placeholder="Example: jack543"
+            maxLength={60}
             onChange={(event) => setNickname(event.target.value)}
           />
           <p> For privacy reasons, do not use your full name or email address !!</p>
         </label>
         <label htmlFor="email">
-          Email*&nbsp;
+          Email * &nbsp;
           <input
             autoComplete="off"
             type="email"
-            maxLength={66}
+            maxLength={60}
             placeholder="jack@email.com"
             onChange={(event) => setEmail(event.target.value)}
           />
