@@ -8,7 +8,6 @@ import Moment from 'react-moment';
 import QuestionModal from './QuestionModal.jsx';
 import HelpfulNess from './HelpfulNess.jsx';
 import AnswerModal from './AnswerModal.jsx';
-import LoadMoreAnswers from './LoadMoreAnswers.jsx';
 
 const configobj = require('../../../../config.js');
 
@@ -127,7 +126,6 @@ export default function QandA({ ele, key, productName }) {
                 <Button type="button" id={ele.id} onClick={(event) => handleReport(event, event.target.id)}>Report</Button>
               </span>
             </div>
-            <LoadMoreAnswers />
           </div>
         ))}
       </div>
