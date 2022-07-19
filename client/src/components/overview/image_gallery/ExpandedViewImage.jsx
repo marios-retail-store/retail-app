@@ -14,11 +14,21 @@ const StyledImg = styled('img')`
         height: 100%;
         width: 100%;
         object-fit: contain;
+        cursor: url("data:image/svg+xml;utf8,
+        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><polygon
+          points='0,11 0,13 11,13, 11,24, 13,24, 13,13 24,13 24,11, 13,11 13,0 11,0 11,11'
+        /></svg>
+      ") 12 12, pointer;
       `;
     }
     return `
       height: 250%;
       width: auto;
+      cursor: url("data:image/svg+xml;utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><polygon
+        points='0,11 0,13 24,13 24,11'
+      /></svg>
+      ") 12 12, pointer;
     `;
   }}
 `;
