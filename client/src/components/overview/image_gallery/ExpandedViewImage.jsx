@@ -53,19 +53,10 @@ function ExpandedViewImage({
     });
   }, [isZoomedIn]);
 
-  // when mouse is in the middle: 50
-  // - get difference between container and img
-  // - offset is -half that difference
-  // when mouse is at left: 0
-  // - get difference between container and img
-  // - offset is 0
-  // when mouse is at right: 100
-  // - get difference between container and img
-  // - offset is -that difference
   const imgOffset = {
     x: containerSize.x < imgSize.x
-      ? mousePercentage.x * (containerSize.x - imgSize.x)
-      : (containerSize.x - imgSize.x) / 2,
+      ? mousePercentage.x * (containerSize.x - imgSize.x) // displace image to inverse follow mouse
+      : (containerSize.x - imgSize.x) / 2, // if container is bigger than img, center img
     y: containerSize.y < imgSize.y
       ? mousePercentage.y * (containerSize.y - imgSize.y)
       : (containerSize.y - imgSize.y) / 2,

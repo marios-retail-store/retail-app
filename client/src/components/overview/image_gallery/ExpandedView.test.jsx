@@ -141,24 +141,4 @@ describe('Image List', () => {
     const tryFindIcons = () => screen.getAllByText('fiber_manual_record');
     expect(tryFindIcons).toThrow();
   });
-
-  it('', () => {
-
-  });
-
-  it('', () => {
-
-  });
-
-  it('', () => {
-
-  });
-
-  it('', () => {
-
-  });
-
-  it('', () => {
-
-  });
 });
