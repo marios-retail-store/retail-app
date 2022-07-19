@@ -25,25 +25,6 @@ const Button = styled('button')`
 `;
 const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
 export default function QandA({ ele, key, productName }) {
-  // let results = [];
-  // if (qa) {
-  //   results = results.push({
-  //     id: qa.question_id,
-  //     questionText: qa.question_body,
-  //     helpfulness: qa.question_helpfulness,
-  //     answerslist: Object.values(qa.answers).sort((a, b) => {
-  //       if (a.answerer_name.toLowerCase() === 'seller') {
-  //         return -1;
-  //       } if (b.answerer_name.toLowerCase() === 'seller') {
-  //         return 1;
-  //       }
-  //       return (b.helpfulness - a.helpfulness);
-  //     })
-  //       .slice(0, 2),
-
-  //   })
-  //     .sort((a, b) => b.helpfulness - a.helpfulness);
-  // }
   const answerslist = Object.values(ele.answers).sort((a, b) => {
     if (a.answerer_name.toLowerCase() === 'seller') {
       return -1;
