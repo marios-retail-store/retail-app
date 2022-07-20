@@ -4,7 +4,6 @@ const getStockArrayFromStyle = (style) => {
   skus = skus.filter((skuEntry) => (
     skuEntry[0] !== 'null' && skuEntry[1].quantity !== null && skuEntry[1].size !== null
   ));
-  console.log('post:', skus.length);
   skus.sort((a, b) => a[0] - b[0]);
   skus = skus.filter((entry) => entry[1].quantity > 0);
   return skus.map((entry) => (
