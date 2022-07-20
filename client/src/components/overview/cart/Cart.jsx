@@ -8,8 +8,17 @@ import AddToCart from './AddToCart.jsx';
 import getStockArrayFromStyle from './getStockArrayFromStyle.js';
 import CustomDropdown from './CustomDropdown.jsx';
 
+const ErrorMsgSpacer = styled('div')`
+  height: 20px;
+`;
+
 const ErrorMsg = styled('small')`
   color: red;
+`;
+
+const CartContainer = styled('div')`
+  display: grid;
+  grid-template-columns: fit-content(100%) fit-content(100%);
 `;
 
 function Cart({ style }) {
@@ -66,33 +75,36 @@ function Cart({ style }) {
 
   return (
     <div>
-      {showSizeError && <ErrorMsg>please select size</ErrorMsg>}
-      <CustomDropdown
-        className="size-dropdown"
-        options={stock.map((item) => item.size)}
-        width={150}
-        height={30}
-        disabled={stock.length === 0}
-        customOpen={sizeDropdownIsOpen}
-        customSetOpen={setSizeDropdownIsOpen}
-        customSelected={sizeDropdownDisplayedText}
-        customSetSelected={setSelectedSKUWrapper}
-      />
-      {/* <QuantityDropdown   remember to block this button if no size chosen /> */}
-      <CustomDropdown
-        className="quantity-dropdown"
-        options={quantityDropdownOptions}
-        width={150}
-        height={30}
-        disabled={selectedSKU === null}
-        customSelected={selectedQuantity}
-        customSetSelected={setSelectedQuantity}
-      />
-      {stock.length !== 0 && (
-        <AddToCart
-          submitAddToCart={submitAddToCart}
+      <ErrorMsgSpacer>
+        {showSizeError && <ErrorMsg>please select size</ErrorMsg>}
+      </ErrorMsgSpacer>
+      <CartContainer>
+        <CustomDropdown
+          className="size-dropdown"
+          options={stock.map((item) => item.size)}
+          width={150}
+          height={30}
+          disabled={stock.length === 0}
+          customOpen={sizeDropdownIsOpen}
+          customSetOpen={setSizeDropdownIsOpen}
+          customSelected={sizeDropdownDisplayedText}
+          customSetSelected={setSelectedSKUWrapper}
         />
-      )}
+        <CustomDropdown
+          className="quantity-dropdown"
+          options={quantityDropdownOptions}
+          width={50}
+          height={30}
+          disabled={selectedSKU === null}
+          customSelected={selectedQuantity}
+          customSetSelected={setSelectedQuantity}
+        />
+        {stock.length !== 0 && (
+          <AddToCart
+            submitAddToCart={submitAddToCart}
+          />
+        )}
+      </CartContainer>
     </div>
   );
 }

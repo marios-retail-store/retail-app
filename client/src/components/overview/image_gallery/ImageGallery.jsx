@@ -7,7 +7,7 @@ import ExpandedView from './ExpandedView.jsx';
 const ImageGalleryContainer = styled('div')`
   position: relative;
   height: 600px;
-  width: 800px;
+  width: 100%;
   display: flex;
   justify-content: center;
 `;

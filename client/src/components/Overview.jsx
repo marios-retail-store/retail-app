@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import GeneralInfo from './overview/product_info/GeneralInfo.jsx';
 import ImageGallery from './overview/image_gallery/ImageGallery.jsx';
 import Slogan from './overview/product_info/Slogan.jsx';
@@ -12,30 +13,61 @@ import {
   product, styleAllInStock, styleNoneInStock, styles,
 } from './overview/exampledata.js';
 
+const Container = styled('div')`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+`;
+
+const ImageGalleryGridContainer = styled('div')`
+  grid-column: 1;
+  grid-row: 1;
+`;
+
+const ProductInfoGridContainer = styled('div')`
+  grid-column: 2;
+  grid-row: 1;
+  padding-left: 20px;
+`;
+
+const SloganGridContainer = styled('div')`
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  display: flex;
+  justify-content: center;
+`;
+
 function Overview() {
   return (
-    <>
-      <ImageGallery
-        style={styleAllInStock}
-      />
-      <StarRating
-        averageRating={4.2}
-      />
-      <GeneralInfo
-        product={product}
-        style={styleAllInStock}
-      />
-      <SocialsSharing />
-      <StyleSelector
-        styles={styles}
-      />
-      <Cart
-        style={styleAllInStock}
-      />
-      <Slogan
-        product={product}
-      />
-    </>
+    <Container>
+      <ImageGalleryGridContainer>
+        <ImageGallery
+          style={styleAllInStock}
+        />
+      </ImageGalleryGridContainer>
+      <ProductInfoGridContainer>
+        <StarRating
+          averageRating={4.2}
+        />
+        <GeneralInfo
+          product={product}
+          style={styleAllInStock}
+        />
+        <StyleSelector
+          styles={styles}
+        />
+        <Cart
+          style={styleAllInStock}
+        />
+        <SocialsSharing />
+      </ProductInfoGridContainer>
+      <SloganGridContainer>
+        <Slogan
+          product={product}
+        />
+      </SloganGridContainer>
+    </Container>
   );
 }
 

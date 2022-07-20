@@ -19,8 +19,9 @@ const CheckMarkContainer = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  user-select: none;
   margin: 5px;
+  border-radius: 50%;
 `;
 
 const CheckMark = styled('span')`
@@ -34,8 +35,9 @@ const StyleImg = styled('img')`
   left: 0;
   position: absolute;
   object-fit: cover;
-
+  user-select: none;
   margin: 5px;
+  border-radius: 50%;
 `;
 
 function StyleThumbnail({ style, selected, selectStyle }) {

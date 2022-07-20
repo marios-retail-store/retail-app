@@ -6,6 +6,9 @@ const Container = styled('div')`
   height: ${(props) => `${props.height}px`};
   width: ${(props) => `${props.width}px`};
   position: relative;
+  &:first-child {
+    margin-right: 5px;
+  }
 `;
 
 const DropdownStyle = styled('div')`

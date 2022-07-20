@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const SaleText = styled('small')`
   color: red;
+  margin-right: 1em;
 `;
 
 const StrikeThroughText = styled('small')`
