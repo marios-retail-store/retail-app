@@ -31,6 +31,7 @@ const Selector = styled(DropdownStyle)`
 `;
 
 const Option = styled(DropdownStyle)`
+  border-top: 0;
   z-index: 51;
   top: ${(props) => `${props.height + props.index * props.height}px`};
 `;

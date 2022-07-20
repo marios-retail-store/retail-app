@@ -8,6 +8,7 @@ const app = express();
 app.use(require('morgan')('tiny'));
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
+app.use(express.json());
 
 app.all('/api/*', (req, res) => {
   req.url = req.url.slice(4); // take off /api
