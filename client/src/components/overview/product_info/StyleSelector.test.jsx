@@ -157,6 +157,6 @@ describe('style selector', () => {
     />);
     const thumbnailContainers = screen.getAllByTestId('style-container');
     // needs to be async, as the setState is async
-    const check = within(thumbnailContainers[1]).findByText('check');
+    within(thumbnailContainers[1]).findByText('check');
   });
 });
