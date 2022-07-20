@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  BrowserRouter, Routes, Route, useParams, Navigate,
-} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Overview from './Overview.jsx';
 import ProductsAndOutfits from './ProductsAndOutfits.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers.jsx';
 
-function Website() {
+function App() {
   const { productId } = useParams();
 
   const [product, setProduct] = useState(undefined);
@@ -65,19 +63,4 @@ function Website() {
   );
 }
 
-export default function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path=":productId"
-          element={<Website />}
-        />
-        <Route
-          path="*"
-          element={<Navigate to="/40344" />}
-        />
-      </Routes>
-    </BrowserRouter>
-  );
-}
+export default App;
