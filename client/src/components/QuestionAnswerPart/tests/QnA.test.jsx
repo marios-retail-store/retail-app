@@ -3,7 +3,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import QuestionsAndAnswers from '../../QuestionsAndAnswers.jsx';
-import SearchBar from '../SearchBar.jsx';
 
 describe('QuestionsAndAnswers component', () => {
   it('render h3 element', () => {
@@ -20,7 +19,7 @@ describe('QuestionsAndAnswers component', () => {
   });
 
   it('should have a placeholder', () => {
-    render(<SearchBar />);
+    render(<QuestionsAndAnswers productId={40344} productName="hoodies" />);
     const text = screen.getByPlaceholderText('HAVE A QUESTION? SEARCH FOR ANSWERS ......');
     expect(text).toBeInTheDocument();
   });

@@ -8,7 +8,7 @@ import configobj from '../../../../config.js';
 const Button = styled('button')`
   border:none;
   background:none;
-  padding:0;
+  padding:0px;
   text-decoration:underline;
   cursor:pointer;
 `;

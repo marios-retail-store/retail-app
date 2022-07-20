@@ -50,9 +50,11 @@ export default function QuestionsAndAnswers({ productId, productName }) {
 
   const [searchText, setSearchText] = useState('');
   const handleSearch = function (event) {
-    if (event.target.value.length >= 3 || event.target.value.length === 0) {
+    if (event.target.value.length >= 3) {
       setSearchText(event.target.value);
       setMorePageNum(0);
+    } else {
+      setSearchText('');
     }
   };
 

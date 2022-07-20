@@ -1,5 +1,6 @@
 /* eslint-disable no-alert */
-/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-array-index-key */
+
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -14,11 +15,18 @@ const Form = styled('form')`
   fontSize: '20px',
 `;
 const PhotoDiv = styled('div')`
-  display: 'flex',
+  float:'right',
   flex-wrap: 'wrap',
   height: '10px',
   width: '10px',
 `;
+const Image = styled('img')`
+border: 1px solid #ddd;
+border-radius: 4px;
+padding: 5px;
+width: 200px;
+`;
+
 export default function AnswerModal({
   questionText, productName, setShowModal, questionId,
 }) {
@@ -172,7 +180,7 @@ export default function AnswerModal({
               {photosUrl.map((item, index) => (
                 <div key={index}>
                   <a href={item}>
-                    <img src={item} alt="testImage" />
+                    <Image src={item} alt="testImage" />
                   </a>
                 </div>
               ))}
