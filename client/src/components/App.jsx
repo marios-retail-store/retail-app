@@ -56,7 +56,13 @@ function App() {
 
   return (
     <div>
-      <Overview />
+      <Overview
+        product={product}
+        styles={styles}
+        reviews={reviews}
+        selectedStyleId={selectedStyleId}
+        setSelectedStyleId={setSelectedStyleId}
+      />
       <ProductsAndOutfits />
       <QuestionsAndAnswers productId={40344} productName="hoodies" />
     </div>
