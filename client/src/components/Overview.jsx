@@ -45,7 +45,7 @@ function Overview({
 
 Overview.propTypes = {
   reviews: PropTypes.shape({
-    result: PropTypes.arrayOf(PropTypes.shape({
+    results: PropTypes.arrayOf(PropTypes.shape({
       rating: PropTypes.number.isRequired,
     })).isRequired,
   }),
