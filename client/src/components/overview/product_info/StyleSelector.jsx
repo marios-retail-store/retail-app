@@ -13,7 +13,9 @@ function StyleSelector({ styles, selectedStyleId, setSelectedStyleId }) {
   return (
     <>
       <h3>{`Style: ${styles.results[selectedStyleId].name}`}</h3>
-      <StyleContainer>
+      <StyleContainer
+        data-testid="style-container"
+      >
         {styles.results.map((style, index) => (
           <StyleThumbnail
             key={style.style_id}
