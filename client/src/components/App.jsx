@@ -16,17 +16,6 @@ function App() {
 
   useEffect(() => {
     axios({
-      url: `/api/products/${productId}`,
-      method: 'get',
-    })
-      .then((response) => {
-        setProduct(response.data);
-      })
-      .catch((err) => {
-        console.error('failed getting product', err);
-      });
-
-    axios({
       url: `/api/products/${productId}/styles`,
       method: 'get',
     })
@@ -35,6 +24,17 @@ function App() {
       })
       .catch((err) => {
         console.error('failed getting styles', err);
+      });
+
+    axios({
+      url: `/api/products/${productId}`,
+      method: 'get',
+    })
+      .then((response) => {
+        setProduct(response.data);
+      })
+      .catch((err) => {
+        console.error('failed getting product', err);
       });
 
     axios({
