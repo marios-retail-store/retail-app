@@ -1,12 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { BoldSubHeading, Paragraph } from '../../shared/styles.js';
+
+const Container = styled('div')`
+  width: calc(100% - 400px);
+`;
+
+const BoldSubHeadingSpacing = styled(BoldSubHeading)`
+  margin: 20px 0;
+`;
 
 function Slogan({ product }) {
   return (
-    <>
-      {product.slogan && <h3>{product.slogan}</h3>}
-      {product.description && <p>{product.description}</p>}
-    </>
+    <Container>
+      {product.slogan && <BoldSubHeadingSpacing>{product.slogan}</BoldSubHeadingSpacing>}
+      {product.description && <Paragraph>{product.description}</Paragraph>}
+    </Container>
   );
 }
 

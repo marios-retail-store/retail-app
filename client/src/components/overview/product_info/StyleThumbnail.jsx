@@ -9,33 +9,35 @@ const Container = styled('div')`
 `;
 
 const CheckMarkContainer = styled('div')`
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   top: 0;
   left: 0;
-  background-color: rgb(255, 255, 255, .8);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  border: 1px solid white;
   position: absolute;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  margin: 5px;
+  user-select: none;
+  border-radius: 50%;
 `;
 
 const CheckMark = styled('span')`
-  font-variation-settings: 'FILL' 0, 'wght' 800, 'GRAD' 0, 'opsz' 48;
+  font-variation-settings: 'FILL' 0, 'wght' 800, 'GRAD' 25, 'opsz' 48;
 `;
 
 // div for now without internet
 const StyleImg = styled('img')`
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   left: 0;
   position: absolute;
   object-fit: cover;
-
-  margin: 5px;
+  user-select: none;
+  border-radius: 50%;
+  border: 1px solid white;
 `;
 
 function StyleThumbnail({ style, selected, selectStyle }) {
