@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import StyleThumbnail from './StyleThumbnail.jsx';
@@ -16,23 +16,22 @@ const StylesContainer = styled('div')`
   margin-top: 15px;
 `;
 
-function StyleSelector({ styles }) {
-  // lift later
-  const [selectedStyleIndex, setSelectedStyleIndex] = useState(0);
-
+function StyleSelector({ styles, selectedStyleId, setSelectedStyleId }) {
   return (
     <Container>
       <SubHeading>
         <SuperBoldSubHeading style={{ display: 'inline' }}>{'Style > '}</SuperBoldSubHeading>
-        {`${styles.results[selectedStyleIndex].name}`}
+        {`${styles.results[selectedStyleId].name}`}
       </SubHeading>
-      <StylesContainer>
+      <StylesContainer
+        data-testid="style-container"
+      >
         {styles.results.map((style, index) => (
           <StyleThumbnail
             key={style.style_id}
             style={style}
-            selected={index === selectedStyleIndex}
-            selectStyle={() => setSelectedStyleIndex(index)}
+            selected={index === selectedStyleId}
+            selectStyle={() => setSelectedStyleId(index)}
           />
         ))}
       </StylesContainer>
@@ -50,6 +49,8 @@ StyleSelector.propTypes = {
       })).isRequired,
     })).isRequired,
   }).isRequired,
+  selectedStyleId: PropTypes.number.isRequired,
+  setSelectedStyleId: PropTypes.func.isRequired,
 };
 
 export default StyleSelector;

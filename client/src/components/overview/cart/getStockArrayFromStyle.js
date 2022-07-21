@@ -1,6 +1,9 @@
 // transforms style's skus into sorted array of {sku_id, size, quantity} objects, where quant > 0
 const getStockArrayFromStyle = (style) => {
   let skus = Object.entries(style.skus);
+  skus = skus.filter((skuEntry) => (
+    skuEntry[0] !== 'null' && skuEntry[1].quantity !== null && skuEntry[1].size !== null
+  ));
   skus.sort((a, b) => a[0] - b[0]);
   skus = skus.filter((entry) => entry[1].quantity > 0);
   return skus.map((entry) => (

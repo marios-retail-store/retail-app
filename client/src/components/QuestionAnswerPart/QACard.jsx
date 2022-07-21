@@ -1,11 +1,9 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
-import QuestionModal from './QuestionModal.jsx';
 import HelpfulNess from './HelpfulNess.jsx';
 import AnswerModal from './AnswerModal.jsx';
 import AnswerPhotos from './AnswerPhotos.jsx';
@@ -14,8 +12,8 @@ const configobj = require('../../../../config.js');
 
 const Container = styled('div')`
   display:flex;
-  direction:row;
-  flex-wrap:wrap
+  flex-wrap:wrap;
+  padding:10px;
 `;
 
 const Button = styled('button')`
@@ -40,7 +38,6 @@ export default function QACard({ ele, productName }) {
   const [report, setReport] = useState(false);
   const [displayedAns, setDisplayedAns] = useState(answerslist.slice(0, 2));
   const [showCollapseBtn, setShowCollapeBtn] = useState(false);
-  const [showLoadMoreBtn, setShowLoadMoreBtn] = useState(true);
 
   const handleLoadMoreBtn = function () {
     setShowCollapeBtn(true);
@@ -63,9 +60,6 @@ export default function QACard({ ele, productName }) {
       method: 'PUT',
       headers: {
         Authorization: configobj.TOKEN,
-      },
-      data: {
-        reported: true,
       },
     };
     if (!report) {
@@ -95,7 +89,7 @@ export default function QACard({ ele, productName }) {
             {ele.question_body}
           </h4>
           <HelpfulNess
-            style={{ textAlign: 'center', padding: '25px' }}
+            style={{ textAlign: 'center' }}
             id={ele.question_id}
             count={ele.question_helpfulness}
           />
@@ -125,12 +119,14 @@ export default function QACard({ ele, productName }) {
               <HelpfulNess id={a.id} count={a.helpfulness} />
               <span>
                     &nbsp; | &nbsp;
-                <Button type="button" id={ele.id} onClick={(event) => handleReport(event, event.target.id)}>Report</Button>
+                <Button type="button" onClick={(event) => handleReport(event, a.id)}>Report</Button>
               </span>
             </div>
-            {a.photos.length > 0 && a.photos.map(
-              (photo, index) => (<AnswerPhotos photo={photo} key={index} />),
-            )}
+            <Container>
+              {a.photos.length > 0 && a.photos.map(
+                (photo, index) => (<AnswerPhotos photo={photo} key={index} />),
+              )}
+            </Container>
           </div>
         ))}
         {(answerslist.length > 2 && !showCollapseBtn) && <button type="button" onClick={() => handleLoadMoreBtn()}>LOAD MORE ANSWERS</button>}
