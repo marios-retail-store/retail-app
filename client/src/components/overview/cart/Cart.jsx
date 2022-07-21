@@ -7,9 +7,24 @@ import _ from 'underscore';
 import AddToCart from './AddToCart.jsx';
 import getStockArrayFromStyle from './getStockArrayFromStyle.js';
 import CustomDropdown from './CustomDropdown.jsx';
+import { Paragraph } from '../../shared/styles.js';
 
-const ErrorMsg = styled('small')`
+const ErrorMsgSpacer = styled('div')`
+  margin: 10px 0;
+  height: 20px;
+  display: flex;
+  align-items: center;
+`;
+
+const ErrorMsg = styled(Paragraph)`
   color: red;
+  text-transform: uppercase;
+`;
+
+const CartContainer = styled('div')`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  column-gap: 15px;
 `;
 
 function Cart({ style }) {
@@ -26,6 +41,9 @@ function Cart({ style }) {
     if (selectedSKU === null) {
       setSelectedQuantity('1');
     }
+    if (showSizeError) {
+      setShowSizeError(false);
+    }
     const sku = stock[stock.map((item) => item.size).indexOf(size)];
     setSelectedSKU(sku);
   };
@@ -36,12 +54,9 @@ function Cart({ style }) {
       setShowSizeError(true);
       return;
     }
-    if (showSizeError) {
-      setShowSizeError(false);
-    }
     for (let i = 0; i < selectedQuantity; i += 1) {
       axios({
-        url: '/cart',
+        url: '/api/cart',
         method: 'post',
         data: { sku_id: selectedSKU.sku_id },
       })
@@ -66,33 +81,36 @@ function Cart({ style }) {
 
   return (
     <div>
-      {showSizeError && <ErrorMsg>please select size</ErrorMsg>}
-      <CustomDropdown
-        className="size-dropdown"
-        options={stock.map((item) => item.size)}
-        width={150}
-        height={30}
-        disabled={stock.length === 0}
-        customOpen={sizeDropdownIsOpen}
-        customSetOpen={setSizeDropdownIsOpen}
-        customSelected={sizeDropdownDisplayedText}
-        customSetSelected={setSelectedSKUWrapper}
-      />
-      {/* <QuantityDropdown   remember to block this button if no size chosen /> */}
-      <CustomDropdown
-        className="quantity-dropdown"
-        options={quantityDropdownOptions}
-        width={150}
-        height={30}
-        disabled={selectedSKU === null}
-        customSelected={selectedQuantity}
-        customSetSelected={setSelectedQuantity}
-      />
-      {stock.length !== 0 && (
-        <AddToCart
-          submitAddToCart={submitAddToCart}
+      <ErrorMsgSpacer>
+        {showSizeError && <ErrorMsg>please select a size</ErrorMsg>}
+      </ErrorMsgSpacer>
+      <CartContainer>
+        <CustomDropdown
+          className="size-dropdown"
+          options={stock.map((item) => item.size)}
+          width="100%"
+          heightInPx={50}
+          disabled={stock.length === 0}
+          customOpen={sizeDropdownIsOpen}
+          customSetOpen={setSizeDropdownIsOpen}
+          customSelected={sizeDropdownDisplayedText}
+          customSetSelected={setSelectedSKUWrapper}
         />
-      )}
+        <CustomDropdown
+          className="quantity-dropdown"
+          options={quantityDropdownOptions}
+          width="100%"
+          heightInPx={50}
+          disabled={selectedSKU === null}
+          customSelected={selectedQuantity}
+          customSetSelected={setSelectedQuantity}
+        />
+        {stock.length !== 0 && (
+          <AddToCart
+            submitAddToCart={submitAddToCart}
+          />
+        )}
+      </CartContainer>
     </div>
   );
 }

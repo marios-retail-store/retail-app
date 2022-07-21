@@ -5,11 +5,13 @@ const axios = require('axios');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
+app.use(require('morgan')('tiny'));
 
+app.use(express.static(path.join(__dirname, '/client/dist')));
 app.use(express.json());
 
-app.all('/*', (req, res) => {
+app.all('/api/*', (req, res) => {
+  req.url = req.url.slice(4); // take off /api
   axios({
     url: req.url,
     baseURL: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp',
@@ -25,6 +27,14 @@ app.all('/*', (req, res) => {
     .catch((err) => {
       res.status(500).send(err);
     });
+});
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/client/dist/index.html'), (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
 });
 
 app.listen(3000);

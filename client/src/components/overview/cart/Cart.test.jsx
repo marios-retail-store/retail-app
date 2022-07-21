@@ -92,7 +92,7 @@ describe('Cart', () => {
       }),
     );
     const option = screen.getByText('XL');
-    const errorMsg = screen.getByText('please select size');
+    const errorMsg = screen.getByText('please select a size');
     expect(option).toBeInTheDocument();
     expect(errorMsg).toBeInTheDocument();
   });

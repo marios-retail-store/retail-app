@@ -1,19 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Heading, SubHeading } from '../../shared/styles.js';
 
-const SaleText = styled('small')`
+const SaleText = styled(SubHeading)`
+  display: inline;
   color: red;
+  margin-right: .8em;
 `;
 
-const StrikeThroughText = styled('small')`
+const StrikeThroughText = styled(SubHeading)`
+  display: inline;
   text-decoration: line-through;
+  opacity: .3;
+`;
+
+const PriceContainer = styled('div')`
+  margin: 25px 0;
+`;
+
+const Container = styled('div')`
+  margin-top: 15px;
 `;
 
 function GeneralInfo({ product, style }) {
   let price;
   if (style.sale_price === null) {
-    price = <small>{`$${style.original_price}`}</small>;
+    price = <SubHeading>{`$${style.original_price}`}</SubHeading>;
   } else {
     price = (
       <>
@@ -24,11 +37,13 @@ function GeneralInfo({ product, style }) {
   }
 
   return (
-    <>
-      <h4>{product.category}</h4>
-      <h2>{product.name}</h2>
-      <small>{price}</small>
-    </>
+    <Container>
+      <SubHeading>{product.category}</SubHeading>
+      <Heading>{product.name}</Heading>
+      <PriceContainer>
+        {price}
+      </PriceContainer>
+    </Container>
   );
 }
 

@@ -6,14 +6,10 @@ const StarContainer = styled('div')`
   position: relative;
   height: 18px;
   width: 18px;
-  margin: 10px 2px 10px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0 2px 0 0;
 `;
 
 const StyledStar = styled('span')`
-  transform: scale(.8);
   user-select: none;
   position: absolute;
   font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 48;

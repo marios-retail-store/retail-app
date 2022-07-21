@@ -9,26 +9,37 @@ const ListContainer = styled('div')`
 `;
 
 const ThumbnailContainer = styled('div')`
+  position: relative;
   height: 55px;
   width: 55px;
   margin: 0 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(0, 0, 0, 0);
+  border: 1px solid white;
+  cursor: pointer;
+  border-radius: 5px;
+  overflow: hidden;
 `;
 
 const ThumbnailContainerHighlight = styled(ThumbnailContainer)`
   cursor: default;
-  border: 2px solid red;
+`;
+
+const HighlightOverlay = styled('div')`
+  position: absolute;
+  height: 55px;
+  width: 55px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  z-index: 1;
+  border-radius: 5px;
 `;
 
 const ImgThumbnail = styled('img')`
-  cursor: pointer;
   height: 100%;
   width: 100%;
   object-fit: cover;
-  z-index: 1;
+  z-index: 0;
 `;
 
 const EmptyArrowContainer = styled('div')`
@@ -37,6 +48,7 @@ const EmptyArrowContainer = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 5px;
 `;
 
 const ArrowContainer = styled('div')`
@@ -104,6 +116,7 @@ function ImageList({
         if (index === currentImgIndex) {
           return (
             <ThumbnailContainerHighlight>
+              <HighlightOverlay />
               {content}
             </ThumbnailContainerHighlight>
           );

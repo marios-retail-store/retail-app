@@ -6,13 +6,32 @@ import { styleAllInStock, styleNoneInStock } from '../exampledata';
 //   output: array of objects, containing sku_id, size, and quantity property
 //           sorted by sku_id (which is ascending by size)
 
+const styleWithNullValues = {
+  skus: {
+    null: {
+      quantity: 1,
+      size: 'XS',
+    },
+    1394818: {
+      quantity: null,
+      size: 'S',
+    },
+    1394819: {
+      quantity: 0,
+      size: null,
+    },
+  },
+};
+
 describe('testing getStockArrayFromStyle helper function', () => {
   let stock;
   let stockNoQuantity;
+  let stockNullValues;
 
   beforeAll(() => {
     stock = getStockArrayFromStyle(styleAllInStock);
     stockNoQuantity = getStockArrayFromStyle(styleNoneInStock);
+    stockNullValues = getStockArrayFromStyle(styleWithNullValues);
   });
 
   test('returns an array in the correct format', () => {
@@ -33,5 +52,9 @@ describe('testing getStockArrayFromStyle helper function', () => {
 
   test('returns an empty array when none of the styles have stock', () => {
     expect(stockNoQuantity).toEqual([]);
+  });
+
+  test('handles null values', () => {
+    expect(stockNullValues).toEqual([]);
   });
 });
