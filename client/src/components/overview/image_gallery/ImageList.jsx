@@ -19,6 +19,7 @@ const ThumbnailContainer = styled('div')`
   border: 1px solid white;
   cursor: pointer;
   border-radius: 5px;
+  overflow: hidden;
 `;
 
 const ThumbnailContainerHighlight = styled(ThumbnailContainer)`
@@ -39,7 +40,6 @@ const ImgThumbnail = styled('img')`
   width: 100%;
   object-fit: cover;
   z-index: 0;
-  border-radius: 5px;
 `;
 
 const EmptyArrowContainer = styled('div')`
