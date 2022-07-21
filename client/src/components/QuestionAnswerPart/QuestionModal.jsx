@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -48,7 +49,7 @@ export default function QuestionModal({ productId, productName }) {
     }
     if (messages.length) {
       setErrMessage(`Please enter correct values in the following fields: ${messages.join(',')}`);
-      // alert(errMessage);
+      alert(errMessage);
     } else {
       axios(option).then(() => setShowModal(false)).catch((err) => console.log('Error during submit question form'));
     }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -9,12 +9,12 @@ padding: 5px;
 width: 200px;
 `;
 
-export default function AnswerPhotos({ photo }) {
+export default function AnswerPhotos({ photo, index }) {
   // const [enlarge, setEnlarge] = useState(false);
   // const handlePhoto = function () {
   //   setEnlarge(!enlarge);
   // };
-
+  const [isZoomedIn, setIsZoomedIn] = useState(false);
   return (
     <div>
       <a href={photo}>
@@ -35,4 +35,5 @@ export default function AnswerPhotos({ photo }) {
 
 AnswerPhotos.propTypes = {
   photo: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };

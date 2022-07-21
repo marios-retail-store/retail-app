@@ -52,7 +52,7 @@ export default function QACard({ ele, productName }) {
   const handleClickAddAnsButton = function (event, id) {
     setShowModal(true);
     setQuestionText(event.target.value);
-    setQuestionId(event.target.id);
+    setQuestionId(id);
   };
   const handleReport = function (event, reportingId) {
     const options = {
@@ -116,6 +116,7 @@ export default function QACard({ ele, productName }) {
               </span>
               &nbsp; &nbsp;
               | &nbsp; &nbsp;
+              <span />
               <HelpfulNess id={a.id} count={a.helpfulness} />
               <span>
                     &nbsp; | &nbsp;
@@ -124,7 +125,7 @@ export default function QACard({ ele, productName }) {
             </div>
             <Container>
               {a.photos.length > 0 && a.photos.map(
-                (photo, index) => (<AnswerPhotos photo={photo} key={index} />),
+                (photo, index) => (<AnswerPhotos photo={photo} key={index} index={index} />),
               )}
             </Container>
           </div>
