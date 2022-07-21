@@ -20,7 +20,7 @@ function StyleSelector({ styles, selectedStyleId, setSelectedStyleId }) {
   return (
     <Container>
       <SuperBoldSubHeading style={{ display: 'inline' }}>{'Style > '}</SuperBoldSubHeading>
-      <SubHeading>
+      <SubHeading style={{ display: 'inline' }}>
         {`${styles.results[selectedStyleId].name}`}
       </SubHeading>
       <StylesContainer
