@@ -56,7 +56,7 @@ function Cart({ style }) {
     }
     for (let i = 0; i < selectedQuantity; i += 1) {
       axios({
-        url: '/cart',
+        url: '/api/cart',
         method: 'post',
         data: { sku_id: selectedSKU.sku_id },
       })

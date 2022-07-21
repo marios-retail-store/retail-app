@@ -20,7 +20,7 @@ function SocialsSharing() {
   // needs to be the website link later on:
   // needs to be the website link later on:
   // needs to be the website link later on:
-  const urlToShare = 'https://www.amazon.com/';
+  const urlToShare = window.location.href;
   const tweetToShare = 'Check this out!';
   const tweetEncoded = encodeURIComponent(tweetToShare);
   return (
@@ -30,7 +30,7 @@ function SocialsSharing() {
           className="fb-share-button"
           data-href={urlToShare}
           data-layout="button"
-          style={{ color: 'white' }}
+          style={{ color: 'rgba(0, 0, 0, 0)' }}
         >
           Share on Facebook
         </div>
@@ -39,7 +39,7 @@ function SocialsSharing() {
         <a
           className="twitter-share-button"
           href={`https://twitter.com/intent/tweet?text=${tweetEncoded}&url=${urlToShare}`}
-          style={{ color: 'white' }}
+          style={{ color: 'rgba(0, 0, 0, 0)' }}
         >
           Tweet
         </a>
@@ -48,7 +48,7 @@ function SocialsSharing() {
         <a
           data-pin-do="buttonBookmark"
           href="https://www.pinterest.com/pin/create/button/"
-          style={{ color: 'white' }}
+          style={{ color: 'rgba(0, 0, 0, 0)' }}
         >
           Save to Pinterest
         </a>

@@ -18,6 +18,7 @@ const ThumbnailContainer = styled('div')`
   justify-content: center;
   border: 1px solid white;
   cursor: pointer;
+  border-radius: 5px;
 `;
 
 const ThumbnailContainerHighlight = styled(ThumbnailContainer)`
@@ -28,8 +29,9 @@ const HighlightOverlay = styled('div')`
   position: absolute;
   height: 55px;
   width: 55px;
-  border-bottom: 5px solid white;
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
   z-index: 1;
+  border-radius: 5px;
 `;
 
 const ImgThumbnail = styled('img')`
@@ -37,6 +39,7 @@ const ImgThumbnail = styled('img')`
   width: 100%;
   object-fit: cover;
   z-index: 0;
+  border-radius: 5px;
 `;
 
 const EmptyArrowContainer = styled('div')`
@@ -45,6 +48,7 @@ const EmptyArrowContainer = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 5px;
 `;
 
 const ArrowContainer = styled('div')`

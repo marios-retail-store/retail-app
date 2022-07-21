@@ -19,8 +19,8 @@ const StylesContainer = styled('div')`
 function StyleSelector({ styles, selectedStyleId, setSelectedStyleId }) {
   return (
     <Container>
+      <SuperBoldSubHeading style={{ display: 'inline' }}>{'Style > '}</SuperBoldSubHeading>
       <SubHeading>
-        <SuperBoldSubHeading style={{ display: 'inline' }}>{'Style > '}</SuperBoldSubHeading>
         {`${styles.results[selectedStyleId].name}`}
       </SubHeading>
       <StylesContainer

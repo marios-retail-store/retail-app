@@ -13,7 +13,7 @@ const CheckMarkContainer = styled('div')`
   width: 60px;
   top: 0;
   left: 0;
-  background-color: rgb(255, 255, 255, .8);
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
   border: 1px solid white;
   position: absolute;
   z-index: 1;
@@ -25,7 +25,7 @@ const CheckMarkContainer = styled('div')`
 `;
 
 const CheckMark = styled('span')`
-  font-variation-settings: 'FILL' 0, 'wght' 800, 'GRAD' 0, 'opsz' 48;
+  font-variation-settings: 'FILL' 0, 'wght' 800, 'GRAD' 25, 'opsz' 48;
 `;
 
 // div for now without internet

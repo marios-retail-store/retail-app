@@ -15,7 +15,7 @@ const IconContainer = styled('div')`
     `;
   }}
   background-color: white;
-  border-radius: 20px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
