@@ -9,6 +9,7 @@ const getStockArrayFromStyle = (style) => {
       if (skus[i][1].quantity > skus[accountedSizeIndices[size]][1].quantity) {
         skus.splice(accountedSizeIndices[size], 1);
         i -= 1;
+        accountedSizeIndices[size] = i;
       } else {
         skus.splice(i, 1);
         i -= 1;
