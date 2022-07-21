@@ -52,43 +52,55 @@ const SloganGridContainer = styled('div')`
 function Overview({
   reviews, product, styles, selectedStyleId, setSelectedStyleId,
 }) {
-  if (!(product && styles && reviews)) {
-    return <code>loading...</code>;
-  }
+  // if (!(product && styles && reviews)) {
+  //   return <code>loading...</code>;
+  // }
 
   return (
     <Container>
       <ImageGalleryGridContainer>
-        <ImageGallery
-          style={styles.results[selectedStyleId]}
-        />
+        {styles && (
+          <ImageGallery
+            style={styles.results[selectedStyleId]}
+          />
+        )}
       </ImageGalleryGridContainer>
       <ProductInfoGridContainer>
         <ProductInfoContent>
-          <StarRating
-            averageRating={getAvgReviews(reviews)}
-          />
-          <GeneralInfo
-            product={product}
-            style={styles.results[selectedStyleId]}
-          />
-          <StyleSelector
-            styles={styles}
-            selectedStyleId={selectedStyleId}
-            setSelectedStyleId={setSelectedStyleId}
-          />
-          <Cart
-            style={styles.results[selectedStyleId]}
-          />
+          {reviews && (
+            <StarRating
+              averageRating={getAvgReviews(reviews)}
+            />
+          )}
+          {product && styles && (
+            <GeneralInfo
+              product={product}
+              style={styles.results[selectedStyleId]}
+            />
+          )}
+          {styles && (
+            <StyleSelector
+              styles={styles}
+              selectedStyleId={selectedStyleId}
+              setSelectedStyleId={setSelectedStyleId}
+            />
+          )}
+          {styles && (
+            <Cart
+              style={styles.results[selectedStyleId]}
+            />
+          )}
         </ProductInfoContent>
         <ProductInfoFooter>
           <SocialsSharing />
         </ProductInfoFooter>
       </ProductInfoGridContainer>
       <SloganGridContainer>
-        <Slogan
-          product={product}
-        />
+        {product && (
+          <Slogan
+            product={product}
+          />
+        )}
       </SloganGridContainer>
     </Container>
   );
