@@ -8,7 +8,7 @@ import QACard from './QuestionAnswerPart/QACard.jsx';
 import QuestionModal from './QuestionAnswerPart/QuestionModal.jsx';
 import { SuperBoldSubHeading } from './shared/styles.js';
 
-const configobj = require('../../../config.js');
+// const configobj = require('../../../config.js');
 
 const SearchContainer = styled('input')`
   height:65px;
@@ -29,17 +29,18 @@ export default function QuestionsAndAnswers({ productId, productName }) {
   const [morePageNum, setMorePageNum] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
 
-  const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
+  // const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
 
   const DEFAULT_PAGE_NUM = 1;
   const DEFAULT_LIMIT = 100;
 
   const options = {
-    url: `${url}qa/questions`,
+  // url: `${url}qa/questions`,
+    url: 'api/qa/questions',
     method: 'GET',
-    headers: {
-      Authorization: configobj.TOKEN,
-    },
+    // headers: {
+    //   Authorization: configobj.TOKEN,
+    // },
     params: {
       product_id: productId,
       page: DEFAULT_PAGE_NUM,

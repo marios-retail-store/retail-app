@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import configobj from '../../../../config.js';
+//import configobj from '../../../../config.js';
 
-const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
+// const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
 
 const Button = styled('button')`
 background-color: #DAEAF1;
@@ -24,12 +24,12 @@ export default function QuestionModal({ productId, productName }) {
   const [showModal, setShowModal] = useState(false);
 
   const option = {
-    url: `${url}qa/questions`,
-    // url: '/api/qa/questions',
+    // url: `${url}qa/questions`,
+    url: '/api/qa/questions',
     method: 'POST',
-    headers: {
-      Authorization: configobj.TOKEN,
-    },
+    // headers: {
+    //   Authorization: configobj.TOKEN,
+    // },
     data: {
       body: quesText,
       name: quesAsker,

@@ -12,7 +12,6 @@ const ModalBackground = styled('div')`
   z-index: 90;
   backdrop-filter: blur(50px);
 `;
-
 const UIContainer = styled('div')`
   position: fixed;
   z-index: 92;
@@ -78,7 +77,7 @@ const StyledImg = styled('img')`
   object-fit: contain;
 `;
 
-function ExpandedView({ url, closeView, fillScreenWithImg }) {
+function ImagePopupModal({ url, closeView }) {
   return (
     <ModalBackground>
       <MainImageContainer
@@ -89,12 +88,11 @@ function ExpandedView({ url, closeView, fillScreenWithImg }) {
         <ImgContainer>
           <StyledImg
             src={url}
-            fillScreenWithImg={fillScreenWithImg}
           />
         </ImgContainer>
         <UIContainer>
           <CloseButton
-            onClick={closeView}
+            onClick={() => closeView()}
           >
             <CloseIcon className="material-symbols-outlined">
               close
@@ -106,14 +104,9 @@ function ExpandedView({ url, closeView, fillScreenWithImg }) {
   );
 }
 
-ExpandedView.propTypes = {
+ImagePopupModal.propTypes = {
   url: PropTypes.string.isRequired,
   closeView: PropTypes.func.isRequired,
-  fillScreenWithImg: PropTypes.bool,
 };
 
-ExpandedView.defaultProps = {
-  fillScreenWithImg: false,
-};
-
-export default ExpandedView;
+export default ImagePopupModal;

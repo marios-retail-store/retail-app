@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import HelpfulNess from './HelpfulNess.jsx';
 import AnswerModal from './AnswerModal.jsx';
-// import AnswerPhotos from './AnswerPhotos.jsx';
-import ExpandedViewImage from '../overview/image_gallery/ExpandedViewImage.jsx';
+import PhotoReview from './PhotoReview.jsx';
 
-const configobj = require('../../../../config.js');
+// const configobj = require('../../../../config.js');
 
 const Container = styled('div')`
   display:flex;
@@ -34,8 +33,6 @@ const MiniButton = styled('button')`
   font-size:15px;
 `;
 
-const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
-
 export default function QACard({ ele, productName }) {
   const answerslist = Object.values(ele.answers).sort((a, b) => {
     if (a.answerer_name.toLowerCase() === 'seller') {
@@ -51,16 +48,6 @@ export default function QACard({ ele, productName }) {
   const [report, setReport] = useState(false);
   const [displayedAns, setDisplayedAns] = useState(answerslist.slice(0, 2));
   const [showCollapseBtn, setShowCollapeBtn] = useState(false);
-
-  const [isZoomedIn, setIsZoomedIn] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const toggleZoom = () => {
-    if (isZoomedIn) {
-      setIsZoomedIn(false);
-    } else {
-      setIsZoomedIn(true);
-    }
-  };
 
   const handleLoadMoreBtn = function () {
     setShowCollapeBtn(true);
@@ -79,11 +66,8 @@ export default function QACard({ ele, productName }) {
   };
   const handleReport = function (event, reportingId) {
     const options = {
-      url: `${url}qa/questions/${reportingId}/report`,
+      url: `api/qa/questions/${reportingId}/report`,
       method: 'PUT',
-      headers: {
-        Authorization: configobj.TOKEN,
-      },
     };
     if (!report) {
       axios(options).then(() => {
@@ -153,23 +137,11 @@ export default function QACard({ ele, productName }) {
             </span>
           </div>
           <Container>
-            {/* {a.photos.length > 0 && a.photos.map(
-                (photo, index) => (<AnswerPhotos url={photo} key={index} index={index} />),
-              )} */}
             {a.photos.length > 0 && a.photos.map(
               (photo, index) => (
-                <ExpandedViewImage
-                  style={{
-                    border: '1px solid #ddd',
-                    borderRadius: '4px',
-                    padding: '5px',
-                    width: '200px',
-                  }}
+                <PhotoReview
                   key={index}
-                  toggleZoom={toggleZoom}
-                  url={photo}
-                  isZoomedIn={isZoomedIn}
-                  mousePosition={mousePosition}
+                  photo={photo}
                 />
               ),
             )}

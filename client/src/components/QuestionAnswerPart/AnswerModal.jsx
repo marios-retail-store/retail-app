@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import configobj from '../../../../config.js';
+// import configobj from '../../../../config.js';
 
 const Form = styled('form')`
   display: 'flex',
@@ -75,11 +75,11 @@ export default function AnswerModal({
   };
 
   const handleSubmit = function () {
-    const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
+    // const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
     const option = {
-      url: `${url}qa/questions/${questionId}/answers`,
+      url: `api/qa/questions/${questionId}/answers`,
       method: 'POST',
-      headers: { Authorization: configobj.TOKEN },
+      // headers: { Authorization: configobj.TOKEN },
       data: {
         body: answer,
         name: nickname,
