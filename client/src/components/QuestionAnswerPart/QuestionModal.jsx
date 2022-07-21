@@ -8,14 +8,24 @@ import configobj from '../../../../config.js';
 
 const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
 
+const Button = styled('button')`
+background-color: #DAEAF1;
+  border-radius: 10px;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+`;
+
 export default function QuestionModal({ productId, productName }) {
   const [quesAsker, setQuesAsker] = useState('');
   const [quesEmail, setQuesEmail] = useState('');
   const [quesText, setQuestionText] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [errMessage, setErrMessage] = useState('');
+
   const option = {
     url: `${url}qa/questions`,
+    // url: '/api/qa/questions',
     method: 'POST',
     headers: {
       Authorization: configobj.TOKEN,
@@ -26,9 +36,6 @@ export default function QuestionModal({ productId, productName }) {
       email: quesEmail,
       product_id: Number(productId),
     },
-  };
-  const handleAlert = function () {
-    setErrMessage('');
   };
 
   const isValidEmail = function (value) {
@@ -48,8 +55,7 @@ export default function QuestionModal({ productId, productName }) {
       messages.push('Nickname');
     }
     if (messages.length) {
-      setErrMessage(`Please enter correct values in the following fields: ${messages.join(',')}`);
-      alert(errMessage);
+      alert(`Please enter correct values in the following fields: ${messages.join(',')}`);
     } else {
       axios(option).then(() => setShowModal(false)).catch((err) => console.log('Error during submit question form'));
     }
@@ -58,7 +64,7 @@ export default function QuestionModal({ productId, productName }) {
   return (
     <div>
       <div>
-        <button type="button" onClick={() => setShowModal(true)}>ADD A QUESTION + </button>
+        <Button type="button" onClick={() => setShowModal(true)}>ADD A QUESTION + </Button>
       </div>
       {showModal && (
       <div style={{ background: '#F5EDDC' }}>
@@ -66,14 +72,6 @@ export default function QuestionModal({ productId, productName }) {
         <h2>
           {`Ask Your Question About the ${productName}`}
         </h2>
-        <div>
-          {errMessage.length ? (
-            <div>
-              <button type="button" onClick={() => handleAlert()}> &nbsp;X &nbsp;</button>
-              <p>{errMessage}</p>
-            </div>
-          ) : null}
-        </div>
         <form>
           <label htmlFor="question">Your Question * &nbsp;</label>
           <textarea type="text" placeholder="Enter Your Question Here Please..." autoComplete="on" maxLength={1000} minLength={1} rows={6} columns={66} onChange={(event) => setQuestionText(event.target.value)} />

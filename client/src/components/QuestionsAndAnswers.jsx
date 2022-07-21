@@ -6,16 +6,24 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import QACard from './QuestionAnswerPart/QACard.jsx';
 import QuestionModal from './QuestionAnswerPart/QuestionModal.jsx';
+import { SuperBoldSubHeading } from './shared/styles.js';
 
 const configobj = require('../../../config.js');
 
 const SearchContainer = styled('input')`
-  height:45px;
-  width:600px;
+  height:65px;
+  width:700px;
   border-radius:5px;
   background:#EAF6F6;
 `;
-
+const Button = styled('button')`
+background-color: #DAEAF1;
+  border-radius: 10px;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+`;
 export default function QuestionsAndAnswers({ productId, productName }) {
   const [qalist, setQalist] = useState([]);
   const [morePageNum, setMorePageNum] = useState(0);
@@ -72,7 +80,8 @@ export default function QuestionsAndAnswers({ productId, productName }) {
   return (
 
     <div>
-      <div><h3 style={{ textAlign: 'left' }}>QUESTIONS & ANSWERS</h3></div>
+      <div><SuperBoldSubHeading>QUESTIONS & ANSWERS</SuperBoldSubHeading></div>
+      <br />
       <SearchContainer type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS ......" onChange={(event) => handleSearch(event)} />
       <div style={{ maxHeight: '800px', overflow: 'scroll' }}>
         {qalist.length > 0
@@ -90,14 +99,14 @@ export default function QuestionsAndAnswers({ productId, productName }) {
       </div>
       <br />
       {isLastPage ? null : (
-        <button
+        <Button
           type="button"
           onClick={() => handleLoadMoreQuestions()}
         >
           MORE ANSWERED QUESTIONS
-        </button>
+        </Button>
       )}
-      {qalist.slice(0, 4 + morePageNum * 2).length > 4 && <button type="button" onClick={() => handleCollapseBtn()}>COLLAPSE ALL</button>}
+      {qalist.slice(0, 4 + morePageNum * 2).length > 4 && <Button type="button" onClick={() => handleCollapseBtn()}>COLLAPSE ALL</Button>}
       <QuestionModal productId={qalist.product_id} productName={productName} />
     </div>
 
