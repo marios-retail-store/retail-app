@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Overview from './Overview.jsx';
 import ProductsAndOutfits from './ProductsAndOutfits.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers.jsx';
+import Header from './Header.jsx';
 
 function App() {
   const { productId } = useParams();
@@ -56,6 +57,7 @@ function App() {
 
   return (
     <div>
+      <Header />
       <Overview
         product={product}
         styles={styles}
