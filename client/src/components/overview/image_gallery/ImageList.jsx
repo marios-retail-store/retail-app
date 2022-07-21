@@ -115,14 +115,20 @@ function ImageList({
 
         if (index === currentImgIndex) {
           return (
-            <ThumbnailContainerHighlight>
+            <ThumbnailContainerHighlight
+              // have to add index as api has duplicate images
+              key={photo.thumbnail_url + index.toString()}
+            >
               <HighlightOverlay />
               {content}
             </ThumbnailContainerHighlight>
           );
         }
         return (
-          <ThumbnailContainer>
+          <ThumbnailContainer
+            // have to add index as api has duplicate images
+            key={photo.thumbnail_url + index.toString()}
+          >
             {content}
           </ThumbnailContainer>
         );
