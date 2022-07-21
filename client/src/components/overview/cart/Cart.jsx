@@ -7,18 +7,24 @@ import _ from 'underscore';
 import AddToCart from './AddToCart.jsx';
 import getStockArrayFromStyle from './getStockArrayFromStyle.js';
 import CustomDropdown from './CustomDropdown.jsx';
+import { Paragraph } from '../../shared/styles.js';
 
 const ErrorMsgSpacer = styled('div')`
+  margin: 10px 0;
   height: 20px;
+  display: flex;
+  align-items: center;
 `;
 
-const ErrorMsg = styled('small')`
+const ErrorMsg = styled(Paragraph)`
   color: red;
+  text-transform: uppercase;
 `;
 
 const CartContainer = styled('div')`
   display: grid;
-  grid-template-columns: fit-content(100%) fit-content(100%);
+  grid-template-columns: 2fr 1fr;
+  column-gap: 15px;
 `;
 
 function Cart({ style }) {
@@ -35,6 +41,9 @@ function Cart({ style }) {
     if (selectedSKU === null) {
       setSelectedQuantity('1');
     }
+    if (showSizeError) {
+      setShowSizeError(false);
+    }
     const sku = stock[stock.map((item) => item.size).indexOf(size)];
     setSelectedSKU(sku);
   };
@@ -44,9 +53,6 @@ function Cart({ style }) {
       setSizeDropdownIsOpen(true);
       setShowSizeError(true);
       return;
-    }
-    if (showSizeError) {
-      setShowSizeError(false);
     }
     for (let i = 0; i < selectedQuantity; i += 1) {
       axios({
@@ -76,14 +82,14 @@ function Cart({ style }) {
   return (
     <div>
       <ErrorMsgSpacer>
-        {showSizeError && <ErrorMsg>please select size</ErrorMsg>}
+        {showSizeError && <ErrorMsg>please select a size</ErrorMsg>}
       </ErrorMsgSpacer>
       <CartContainer>
         <CustomDropdown
           className="size-dropdown"
           options={stock.map((item) => item.size)}
-          width={150}
-          height={30}
+          width="100%"
+          heightInPx={50}
           disabled={stock.length === 0}
           customOpen={sizeDropdownIsOpen}
           customSetOpen={setSizeDropdownIsOpen}
@@ -93,8 +99,8 @@ function Cart({ style }) {
         <CustomDropdown
           className="quantity-dropdown"
           options={quantityDropdownOptions}
-          width={50}
-          height={30}
+          width="100%"
+          heightInPx={50}
           disabled={selectedSKU === null}
           customSelected={selectedQuantity}
           customSetSelected={setSelectedQuantity}

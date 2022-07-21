@@ -7,6 +7,7 @@ import getStarValuesFromAvgRating from './getStarValuesFromAvgRating.js';
 const Container = styled('div')`
   display: flex;
   flex-direction: row;
+  height: 24px;
 `;
 
 function StarRating({ averageRating }) {

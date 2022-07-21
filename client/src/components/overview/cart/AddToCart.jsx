@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { BoldSubHeading } from '../../shared/styles.js';
 
 const StyledButton = styled('button')`
-  margin-top: 5px;
+
+  margin-top: 15px;
   grid-column: 1 / span 2;
   user-select: none;
-  height: 30px;
+  height: 50px;
   width: auto;
-  padding-left: 10px;
+  padding-left: 15px;
   background-color: white;
   border: 1px solid black;
   text-align: left;
@@ -30,7 +32,7 @@ function AddToCart({ submitAddToCart }) {
         e.stopPropagation();
       }}
     >
-      Add to Cart
+      <BoldSubHeading>Add to Cart</BoldSubHeading>
     </StyledButton>
   );
 }

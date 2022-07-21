@@ -9,26 +9,34 @@ const ListContainer = styled('div')`
 `;
 
 const ThumbnailContainer = styled('div')`
+  position: relative;
   height: 55px;
   width: 55px;
   margin: 0 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(0, 0, 0, 0);
+  border: 1px solid white;
+  cursor: pointer;
 `;
 
 const ThumbnailContainerHighlight = styled(ThumbnailContainer)`
   cursor: default;
-  border: 2px solid red;
+`;
+
+const HighlightOverlay = styled('div')`
+  position: absolute;
+  height: 55px;
+  width: 55px;
+  border-bottom: 5px solid white;
+  z-index: 1;
 `;
 
 const ImgThumbnail = styled('img')`
-  cursor: pointer;
   height: 100%;
   width: 100%;
   object-fit: cover;
-  z-index: 1;
+  z-index: 0;
 `;
 
 const EmptyArrowContainer = styled('div')`
@@ -104,6 +112,7 @@ function ImageList({
         if (index === currentImgIndex) {
           return (
             <ThumbnailContainerHighlight>
+              <HighlightOverlay />
               {content}
             </ThumbnailContainerHighlight>
           );

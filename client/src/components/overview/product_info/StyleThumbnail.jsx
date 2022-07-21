@@ -9,18 +9,18 @@ const Container = styled('div')`
 `;
 
 const CheckMarkContainer = styled('div')`
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   top: 0;
   left: 0;
   background-color: rgb(255, 255, 255, .8);
+  border: 1px solid white;
   position: absolute;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   user-select: none;
-  margin: 5px;
   border-radius: 50%;
 `;
 
@@ -30,14 +30,14 @@ const CheckMark = styled('span')`
 
 // div for now without internet
 const StyleImg = styled('img')`
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   left: 0;
   position: absolute;
   object-fit: cover;
   user-select: none;
-  margin: 5px;
   border-radius: 50%;
+  border: 1px solid white;
 `;
 
 function StyleThumbnail({ style, selected, selectStyle }) {

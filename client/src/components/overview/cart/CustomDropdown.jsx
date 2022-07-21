@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { BoldSubHeading, SubHeading } from '../../shared/styles.js';
 
 const Container = styled('div')`
-  height: ${(props) => `${props.height}px`};
-  width: ${(props) => `${props.width}px`};
+  height: ${(props) => `${props.heightInPx}px`};
+  width: ${(props) => `${props.width}`};
   position: relative;
-  &:first-child {
-    margin-right: 5px;
-  }
 `;
 
 const DropdownStyle = styled('div')`
   user-select: none;
-  height: ${(props) => `${props.height}px`};
-  width: ${(props) => `${props.width}px`};
+  height: ${(props) => `${props.heightInPx}px`};
+  width: ${(props) => `${props.width}`};
   display: flex;
   align-items: center;
   position: absolute;
-  padding-left: 10px;
+  padding-left: 15px;
   background-color: white;
   border: 1px solid black;
   &:hover {
@@ -36,7 +34,7 @@ const Selector = styled(DropdownStyle)`
 const Option = styled(DropdownStyle)`
   border-top: 0;
   z-index: 51;
-  top: ${(props) => `${props.height + props.index * props.height}px`};
+  top: ${(props) => `${props.heightInPx + props.index * props.heightInPx}px`};
 `;
 
 const ArrowStyle = styled('span')`
@@ -47,7 +45,7 @@ const ArrowStyle = styled('span')`
 `;
 
 function CustomDropdown({
-  placeholder, options, width, height, disabled,
+  placeholder, options, width, heightInPx, disabled,
   // below are optional to override open + selected states from a parent
   customOpen, customSetOpen, customSelected, customSetSelected,
 }) {
@@ -80,14 +78,14 @@ function CustomDropdown({
   return (
     <Container
       width={width}
-      height={height}
+      heightInPx={heightInPx}
       onClick={(e) => {
         e.stopPropagation();
       }}
     >
       <Selector
         width={width}
-        height={height}
+        heightInPx={heightInPx}
         onClick={() => {
           if (!disabled) {
             setOpen(!open);
@@ -95,7 +93,7 @@ function CustomDropdown({
         }}
         className="custom-dropdown-selector"
       >
-        <p>{selected}</p>
+        <BoldSubHeading>{selected}</BoldSubHeading>
         <ArrowStyle className="material-symbols-outlined">
           {open ? 'expand_less' : 'expand_more'}
         </ArrowStyle>
@@ -103,7 +101,7 @@ function CustomDropdown({
       {open && options.map((option, index) => (
         <Option
           width={width}
-          height={height}
+          heightInPx={heightInPx}
           index={index}
           key={option}
           onClick={() => {
@@ -112,7 +110,7 @@ function CustomDropdown({
           }}
           className="custom-dropdown-option"
         >
-          {option}
+          <SubHeading>{option}</SubHeading>
         </Option>
       ))}
     </Container>
@@ -121,8 +119,8 @@ function CustomDropdown({
 
 CustomDropdown.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  width: PropTypes.string.isRequired,
+  heightInPx: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
   customOpen: PropTypes.bool,

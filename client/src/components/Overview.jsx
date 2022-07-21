@@ -15,9 +15,11 @@ import {
 
 const Container = styled('div')`
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 3fr 1fr;
+  column-gap: 20px;
+  row-gap: 20px;
 `;
 
 const ImageGalleryGridContainer = styled('div')`
@@ -28,7 +30,19 @@ const ImageGalleryGridContainer = styled('div')`
 const ProductInfoGridContainer = styled('div')`
   grid-column: 2;
   grid-row: 1;
-  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ProductInfoContent = styled('div')`
+  flex: 0 1 auto;
+`;
+
+const ProductInfoFooter = styled('div')`
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 `;
 
 const SloganGridContainer = styled('div')`
@@ -47,20 +61,24 @@ function Overview() {
         />
       </ImageGalleryGridContainer>
       <ProductInfoGridContainer>
-        <StarRating
-          averageRating={4.2}
-        />
-        <GeneralInfo
-          product={product}
-          style={styleAllInStock}
-        />
-        <StyleSelector
-          styles={styles}
-        />
-        <Cart
-          style={styleAllInStock}
-        />
-        <SocialsSharing />
+        <ProductInfoContent>
+          <StarRating
+            averageRating={4.2}
+          />
+          <GeneralInfo
+            product={product}
+            style={styleAllInStock}
+          />
+          <StyleSelector
+            styles={styles}
+          />
+          <Cart
+            style={styleAllInStock}
+          />
+        </ProductInfoContent>
+        <ProductInfoFooter>
+          <SocialsSharing />
+        </ProductInfoFooter>
       </ProductInfoGridContainer>
       <SloganGridContainer>
         <Slogan
