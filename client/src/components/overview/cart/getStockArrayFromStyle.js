@@ -1,6 +1,22 @@
 // transforms style's skus into sorted array of {sku_id, size, quantity} objects, where quant > 0
 const getStockArrayFromStyle = (style) => {
   let skus = Object.entries(style.skus);
+  // filter out duplicate sizes, keeping the one with largest stock:
+  const accountedSizeIndices = {}; // key = size, value = index of size in entries array
+  for (let i = 0; i < skus.length; i += 1) {
+    const { size } = skus[i][1];
+    if (size in accountedSizeIndices) {
+      if (skus[i][1].quantity > skus[accountedSizeIndices[size]][1].quantity) {
+        skus.splice(accountedSizeIndices[size], 1);
+        i -= 1;
+      } else {
+        skus.splice(i, 1);
+        i -= 1;
+      }
+    } else {
+      accountedSizeIndices[size] = i;
+    }
+  }
   skus = skus.filter((skuEntry) => (
     skuEntry[0] !== 'null' && skuEntry[1].quantity !== null && skuEntry[1].size !== null
   ));
