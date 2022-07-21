@@ -17,9 +17,6 @@ const ButtonContainer = styled('div')`
 `;
 
 function SocialsSharing() {
-  // needs to be the website link later on:
-  // needs to be the website link later on:
-  // needs to be the website link later on:
   const urlToShare = window.location.href;
   const tweetToShare = 'Check this out!';
   const tweetEncoded = encodeURIComponent(tweetToShare);
