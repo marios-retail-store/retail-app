@@ -31,7 +31,7 @@ const addCard = {
 };
 
 function Carousel({
-  products, styles, type, actionBtnFunc, addToOutfit, clickFunc,
+  products, styles, type, actionBtnFunc, addToOutfit, clickFunc, ratings,
 }) {
   const [current, setCurrent] = useState(0);
   const { length } = products;
@@ -63,6 +63,7 @@ function Carousel({
               actionButton={(e) => onClickButtonHandler(e, i, p)}
               buttonText={type === 'outfit' ? 'x' : <NewStar filled={0} />}
               clickFunc={() => clickFunc(p, style)}
+              rating={ratings && ratings[i]}
             />
           );
         })}
@@ -97,7 +98,7 @@ Carousel.propTypes = {
     name: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
   })).isRequired,
-
+  ratings: PropTypes.arrayOf(PropTypes.number).isRequired,
   styles: PropTypes.arrayOf(PropTypes.shape({
     product_id: PropTypes.string.isRequired,
     results: PropTypes.arrayOf(PropTypes.shape({
