@@ -66,7 +66,7 @@ function App() {
         setSelectedStyleId={setSelectedStyleId}
       />
       <ProductsAndOutfits />
-      <QuestionsAndAnswers productId={40344} productName="hoodies" />
+      {product && <QuestionsAndAnswers productId={Number(productId)} productName={product.name} />}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import configobj from '../../../../config.js';
+import PhotoReview from './PhotoReview.jsx';
 
 const Form = styled('form')`
   display: 'flex',
@@ -20,11 +20,15 @@ const PhotoDiv = styled('div')`
   height: '10px',
   width: '10px',
 `;
-const Image = styled('img')`
-border: 1px solid #ddd;
-border-radius: 4px;
-padding: 5px;
-width: 200px;
+
+const ModalBackground = styled('div')`
+  background-color: #F5EDDC;
+  width:80%;
+  height: 90%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 90;
 `;
 
 export default function AnswerModal({
@@ -75,11 +79,9 @@ export default function AnswerModal({
   };
 
   const handleSubmit = function () {
-    const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
     const option = {
-      url: `${url}qa/questions/${questionId}/answers`,
+      url: `api/qa/questions/${questionId}/answers`,
       method: 'POST',
-      headers: { Authorization: configobj.TOKEN },
       data: {
         body: answer,
         name: nickname,
@@ -109,7 +111,7 @@ export default function AnswerModal({
   };
 
   return (
-    <div style={{ background: '#F5EDDC' }}>
+    <ModalBackground>
       <button
         type="button"
         onClick={() => setShowModal(false)}
@@ -178,11 +180,10 @@ export default function AnswerModal({
             <h4>Click on the image to enlarge it.</h4>
             <PhotoDiv>
               {photosUrl.map((item, index) => (
-                <div key={index}>
-                  <a href={item}>
-                    <Image src={item} alt="testImage" />
-                  </a>
-                </div>
+                <PhotoReview
+                  key={index}
+                  photo={item}
+                />
               ))}
             </PhotoDiv>
 
@@ -190,7 +191,7 @@ export default function AnswerModal({
         )}
         <button type="button" onClick={() => handleSubmit()}> Submit </button>
       </Form>
-    </div>
+    </ModalBackground>
   );
 }
 

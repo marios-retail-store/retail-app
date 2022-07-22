@@ -6,23 +6,30 @@ import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import HelpfulNess from './HelpfulNess.jsx';
 import AnswerModal from './AnswerModal.jsx';
-import AnswerPhotos from './AnswerPhotos.jsx';
-
-const configobj = require('../../../../config.js');
+import PhotoReview from './PhotoReview.jsx';
 
 const Container = styled('div')`
   display:flex;
   flex-wrap:wrap;
-  padding:10px;
+  align-items: center;
 `;
 
-const Button = styled('button')`
+const SimpleButton = styled('button')`
   border:none;
   background:none;
   text-decoration:underline;
   cursor:pointer;
 `;
-const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
+
+const MiniButton = styled('button')`
+ background-color: #FAF3E3;
+  border: none;
+  text-color:black
+  padding: 15px 32px;
+  text-align: center;
+  font-size:15px;
+`;
+
 export default function QACard({ ele, productName }) {
   const answerslist = Object.values(ele.answers).sort((a, b) => {
     if (a.answerer_name.toLowerCase() === 'seller') {
@@ -52,15 +59,12 @@ export default function QACard({ ele, productName }) {
   const handleClickAddAnsButton = function (event, id) {
     setShowModal(true);
     setQuestionText(event.target.value);
-    setQuestionId(event.target.id);
+    setQuestionId(id);
   };
   const handleReport = function (event, reportingId) {
     const options = {
-      url: `${url}qa/questions/${reportingId}/report`,
+      url: `api/qa/questions/${reportingId}/report`,
       method: 'PUT',
-      headers: {
-        Authorization: configobj.TOKEN,
-      },
     };
     if (!report) {
       axios(options).then(() => {
@@ -73,65 +77,76 @@ export default function QACard({ ele, productName }) {
 
   return (
     <div>
-      <div>
-        <br />
-        {showModal && (
-          <AnswerModal
-            setShowModal={setShowModal}
-            questionText={questionText}
-            productName={productName}
-            questionId={questionId}
-          />
-        )}
-        <Container>
-          <h4>
-            Q:
-            {ele.question_body}
-          </h4>
-          <HelpfulNess
-            style={{ textAlign: 'center' }}
-            id={ele.question_id}
-            count={ele.question_helpfulness}
-          />
-          <div style={{ padding: '25px', display: 'flex', flexWrap: 'wrap' }}>
-            | &nbsp; &nbsp;
+      <br />
+      {showModal && (
+      <AnswerModal
+        setShowModal={setShowModal}
+        questionText={questionText}
+        productName={productName}
+        questionId={questionId}
+      />
+      )}
+      <Container>
+        <h4 style={{ marginRight: '15px ' }}>
+          Q:
+          {ele.question_body}
+        </h4>
+        <HelpfulNess
+          style={{ textAlign: 'center' }}
+          id={ele.question_id}
+          count={ele.question_helpfulness}
+        />
+        <span>
+          &nbsp; &nbsp;| &nbsp; &nbsp;
+          <span>
+            <SimpleButton type="button" value={ele.question_body} id={ele.question_id} onClick={(event) => handleClickAddAnsButton(event)}>Add Answer</SimpleButton>
+          </span>
+        </span>
+      </Container>
+      {displayedAns.map((a, aIndex) => (
+        <div key={aIndex} style={{ maxHeight: '200px', overflow: 'scroll' }}>
+          A:
+          {a.body}
+          <div style={{
+            padding: '10px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            fontSize: 'smaller',
+            textDecorationColor: 'gray',
+          }}
+          >
+            {' '}
+            by  &nbsp;
+            {a.answerer_name.toLowerCase() === 'seller' ? <b>Seller</b> : a.answerer_name }
+            ,
+            &nbsp;
             <span>
-              <Button type="button" value={ele.question_body} id={ele.question_id} onClick={(event) => handleClickAddAnsButton(event)}>Add Answer</Button>
+              {' '}
+              <Moment format="MMMM-DD-YYYY" date={a.date} />
+            </span>
+            &nbsp; &nbsp;
+            | &nbsp; &nbsp;
+            <span />
+            <HelpfulNess id={a.id} count={a.helpfulness} />
+            <span>
+                    &nbsp; | &nbsp;
+              <SimpleButton type="button" onClick={(event) => handleReport(event, a.id)}>Report</SimpleButton>
             </span>
           </div>
-        </Container>
-        {displayedAns.map((a, aIndex) => (
-          <div key={aIndex} style={{ maxHeight: '200px', overflow: 'scroll' }}>
-            A:
-            {a.body}
-            <div style={{ padding: '10px', display: 'flex', flexWrap: 'wrap' }}>
-              {' '}
-              by  &nbsp;
-              {a.answerer_name.toLowerCase() === 'seller' ? <b>Seller</b> : a.answerer_name }
-              ,
-              &nbsp;
-              <span>
-                {' '}
-                <Moment format="MMMM-DD-YYYY" date={a.date} />
-              </span>
-              &nbsp; &nbsp;
-              | &nbsp; &nbsp;
-              <HelpfulNess id={a.id} count={a.helpfulness} />
-              <span>
-                    &nbsp; | &nbsp;
-                <Button type="button" onClick={(event) => handleReport(event, a.id)}>Report</Button>
-              </span>
-            </div>
-            <Container>
-              {a.photos.length > 0 && a.photos.map(
-                (photo, index) => (<AnswerPhotos photo={photo} key={index} />),
-              )}
-            </Container>
-          </div>
-        ))}
-        {(answerslist.length > 2 && !showCollapseBtn) && <button type="button" onClick={() => handleLoadMoreBtn()}>LOAD MORE ANSWERS</button>}
-        {(answerslist.length > 2 && showCollapseBtn) && <button type="button" onClick={() => handleCollapseBtn()}>COLLAPSE ANSWERS</button>}
-      </div>
+          <Container>
+            {a.photos.length > 0 && a.photos.map(
+              (photo, index) => (
+                <PhotoReview
+                  key={index}
+                  photo={photo}
+                />
+              ),
+            )}
+          </Container>
+        </div>
+      ))}
+      {(answerslist.length > 2 && !showCollapseBtn) && <MiniButton type="button" onClick={() => handleLoadMoreBtn()}>LOAD MORE ANSWERS</MiniButton>}
+      {(answerslist.length > 2 && showCollapseBtn) && <MiniButton type="button" onClick={() => handleCollapseBtn()}>COLLAPSE ANSWERS</MiniButton>}
     </div>
   );
 }
