@@ -7,7 +7,9 @@ const Image = styled('img')`
 border: 1px solid #ddd;
 border-radius: 4px;
 padding: 5px;
-width: 200px;
+width: 100px;
+height:50px;
+object-fit:cover;
 `;
 
 export default function PhotoReview({ photo }) {
