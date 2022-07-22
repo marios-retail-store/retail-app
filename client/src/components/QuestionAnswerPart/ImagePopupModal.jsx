@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ModalBackground = styled('div')`
-  background-color: rgba(200, 200, 200, .5);
+  ${'' /* background-color: rgba(200, 200, 200, .5); */}
+  background-color: #F5EDDC;
   width: 100%;
   height: 100%;
   top: 0;

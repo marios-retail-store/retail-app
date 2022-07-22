@@ -6,7 +6,8 @@ import ExpandedViewImage from './ExpandedViewImage.jsx';
 import ExpandedViewBottomUI from './ExpandedViewBottomUI.jsx';
 
 const ModalBackground = styled('div')`
-  background-color: rgba(200, 200, 200, .5);
+  ${'' /* background-color: rgba(200, 200, 200, .5); */}
+  background-color: #F5EDDC;
   width: 100%;
   height: 100%;
   top: 0;
