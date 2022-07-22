@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import QACard from './QuestionAnswerPart/QACard.jsx';
 import QuestionModal from './QuestionAnswerPart/QuestionModal.jsx';
-import { CarouselTitle, SuperBoldSubHeading, BoldSubHeading, SharedButton } from './shared/styles.js';
+import { CarouselTitle, BoldSubHeading, SharedButton } from './shared/styles.js';
 
 const Container = styled('div')`
   margin: 0 3.5%;
@@ -115,7 +115,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
           search
         </InnerContainer>
       </SearchDiv>
-      <div style={{ maxHeight: '800px', 'overflow-y': 'scroll' }}>
+      <div style={{ maxHeight: '800px', overflowY: 'scroll' }}>
         {qalist.length > 0
           ? (qalist
             .filter((obj) => obj.question_body.includes(searchText))

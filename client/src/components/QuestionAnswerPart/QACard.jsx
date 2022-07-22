@@ -23,7 +23,7 @@ const SimpleButton = styled('button')`
 `;
 
 const MiniButton = styled('button')`
- background-color: #FAF3E3;
+ background-color: #EAF6F6;
   border: none;
   text-color:black
   padding: 15px 32px;
@@ -106,7 +106,7 @@ export default function QACard({ ele, productName }) {
           {ele.question_body}
         </CustomSubHeading>
         <div
-          style={{ 'font-family': 'Kanit, sans-serif' }}
+          style={{ fontFamily: 'Kanit, sans-serif' }}
         >
           <HelpfulNess
             style={{ textAlign: 'center' }}
@@ -139,7 +139,7 @@ export default function QACard({ ele, productName }) {
             flexWrap: 'wrap',
             fontSize: 'smaller',
             textDecorationColor: 'gray',
-            'font-family': 'Kanit, sans-serif',
+            fontFamily: 'Kanit, sans-serif',
           }}
           >
             {' '}
