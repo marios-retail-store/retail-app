@@ -34,7 +34,7 @@ const SuperBoldSubHeading = styled(SubHeading)`
 
 const Paragraph = styled('p')`
   ${textShared}
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
 `;
 
@@ -53,6 +53,12 @@ const SharedButton = styled('button')`
   }
 `;
 
+const CarouselTitle = styled('p')`
+  font-family: 'Kanit', sans-serif;
+  color: rgb(50,50,50);
+  font-size: 20.75px;
+`;
+
 export {
   Heading,
   SubHeading,
@@ -60,4 +66,5 @@ export {
   SuperBoldSubHeading,
   Paragraph,
   SharedButton,
+  CarouselTitle,
 };

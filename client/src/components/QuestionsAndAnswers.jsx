@@ -7,18 +7,33 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import QACard from './QuestionAnswerPart/QACard.jsx';
 import QuestionModal from './QuestionAnswerPart/QuestionModal.jsx';
-import { SuperBoldSubHeading, BoldSubHeading, SharedButton } from './shared/styles.js';
+import { CarouselTitle, SuperBoldSubHeading, BoldSubHeading, SharedButton } from './shared/styles.js';
 
 const Container = styled('div')`
   margin: 0 3.5%;
 `;
 
 const SearchContainer = styled('input')`
-  height:65px;
+  ${'' /* height:65px; */}
   width:700px;
-  border-radius:5px;
-  background:#EAF6F6;
+  ${'' /* border-radius:5px; */}
+  ${'' /* background:#EAF6F6; */}
   margin-right: -35px;
+  user-select: none;
+  height: 50px;
+  padding: 0 15px;
+  background-color: #EAF6F6;
+  border: 1px solid black;
+  text-align: left;
+  font-family: 'Kanit', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  ::placeholder {
+    font-family: 'Kanit', sans-serif;
+    color: rgb(175, 175, 175);
+    font-size: 14px;
+    font-weight: 400;
+  }
 `;
 
 const Button = styled(SharedButton)`
@@ -29,13 +44,16 @@ const Button = styled(SharedButton)`
 const SearchDiv = styled('div')`
    position:relative;
    margin-bottom:20px;
+   display: flex;
+   align-items: center;
+   color: rgb(175, 175, 175);
 `;
 
 const InnerContainer = styled('span')`
    left: 320px
    position: absolute;
-   top: 20px;
 `;
+
 export default function QuestionsAndAnswers({ productId, productName }) {
   const [qalist, setQalist] = useState([]);
   const [morePageNum, setMorePageNum] = useState(0);
@@ -89,7 +107,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
   return (
 
     <Container>
-      <div><SuperBoldSubHeading>QUESTIONS & ANSWERS</SuperBoldSubHeading></div>
+      <div><CarouselTitle>QUESTIONS & ANSWERS</CarouselTitle></div>
       <br />
       <SearchDiv>
         <SearchContainer type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS ......" onChange={(event) => handleSearch(event)} />
@@ -97,7 +115,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
           search
         </InnerContainer>
       </SearchDiv>
-      <div style={{ maxHeight: '800px', overflow: 'scroll' }}>
+      <div style={{ maxHeight: '800px', 'overflow-y': 'scroll' }}>
         {qalist.length > 0
           ? (qalist
             .filter((obj) => obj.question_body.includes(searchText))

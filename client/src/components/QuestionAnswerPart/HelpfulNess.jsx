@@ -3,6 +3,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Paragraph } from '../shared/styles.js';
+
+const CustomParagraph = styled(Paragraph)`
+  letter-spacing: 0em;
+  display: inline;
+`;
 
 const Button = styled('button')`
   border:none;

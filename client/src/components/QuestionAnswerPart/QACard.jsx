@@ -7,6 +7,7 @@ import Moment from 'react-moment';
 import HelpfulNess from './HelpfulNess.jsx';
 import AnswerModal from './AnswerModal.jsx';
 import PhotoReview from './PhotoReview.jsx';
+import { BoldSubHeading, Paragraph } from '../shared/styles.js';
 
 const Container = styled('div')`
   display:flex;
@@ -28,6 +29,19 @@ const MiniButton = styled('button')`
   padding: 15px 32px;
   text-align: center;
   font-size:15px;
+`;
+
+const CustomSubHeading = styled(BoldSubHeading)`
+  letter-spacing: 0.05em;
+  font-size: 18;
+  margin-bottom: 5px;
+  display: inline;
+  text-transform: none;
+`;
+
+const CustomParagraph = styled(Paragraph)`
+  letter-spacing: 0em;
+  display: inline;
 `;
 
 export default function QACard({ ele, productName }) {
@@ -87,37 +101,48 @@ export default function QACard({ ele, productName }) {
       />
       )}
       <Container>
-        <h4 style={{ marginRight: '15px ' }}>
-          Q:
+        <CustomSubHeading style={{ marginRight: '15px ' }}>
+          Q: &nbsp;
           {ele.question_body}
-        </h4>
-        <HelpfulNess
-          style={{ textAlign: 'center' }}
-          id={ele.question_id}
-          count={ele.question_helpfulness}
-        />
+        </CustomSubHeading>
+        <div
+          style={{ 'font-family': 'Kanit, sans-serif' }}
+        >
+          <HelpfulNess
+            style={{ textAlign: 'center' }}
+            id={ele.question_id}
+            count={ele.question_helpfulness}
+          />
+        </div>
         <span>
           &nbsp; &nbsp;| &nbsp; &nbsp;
           <span>
-            <SimpleButton type="button" value={ele.question_body} id={ele.question_id} onClick={(event) => handleClickAddAnsButton(event)}>Add Answer</SimpleButton>
+            <SimpleButton
+              type="button"
+              value={ele.question_body}
+              id={ele.question_id}
+              onClick={(event) => handleClickAddAnsButton(event)}
+            >
+              <CustomParagraph>Add Answer</CustomParagraph>
+            </SimpleButton>
           </span>
         </span>
       </Container>
       {displayedAns.map((a, aIndex) => (
         // style={{ maxHeight: '200px', overflow: 'scroll' }}
         <div key={aIndex}>
-          A:
-          {a.body}
+          <CustomSubHeading>A:&nbsp;</CustomSubHeading>
+          <CustomParagraph>{a.body}</CustomParagraph>
           <div style={{
             padding: '10px',
             display: 'flex',
             flexWrap: 'wrap',
             fontSize: 'smaller',
             textDecorationColor: 'gray',
+            'font-family': 'Kanit, sans-serif',
           }}
           >
             {' '}
-            by  &nbsp;
             {a.answerer_name.toLowerCase() === 'seller' ? <b>Seller</b> : a.answerer_name }
             ,
             &nbsp;

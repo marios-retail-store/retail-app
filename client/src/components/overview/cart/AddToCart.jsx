@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { BoldSubHeading } from '../../shared/styles.js';
 
 const StyledButton = styled('button')`
-
   margin: 15px 0;
   grid-column: 1 / span 2;
   user-select: none;
