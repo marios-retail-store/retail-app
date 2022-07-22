@@ -65,7 +65,7 @@ function App() {
         selectedStyleId={selectedStyleId}
         setSelectedStyleId={setSelectedStyleId}
       />
-      <ProductsAndOutfits currentProduct={product} style={styles} />
+      {reviews && <ProductsAndOutfits currentProduct={product} style={styles} rating={reviews} />}
       {product && <QuestionsAndAnswers productId={Number(productId)} productName={product.name} />}
     </div>
   );
