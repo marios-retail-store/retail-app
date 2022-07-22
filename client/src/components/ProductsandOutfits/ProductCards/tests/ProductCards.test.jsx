@@ -77,6 +77,6 @@ describe('rendering of Product Cards', () => {
     const image = screen.getByTestId('image');
     // screen.debug(); // this 'console logs' the test DOM
     expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute('src', 'https://images.unsplash.com/photo-1530073391204-7b34a1497281?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
+    expect(image).toHaveAttribute('src', 'https://images.unsplash.com/photo-1530073391204-7b34a1497281?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=298&q=65');
   });
 });

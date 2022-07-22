@@ -17,6 +17,8 @@ const ButtonPreset = styled('div')`
     position: relative;
     top: -290px;
     color:aqua;
+    cursor:pointer;
+    font-weight:bold;
   `;
 
 const NewStar = styled(Star)`
@@ -35,8 +37,8 @@ function Carousel({
 }) {
   const [current, setCurrent] = useState(0);
   const { length } = products;
-  const cardAmount = type === 'outfit' ? length - 1 : length - 1;
-  const translateAmt = `translateX(-${current + cardAmount <= cardAmount ? (current * 332) : (current * 332) - ((current - 2) * (332 / 1.3))}px)`;
+  const cardAmount = type === 'outfit' ? (Math.floor(window.innerWidth / 332)) - 1 : (Math.floor(window.innerWidth / 332));
+  const translateAmt = `translateX(-${current + cardAmount <= cardAmount ? (current * 332) : current * 332}px)`;
   const next = () => {
     setCurrent(current + cardAmount < length ? current + 1 : current);
   };
