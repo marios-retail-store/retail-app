@@ -5,20 +5,20 @@ import { BoldSubHeading } from '../../shared/styles.js';
 
 const StyledButton = styled('button')`
 
-  margin-top: 15px;
+  margin: 15px 0;
   grid-column: 1 / span 2;
   user-select: none;
   height: 50px;
   width: auto;
   padding-left: 15px;
-  background-color: white;
+  background-color: #EAF6F6;
   border: 1px solid black;
   text-align: left;
   &:hover {
-    background-color: rgb(230, 230, 230);
+    background-color: #cff0f0;
   }
   &:active {
-    background-color: rgb(215, 215, 215);
+    background-color: #b6e7e7;
   }
 `;
 

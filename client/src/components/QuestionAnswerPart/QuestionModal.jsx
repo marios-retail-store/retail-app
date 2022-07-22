@@ -5,14 +5,24 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { BoldSubHeading, SharedButton } from '../shared/styles.js';
 
-const Button = styled('button')`
-background-color: #DAEAF1;
-  border-radius: 10px;
-  padding: 15px 32px;
-  text-align: center;
+// const Button = styled('button')`
+// background-color: #DAEAF1;
+//   border-radius: 10px;
+//   padding: 15px 32px;
+//   text-align: center;
+//   display: inline-block;
+//   font-size: 16px;
+// `;
+
+const Button = styled(SharedButton)`
+  ${'' /* background-color: #DAEAF1; */}
+  ${'' /* border-radius: 10px; */}
+  ${'' /* padding: 15px 32px; */}
+  ${'' /* text-align: center; */}
   display: inline-block;
-  font-size: 16px;
+  ${'' /* font-size: 16px; */}
 `;
 
 const ModalBackground = styled('div')`
@@ -68,7 +78,9 @@ export default function QuestionModal({ productId, productName }) {
   return (
     <div>
       <div style={{ marginTop: '20px' }}>
-        <Button type="button" onClick={() => setShowModal(true)}>ADD A QUESTION + </Button>
+        <Button type="button" onClick={() => setShowModal(true)}>
+          <BoldSubHeading>ADD A QUESTION +</BoldSubHeading>
+        </Button>
       </div>
       {showModal && (
       <ModalBackground>

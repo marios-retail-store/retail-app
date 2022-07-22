@@ -38,10 +38,26 @@ const Paragraph = styled('p')`
   font-weight: 400;
 `;
 
+const SharedButton = styled('button')`
+  user-select: none;
+  height: 50px;
+  padding: 0 15px;
+  background-color: #EAF6F6;
+  border: 1px solid black;
+  text-align: left;
+  &:hover {
+    background-color: #cff0f0;
+  }
+  &:active {
+    background-color: #b6e7e7;
+  }
+`;
+
 export {
   Heading,
   SubHeading,
   BoldSubHeading,
   SuperBoldSubHeading,
   Paragraph,
+  SharedButton,
 };

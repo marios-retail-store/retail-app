@@ -7,7 +7,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import QACard from './QuestionAnswerPart/QACard.jsx';
 import QuestionModal from './QuestionAnswerPart/QuestionModal.jsx';
-import { SuperBoldSubHeading } from './shared/styles.js';
+import { SuperBoldSubHeading, BoldSubHeading, SharedButton } from './shared/styles.js';
+
+const Container = styled('div')`
+  margin: 0 3.5%;
+`;
 
 const SearchContainer = styled('input')`
   height:65px;
@@ -16,13 +20,9 @@ const SearchContainer = styled('input')`
   background:#EAF6F6;
   margin-right: -35px;
 `;
-const Button = styled('button')`
-  background-color: #DAEAF1;
-  border-radius: 10px;
-  padding: 15px 32px;
-  text-align: center;
+
+const Button = styled(SharedButton)`
   display: inline-block;
-  font-size: 16px;
   margin-right: 50px;
 `;
 
@@ -88,7 +88,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
 
   return (
 
-    <div>
+    <Container>
       <div><SuperBoldSubHeading>QUESTIONS & ANSWERS</SuperBoldSubHeading></div>
       <br />
       <SearchDiv>
@@ -117,12 +117,16 @@ export default function QuestionsAndAnswers({ productId, productName }) {
           type="button"
           onClick={() => handleLoadMoreQuestions()}
         >
-          MORE ANSWERED QUESTIONS
+          <BoldSubHeading>MORE ANSWERED QUESTIONS</BoldSubHeading>
         </Button>
       )}
-      {qalist.slice(0, 4 + morePageNum * 2).length > 4 && <Button type="button" onClick={() => handleCollapseBtn()}>COLLAPSE ALL</Button>}
+      {qalist.slice(0, 4 + morePageNum * 2).length > 4 && (
+        <Button type="button" onClick={() => handleCollapseBtn()}>
+          <BoldSubHeading>COLLAPSE ALL</BoldSubHeading>
+        </Button>
+      )}
       <QuestionModal productId={qalist.product_id} productName={productName} />
-    </div>
+    </Container>
 
   );
 }

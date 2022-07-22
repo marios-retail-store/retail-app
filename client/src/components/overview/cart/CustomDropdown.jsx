@@ -17,13 +17,13 @@ const DropdownStyle = styled('div')`
   align-items: center;
   position: absolute;
   padding-left: 15px;
-  background-color: white;
+  background-color: #EAF6F6;
   border: 1px solid black;
   &:hover {
-    background-color: rgb(230, 230, 230);
+    background-color: #cff0f0;
   }
   &:active {
-    background-color: rgb(215, 215, 215);
+    background-color: #b6e7e7;
   }
 `;
 

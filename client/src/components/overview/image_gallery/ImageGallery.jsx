@@ -6,7 +6,8 @@ import ExpandedView from './ExpandedView.jsx';
 
 const ImageGalleryContainer = styled('div')`
   position: relative;
-  height: 600px;
+  height: 100%;
+  min-height: 600px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -100,49 +101,47 @@ function ImageGallery({ style }) {
           closeView={() => { setInExpandedState(false); }}
         />
       )}
-      <div>
-        <ImageGalleryContainer>
-          <ImageContainer
-            onClick={() => { setInExpandedState(true); }}
+      <ImageGalleryContainer>
+        <ImageContainer
+          onClick={() => { setInExpandedState(true); }}
+        >
+          {photos[currentImgIndex].url === null
+            ? <ErrorMsg>No Image Found</ErrorMsg>
+            : <StyledImg draggable="false" src={photos[currentImgIndex].url} alt="product image" />}
+        </ImageContainer>
+        {currentImgIndex > 0 && (
+          <ArrowContainerLeft
+            onClick={() => { setCurrentImgIndexWrapper(currentImgIndex - 1); }}
           >
-            {photos[currentImgIndex].url === null
-              ? <ErrorMsg>No Image Found</ErrorMsg>
-              : <StyledImg draggable="false" src={photos[currentImgIndex].url} alt="product image" />}
-          </ImageContainer>
-          {currentImgIndex > 0 && (
-            <ArrowContainerLeft
-              onClick={() => { setCurrentImgIndexWrapper(currentImgIndex - 1); }}
+            <Arrow
+              data-testid="main-left-arrow"
+              className="material-symbols-outlined"
             >
-              <Arrow
-                data-testid="main-left-arrow"
-                className="material-symbols-outlined"
-              >
-                chevron_left
-              </Arrow>
-            </ArrowContainerLeft>
-          )}
-          {currentImgIndex < photos.length - 1 && (
-            <ArrowContainerRight
-              onClick={() => { setCurrentImgIndexWrapper(currentImgIndex + 1); }}
+              chevron_left
+            </Arrow>
+          </ArrowContainerLeft>
+        )}
+        {currentImgIndex < photos.length - 1 && (
+          <ArrowContainerRight
+            onClick={() => { setCurrentImgIndexWrapper(currentImgIndex + 1); }}
+          >
+            <Arrow
+              data-testid="main-right-arrow"
+              className="material-symbols-outlined"
             >
-              <Arrow
-                data-testid="main-right-arrow"
-                className="material-symbols-outlined"
-              >
-                chevron_right
-              </Arrow>
-            </ArrowContainerRight>
-          )}
-          <ImageList
-            photos={photos}
-            currentImgIndex={currentImgIndex}
-            setCurrentImgIndex={setCurrentImgIndex}
-            minIndexInList={minIndexInList}
-            maxIndexInList={maxIndexInList}
-            shiftList={shiftList}
-          />
-        </ImageGalleryContainer>
-      </div>
+              chevron_right
+            </Arrow>
+          </ArrowContainerRight>
+        )}
+        <ImageList
+          photos={photos}
+          currentImgIndex={currentImgIndex}
+          setCurrentImgIndex={setCurrentImgIndex}
+          minIndexInList={minIndexInList}
+          maxIndexInList={maxIndexInList}
+          shiftList={shiftList}
+        />
+      </ImageGalleryContainer>
     </>
   );
 }
