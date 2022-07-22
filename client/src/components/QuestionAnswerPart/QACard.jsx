@@ -104,7 +104,8 @@ export default function QACard({ ele, productName }) {
         </span>
       </Container>
       {displayedAns.map((a, aIndex) => (
-        <div key={aIndex} style={{ maxHeight: '200px', overflow: 'scroll' }}>
+        // style={{ maxHeight: '200px', overflow: 'scroll' }}
+        <div key={aIndex}>
           A:
           {a.body}
           <div style={{
