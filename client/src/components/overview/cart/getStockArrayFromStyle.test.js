@@ -23,18 +23,35 @@ const styleWithNullValues = {
   },
 };
 
+const styleWithDuplicate1 = {
+  skus: {
+    1394818: {
+      quantity: 14,
+      size: 'S',
+    },
+    1394819: {
+      quantity: 50,
+      size: 'S',
+    },
+  },
+};
+
+const styleWithDuplicate2 = {
+  skus: {
+    1394818: {
+      quantity: 100,
+      size: 'S',
+    },
+    1394819: {
+      quantity: 50,
+      size: 'S',
+    },
+  },
+};
+
 describe('testing getStockArrayFromStyle helper function', () => {
-  let stock;
-  let stockNoQuantity;
-  let stockNullValues;
-
-  beforeAll(() => {
-    stock = getStockArrayFromStyle(styleAllInStock);
-    stockNoQuantity = getStockArrayFromStyle(styleNoneInStock);
-    stockNullValues = getStockArrayFromStyle(styleWithNullValues);
-  });
-
   test('returns an array in the correct format', () => {
+    const stock = getStockArrayFromStyle(styleAllInStock);
     stock.forEach((item) => {
       expect(item.sku_id).not.toBe(undefined);
       expect(item.size).not.toBe(undefined);
@@ -43,6 +60,7 @@ describe('testing getStockArrayFromStyle helper function', () => {
   });
 
   test('returns the array in ascending sku_id order', () => {
+    const stock = getStockArrayFromStyle(styleAllInStock);
     let lastId = -Infinity;
     stock.forEach((item) => {
       expect(Number(item.sku_id)).toBeGreaterThan(lastId);
@@ -51,10 +69,15 @@ describe('testing getStockArrayFromStyle helper function', () => {
   });
 
   test('returns an empty array when none of the styles have stock', () => {
-    expect(stockNoQuantity).toEqual([]);
+    expect(getStockArrayFromStyle(styleNoneInStock)).toEqual([]);
   });
 
   test('handles null values', () => {
-    expect(stockNullValues).toEqual([]);
+    expect(getStockArrayFromStyle(styleWithNullValues)).toEqual([]);
+  });
+
+  test('filters out duplicate sku sizes, choosing the one with greater quantity', () => {
+    expect(getStockArrayFromStyle(styleWithDuplicate1)).toEqual([{ sku_id: '1394819', size: 'S', quantity: 50 }]);
+    expect(getStockArrayFromStyle(styleWithDuplicate2)).toEqual([{ sku_id: '1394818', size: 'S', quantity: 100 }]);
   });
 });
