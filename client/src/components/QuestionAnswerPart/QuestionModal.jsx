@@ -1,12 +1,10 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-alert */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-//import configobj from '../../../../config.js';
-
-// const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
 
 const Button = styled('button')`
 background-color: #DAEAF1;
@@ -17,6 +15,16 @@ background-color: #DAEAF1;
   font-size: 16px;
 `;
 
+const ModalBackground = styled('div')`
+  background-color: #F5EDDC;
+  width:80%;
+  height: 90%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 90;
+`;
+
 export default function QuestionModal({ productId, productName }) {
   const [quesAsker, setQuesAsker] = useState('');
   const [quesEmail, setQuesEmail] = useState('');
@@ -24,12 +32,8 @@ export default function QuestionModal({ productId, productName }) {
   const [showModal, setShowModal] = useState(false);
 
   const option = {
-    // url: `${url}qa/questions`,
     url: '/api/qa/questions',
     method: 'POST',
-    // headers: {
-    //   Authorization: configobj.TOKEN,
-    // },
     data: {
       body: quesText,
       name: quesAsker,
@@ -63,11 +67,11 @@ export default function QuestionModal({ productId, productName }) {
 
   return (
     <div>
-      <div>
+      <div style={{ marginTop: '20px' }}>
         <Button type="button" onClick={() => setShowModal(true)}>ADD A QUESTION + </Button>
       </div>
       {showModal && (
-      <div style={{ background: '#F5EDDC' }}>
+      <ModalBackground>
         <button type="button" onClick={() => setShowModal(false)}>{'< Go Back'}</button>
         <h2>
           {`Ask Your Question About the ${productName}`}
@@ -80,7 +84,7 @@ export default function QuestionModal({ productId, productName }) {
             Nickname * &nbsp;
             <input type="text" placeholder="Example: jackson11" maxLength={60} onChange={(event) => setQuesAsker(event.target.value)} />
             <p>
-              “For privacy reasons, do not use your full name or email address”
+              For privacy reasons, do not use your full name or email address
             </p>
           </label>
           <label htmlFor="email">
@@ -90,7 +94,7 @@ export default function QuestionModal({ productId, productName }) {
           </label>
         </form>
         <button type="button" onClick={() => handleSubmit()}>Submit</button>
-      </div>
+      </ModalBackground>
       )}
     </div>
   );

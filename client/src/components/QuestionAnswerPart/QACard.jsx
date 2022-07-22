@@ -8,12 +8,9 @@ import HelpfulNess from './HelpfulNess.jsx';
 import AnswerModal from './AnswerModal.jsx';
 import PhotoReview from './PhotoReview.jsx';
 
-// const configobj = require('../../../../config.js');
-
 const Container = styled('div')`
   display:flex;
   flex-wrap:wrap;
-  padding:10px;
   align-items: center;
 `;
 

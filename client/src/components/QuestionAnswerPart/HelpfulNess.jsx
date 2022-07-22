@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-// import configobj from '../../../../config.js';
 
 const Button = styled('button')`
   border:none;
@@ -14,8 +13,6 @@ const Button = styled('button')`
 `;
 
 export default function HelpfulNess({ count, id }) {
-  // const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/';
-
   const [helpful, setHelpful] = useState(false);
   const [helpfulCount, setHelpfulCount] = useState(count);
 
@@ -23,9 +20,6 @@ export default function HelpfulNess({ count, id }) {
     const options = {
       url: `api/qa/questions/${id}/helpful`,
       method: 'PUT',
-      // headers: {
-      //   Authorization: configobj.TOKEN,
-      // },
       data: {
         question_helpfulness: helpfulCount + 1,
       },

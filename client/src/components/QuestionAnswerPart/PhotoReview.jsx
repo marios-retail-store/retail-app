@@ -11,21 +11,12 @@ width: 200px;
 `;
 
 export default function PhotoReview({ photo }) {
-  // const [enlarge, setEnlarge] = useState(false);
-  // const handlePhoto = function () {
-  //   setEnlarge(!enlarge);
-  // };
   const [fullScreenWithImg, setFullScreenWithImg] = useState(false);
   const closeView = function () {
     setFullScreenWithImg(!fullScreenWithImg);
   };
 
   return (
-    // <div>
-    //   <a href={photo}>
-    //     <Image src={photo} alt="answerPhoto" />
-    //   </a>
-    // </div>
     <div>
       <Image src={photo} alt="display" onClick={() => (setFullScreenWithImg(true))} />
       {fullScreenWithImg
