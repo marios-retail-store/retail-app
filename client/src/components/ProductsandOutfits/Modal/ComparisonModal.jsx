@@ -95,6 +95,8 @@ const Title = styled('p')`
   margin-bottom: 0px;
   margin-left: 1.5rem;
   font-size: 0.79rem;
+  font-family: 'Kanit', sans-serif;
+  color: rgb(50,50,50);
 `;
 const ExitButton = styled('button')`
   position: absolute;
@@ -116,6 +118,8 @@ const Comparison = styled('div')`
     height: auto;
     overflow-y: scroll;
     transform: translate(50%, 50%);
+    font-family: 'Kanit', sans-serif;
+    color: rgb(50,50,50);
 `;
 const Table = styled('table')`
   width: fit-content;

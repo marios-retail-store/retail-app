@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line no-unused-vars
 import axios from 'axios';
+import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import Carousel from './ProductsandOutfits/Carousel/Carousel.jsx';
 import ComparisonModal from './ProductsandOutfits/Modal/ComparisonModal.jsx';
@@ -125,7 +126,7 @@ function ProductsAndOutfits({ currentProduct, style }) {
   if (!isLoading) {
     return (
       <>
-        <p>Related Products</p>
+        <CarouselTitle>Related Products</CarouselTitle>
         <Carousel
           products={relatedProducts.products}
           styles={relatedProducts.styles}
@@ -133,7 +134,7 @@ function ProductsAndOutfits({ currentProduct, style }) {
           clickFunc={clickProductCard}
           actionBtnFunc={showModal}
         />
-        <p>My Outfit</p>
+        <CarouselTitle>My Outfit</CarouselTitle>
         <Carousel
           products={myOutfit.products}
           styles={myOutfit.styles}
@@ -156,9 +157,9 @@ function ProductsAndOutfits({ currentProduct, style }) {
     if (myOutfit) {
       return (
         <>
-          <p>Related Products</p>
-          <p>Loading...</p>
-          <p>My Outfit</p>
+          <CarouselTitle>Related Products</CarouselTitle>
+          <Loading>Loading...</Loading>
+          <CarouselTitle>My Outfit</CarouselTitle>
           <Carousel
             products={myOutfit.products}
             styles={myOutfit.styles}
@@ -172,6 +173,18 @@ function ProductsAndOutfits({ currentProduct, style }) {
     }
   }
 }
+const CarouselTitle = styled('p')`
+  font-family: 'Kanit', sans-serif;
+  color: rgb(50,50,50);
+  font-size: 20.75px;
+  margin-left: 3.5%;
+`;
+
+const Loading = styled('p')`
+font-family: 'Kanit', sans-serif;
+color: rgb(50,50,50);
+font-size: 15.75px;
+`;
 ProductsAndOutfits.propTypes = {
   currentProduct: PropTypes.shape({
     id: PropTypes.number,

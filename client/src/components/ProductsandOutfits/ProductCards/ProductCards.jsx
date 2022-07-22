@@ -26,7 +26,7 @@ function ProductCards({
           {productCategory && productCategory.toUpperCase()}
         </ProductCategory>
         <ProductName>
-          <b>{productTitle}</b>
+          <Title>{productTitle}</Title>
         </ProductName>
         <ProductPricing>
           <ProductOriginalPrice>
@@ -52,6 +52,9 @@ function ProductCards({
 }
 
 const ImageDiv = styled('div')``;
+const Title = styled('b')`
+  font-weight: 540;
+`;
 const CardImage = styled('img')`
   width: 100%;
   height: 400px;
@@ -67,6 +70,8 @@ const Product = styled('div')`
     display: inline-flex;
     flex-direction: column;
     position: relative;
+    font-family: 'Kanit',sans-serif;
+    color: rgb(50,50,50);
 `;
 
 const ActionButton = styled('button')`
@@ -87,7 +92,7 @@ const ActionButton = styled('button')`
 const ProductInfo = styled('div')`
   height: 100px;
   display: flex;
-  font-size: 13.9px;
+  font-size: 12.75px;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-evenly;
