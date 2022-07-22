@@ -34,8 +34,29 @@ const SuperBoldSubHeading = styled(SubHeading)`
 
 const Paragraph = styled('p')`
   ${textShared}
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
+`;
+
+const SharedButton = styled('button')`
+  user-select: none;
+  height: 50px;
+  padding: 0 15px;
+  background-color: #EAF6F6;
+  border: 1px solid black;
+  text-align: left;
+  &:hover {
+    background-color: #cff0f0;
+  }
+  &:active {
+    background-color: #b6e7e7;
+  }
+`;
+
+const CarouselTitle = styled('p')`
+  font-family: 'Kanit', sans-serif;
+  color: rgb(50,50,50);
+  font-size: 20.75px;
 `;
 
 export {
@@ -44,4 +65,6 @@ export {
   BoldSubHeading,
   SuperBoldSubHeading,
   Paragraph,
+  SharedButton,
+  CarouselTitle,
 };

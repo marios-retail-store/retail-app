@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import { BoldSubHeading, Paragraph } from '../../shared/styles.js';
 
 const Container = styled('div')`
-  width: calc(100% - 400px);
+  min-width: calc(100% - 600px);
+  max-width: 600px;
+  text-align: center;
 `;
 
 const BoldSubHeadingSpacing = styled(BoldSubHeading)`
