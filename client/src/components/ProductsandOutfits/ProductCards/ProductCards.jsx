@@ -10,7 +10,7 @@ function ProductCards({
   const productDefaultPrice = card.default_price ? `$${card.default_price}` : null;
   const productSalePrice = style.sale_price ? `$${style.sale_price}` : null;
   const productTitle = `${card.name} (${style.name})`;
-  const productImageURL = style.photos[0].url || 'https://www.beelights.gr/assets/images/empty-image.png';
+  const productImageURL = style.photos[0].url || '../../../../empty-image.png';
   const productCategory = card.category;
 
   return (
