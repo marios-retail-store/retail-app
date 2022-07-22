@@ -9,40 +9,50 @@ import { useParams } from 'react-router-dom';
 import Carousel from './ProductsandOutfits/Carousel/Carousel.jsx';
 import ComparisonModal from './ProductsandOutfits/Modal/ComparisonModal.jsx';
 
-function ProductsAndOutfits({ currentProduct, style }) {
+function ProductsAndOutfits({ currentProduct, style, rating }) {
   const { productId } = useParams();
   const [myOutfit, setCurrentOutfit] = useState(undefined);
   const [relatedProducts, setRelatedProducts] = useState(undefined);
   const [comparisonProduct, setComparisonProduct] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const OutfitStorage = window.localStorage.getItem('Outfit');
+  let OutfitStorage = window.localStorage.getItem('Outfit');
   const cache = window.localStorage.getItem('CacheStatus');
-  let parsedCache = JSON.parse(cache);
+  let RelatedProductStorage = JSON.parse(cache);
+  const avgRating = Number(
+    // eslint-disable-next-line react/prop-types
+    (rating.results.reduce(
+      (acc, review) => (acc + review.rating),
+      0,
+    // eslint-disable-next-line react/prop-types
+    ) / rating.results.length).toFixed(2),
+  );
+
   if (!OutfitStorage) {
-    window.localStorage.setItem('Outfit', JSON.stringify({ products: [], styles: [] }));
+    window.localStorage.setItem('Outfit', JSON.stringify({ products: [], styles: [], ratings: [] }));
+    OutfitStorage = window.localStorage.getItem('Outfit');
   }
   if (!cache) {
     window.localStorage.setItem('CacheStatus', JSON.stringify({ [productId]: { finished: false } }));
-    parsedCache = JSON.parse(window.localStorage.getItem('CacheStatus'));
+    RelatedProductStorage = JSON.parse(window.localStorage.getItem('CacheStatus'));
   }
   if (cache) {
-    if (!parsedCache[productId]) {
-      parsedCache[productId] = { items: {}, finished: false };
-      window.localStorage.setItem('CacheStatus', JSON.stringify(parsedCache));
+    if (!RelatedProductStorage[productId]) {
+      RelatedProductStorage[productId] = { items: {}, finished: false };
+      window.localStorage.setItem('CacheStatus', JSON.stringify(RelatedProductStorage));
     }
   }
   const setStorage = () => {
     window.localStorage.setItem('Outfit', JSON.stringify(myOutfit));
   };
   const getStorage = () => {
-    parsedCache = JSON.parse(window.localStorage.getItem('CacheStatus'));
+    RelatedProductStorage = JSON.parse(window.localStorage.getItem('CacheStatus'));
     if (OutfitStorage) {
       setCurrentOutfit(JSON.parse(OutfitStorage));
     }
-    if (parsedCache !== null) {
-      if (Object.prototype.hasOwnProperty.call(parsedCache[productId], 'items')) {
-        setRelatedProducts(parsedCache[productId].items);
+    if (RelatedProductStorage !== null) {
+      if (Object.prototype.hasOwnProperty.call(RelatedProductStorage[productId], 'items')) {
+        setRelatedProducts(RelatedProductStorage[productId].items);
       }
     }
 
@@ -52,7 +62,7 @@ function ProductsAndOutfits({ currentProduct, style }) {
     getStorage();
   }
   useEffect(() => {
-    if (parsedCache === null || !parsedCache[productId].finished) {
+    if (RelatedProductStorage === null || !RelatedProductStorage[productId].finished) {
       axios.get(`/api/products/${productId}/related`)
         .then(({ data }) => data)
         .catch((err) => {
@@ -64,8 +74,11 @@ function ProductsAndOutfits({ currentProduct, style }) {
               .then(({ data }) => data))),
             axios.all(productIds.map((id) => axios.get(`/api/products/${id}/styles`)
               .then(({ data }) => data))),
+            axios.all(productIds.map((id) => axios.get(`/api/reviews?product_id=${id}&count=999999`)
+              .then(({ data }) => data)
+              .then(({ results }) => results))),
           ])
-            .then(axios.spread((products, styles) => {
+            .then(axios.spread((products, styles, reviews) => {
               // eslint-disable-next-line consistent-return
               const filtered = products.filter((product, i) => {
                 const Unique = products.findIndex((prod) => prod.name === product.name) === i;
@@ -77,22 +90,37 @@ function ProductsAndOutfits({ currentProduct, style }) {
                   return product;
                 }
                 styles.splice(i, 1);
+                reviews.splice(i, 1);
               });
-              setRelatedProducts({ products: filtered, styles });
-              parsedCache[productId] = { items: { products: filtered, styles }, finished: true };
-              window.localStorage.setItem('CacheStatus', JSON.stringify(parsedCache));
+              const ratings = reviews.map((product) => Number(
+                (product.reduce(
+                  (acc, review) => (acc + review.rating),
+                  0,
+                ) / product.length).toFixed(2),
+              ));
+              setRelatedProducts({ products: filtered, styles, ratings });
+              RelatedProductStorage[productId] = {
+                items: {
+                  products: filtered,
+                  styles,
+                  ratings,
+                },
+                finished: true,
+              };
+              window.localStorage.setItem('CacheStatus', JSON.stringify(RelatedProductStorage));
               setLoading(false);
             }));
         });
     } else {
       setLoading(false);
     }
-  }, [cache, parsedCache, productId, relatedProducts]);
+  }, [cache, RelatedProductStorage, productId, relatedProducts]);
 
   const deleteOutfitCard = (cardIndex) => {
     const clone = myOutfit;
     clone.products.splice(cardIndex, 1);
     clone.styles.splice(cardIndex, 1);
+    clone.ratings.splice(cardIndex, 1);
     setCurrentOutfit({ ...clone });
     setStorage();
   };
@@ -107,6 +135,7 @@ function ProductsAndOutfits({ currentProduct, style }) {
     }
     myOutfit.products.push(currentProduct);
     myOutfit.styles.push(style);
+    myOutfit.ratings.push(avgRating);
     setStorage();
     getStorage();
     setCurrentOutfit(myOutfit);
@@ -123,13 +152,14 @@ function ProductsAndOutfits({ currentProduct, style }) {
     setModalVisible(false);
   };
 
-  if (!isLoading) {
+  if (!isLoading && relatedProducts.ratings && myOutfit.ratings) {
     return (
       <>
         <CarouselTitle>Related Products</CarouselTitle>
         <Carousel
           products={relatedProducts.products}
           styles={relatedProducts.styles}
+          ratings={relatedProducts.ratings}
           type="related"
           clickFunc={clickProductCard}
           actionBtnFunc={showModal}
@@ -138,6 +168,7 @@ function ProductsAndOutfits({ currentProduct, style }) {
         <Carousel
           products={myOutfit.products}
           styles={myOutfit.styles}
+          ratings={myOutfit.ratings}
           type="outfit"
           clickFunc={clickProductCard}
           addToOutfit={addOutfitCard}
@@ -163,6 +194,7 @@ function ProductsAndOutfits({ currentProduct, style }) {
           <Carousel
             products={myOutfit.products}
             styles={myOutfit.styles}
+            ratings={myOutfit.ratings}
             type="outfit"
             clickFunc={clickProductCard}
             addToOutfit={addOutfitCard}
@@ -186,6 +218,7 @@ color: rgb(50,50,50);
 font-size: 15.75px;
 `;
 ProductsAndOutfits.propTypes = {
+  // eslint-disable-next-line react/require-default-props
   currentProduct: PropTypes.shape({
     id: PropTypes.number,
     category: PropTypes.string,
@@ -195,8 +228,11 @@ ProductsAndOutfits.propTypes = {
       feature: PropTypes.string,
       value: PropTypes.string,
     })),
-  }).isRequired,
+  }),
 
+  rating: PropTypes.shape({}).isRequired,
+
+  // eslint-disable-next-line react/require-default-props
   style: PropTypes.shape({
     style_id: PropTypes.number,
     name: PropTypes.string,
@@ -207,7 +243,7 @@ ProductsAndOutfits.propTypes = {
       thumbnail_url: PropTypes.string,
       url: PropTypes.string,
     })),
-  }).isRequired,
+  }),
 };
 
 export default ProductsAndOutfits;
