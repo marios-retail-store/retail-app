@@ -10,7 +10,13 @@ function ProductCards({
   const productDefaultPrice = card.default_price ? `$${card.default_price}` : null;
   const productSalePrice = style.sale_price ? `$${style.sale_price}` : null;
   const productTitle = `${card.name} (${style.name})`;
-  const productImageURL = style.photos[0].url || '../../../../empty-image.png';
+  let newUrl;
+  if (style.photos[0].url) {
+    newUrl = style.photos[0].url.split('&w=');
+    newUrl[1] = '298&q=65';
+    newUrl = newUrl.join('&w=');
+  }
+  const productImageURL = newUrl || '../../../../empty-image.png';
   const productCategory = card.category;
 
   return (
@@ -58,6 +64,7 @@ const CardImage = styled('img')`
   height: 400px;
   max-width: 100%;
   object-fit: cover;
+  draggable: false;
   `;
 
 const Product = styled('div')`
@@ -70,6 +77,7 @@ const Product = styled('div')`
     position: relative;
     font-family: 'Kanit',sans-serif;
     color: rgb(50,50,50);
+    cursor: pointer;
 `;
 
 const ActionButton = styled('button')`
