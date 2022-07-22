@@ -53,5 +53,8 @@
   },
   "jest": {
     "preset": "jest-puppeteer"
+  },
+  "devDependencies": {
+    "compression-webpack-plugin": "^10.0.0"
   }
 }
