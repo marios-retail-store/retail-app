@@ -14,7 +14,16 @@ background-color: #DAEAF1;
   display: inline-block;
   font-size: 16px;
 `;
-
+const SubButton = styled('button')`
+background-color: #D3CEDF;
+border-radius: 10px;
+padding:10px;
+text-align: center;
+display: inline-block;
+font-size: 16px;
+margin-top:15px;
+margin-left:200px;
+`;
 const ModalBackground = styled('div')`
   background-color: #F5EDDC;
   width:80%;
@@ -23,6 +32,12 @@ const ModalBackground = styled('div')`
   left: 0;
   position: fixed;
   z-index: 90;
+`;
+
+const SmallDiv = styled('input')`
+width:180px;
+height:30px;
+margin:10px;
 `;
 
 export default function QuestionModal({ productId, productName }) {
@@ -73,27 +88,29 @@ export default function QuestionModal({ productId, productName }) {
       {showModal && (
       <ModalBackground>
         <button type="button" onClick={() => setShowModal(false)}>{'< Go Back'}</button>
-        <h2>
+        <h2 style={{ textAlign: 'center' }}>
           {`Ask Your Question About the ${productName}`}
         </h2>
-        <form>
-          <label htmlFor="question">Your Question * &nbsp;</label>
-          <textarea type="text" placeholder="Enter Your Question Here Please..." autoComplete="on" maxLength={1000} minLength={1} rows={6} columns={66} onChange={(event) => setQuestionText(event.target.value)} />
-          <br />
-          <label htmlFor="nickname">
-            Nickname * &nbsp;
-            <input type="text" placeholder="Example: jackson11" maxLength={60} onChange={(event) => setQuesAsker(event.target.value)} />
-            <p>
-              For privacy reasons, do not use your full name or email address
-            </p>
-          </label>
-          <label htmlFor="email">
-            Email * &nbsp;
-            <input type="email" autoComplete="off" maxLength={60} placeholder="jackson@email.com" onChange={(event) => setQuesEmail(event.target.value)} />
-            <p>For privacy reasons, do not use your full name or email address !!</p>
-          </label>
-        </form>
-        <button type="button" onClick={() => handleSubmit()}>Submit</button>
+        <div style={{ margin: '220px', marginTop: '40px' }}>
+          <form>
+            <label htmlFor="question">Your Question * &nbsp;</label>
+            <textarea style={{ width: '350px', height: '100px' }} type="text" placeholder="Enter Your Question Here Please..." autoComplete="on" maxLength={1000} minLength={1} rows={6} columns={66} onChange={(event) => setQuestionText(event.target.value)} />
+            <br />
+            <label htmlFor="nickname">
+              Nickname * &nbsp;
+              <SmallDiv type="text" placeholder="Example: jackson11" maxLength={60} onChange={(event) => setQuesAsker(event.target.value)} />
+              <p>
+                For privacy reasons, do not use your full name or email address
+              </p>
+            </label>
+            <label htmlFor="email">
+              Email * &nbsp;
+              <SmallDiv type="email" autoComplete="off" maxLength={60} placeholder="jackson@email.com" onChange={(event) => setQuesEmail(event.target.value)} />
+              <p>For privacy reasons, do not use your full name or email address !!</p>
+            </label>
+          </form>
+          <SubButton type="button" onClick={() => handleSubmit()}>Submit</SubButton>
+        </div>
       </ModalBackground>
       )}
     </div>

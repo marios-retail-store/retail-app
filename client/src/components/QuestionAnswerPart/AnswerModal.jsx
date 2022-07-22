@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-alert */
 /* eslint-disable react/no-array-index-key */
 
@@ -31,6 +32,23 @@ const ModalBackground = styled('div')`
   z-index: 90;
 `;
 
+const Button = styled('button')`
+background-color: #D3CEDF;
+border-radius: 10px;
+padding:10px;
+text-align: center;
+display: inline-block;
+font-size: 16px;
+margin-top:15px;
+margin-left:200px;
+`;
+
+const SmallDiv = styled('input')`
+width:180px;
+height:30px;
+margin:10px;
+`;
+
 export default function AnswerModal({
   questionText, productName, setShowModal, questionId,
 }) {
@@ -49,7 +67,7 @@ export default function AnswerModal({
     if (files.length <= 5) {
       const url = [];
       const promisesUpload = [];
-      for (let i = 0; i < files.length; i++) {
+      for (let i = 0; i < files.length; i += 1) {
         const currentFile = files[i];
         const formData = new FormData();
         formData.append('file', currentFile);
@@ -123,74 +141,78 @@ export default function AnswerModal({
       <h2 style={{ textAlign: 'center' }}>
         Submit Your Answer
       </h2>
-      <h4>
-        {productName}
-        {' '}
-        :
-        {' '}
-        {questionText}
-      </h4>
-      <Form>
-        <label htmlFor="answer">
-          Your Answer *  &nbsp;
-          <textarea
-            type="text"
-            placeholder="Enter Answer Here..."
-            autoComplete="on"
-            maxLength={1000}
-            minLength={1}
-            rows={6}
-            columns={66}
-            onChange={(event) => setAnswer(event.target.value)}
-          />
-        </label>
-        <br />
-        <label htmlFor="nickname">
-          Nickname *  &nbsp;
-          <input
-            placeholder="Example: jack543"
-            maxLength={60}
-            onChange={(event) => setNickname(event.target.value)}
-          />
-          <p> For privacy reasons, do not use your full name or email address !!</p>
-        </label>
-        <label htmlFor="email">
-          Email * &nbsp;
-          <input
-            autoComplete="off"
-            type="email"
-            maxLength={60}
-            placeholder="jack@email.com"
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <p> For authentication reasons, you will not be emailed !!</p>
-        </label>
-        <label htmlFor="files">
-          Select photos (Limit 5)
-          <input
-            type="file"
-            accept="image/*"
-            multiple="multiple"
-            onChange={(event) => handlePhotosChange(event)}
-          />
-          <button type="button" onClick={(event) => handlePhotosUpload(event, photosUploadFile)}>Upload</button>
-        </label>
-        {photosUrl.length > 0 && (
-          <div>
-            <h4>Click on the image to enlarge it.</h4>
-            <PhotoDiv>
-              {photosUrl.map((item, index) => (
-                <PhotoReview
-                  key={index}
-                  photo={item}
-                />
-              ))}
-            </PhotoDiv>
+      <div style={{ margin: '220px', marginTop: '40px' }}>
+        <h4>
+          {productName}
+          {' '}
+          :
+          {' '}
+          {questionText}
+        </h4>
+        <Form>
+          <label htmlFor="answer">
+            Your Answer *  &nbsp;
+            <textarea
+              style={{ width: '350px', height: '100px' }}
+              type="text"
+              placeholder="Enter Answer Here..."
+              autoComplete="on"
+              maxLength={1000}
+              minLength={1}
+              rows={6}
+              columns={66}
+              onChange={(event) => setAnswer(event.target.value)}
+            />
+          </label>
+          <br />
+          <label htmlFor="nickname">
+            Nickname *  &nbsp;
+            <SmallDiv
+              placeholder="Example: jack543"
+              maxLength={60}
+              onChange={(event) => setNickname(event.target.value)}
+            />
+            <p> For privacy reasons, do not use your full name or email address !!</p>
+          </label>
+          <label htmlFor="email">
+            Email * &nbsp;
+            <SmallDiv
+              autoComplete="off"
+              type="email"
+              maxLength={60}
+              placeholder="jack@email.com"
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <p> For authentication reasons, you will not be emailed !!</p>
+          </label>
+          <label htmlFor="files">
+            Select photos (Limit 5)
+            <input
+              type="file"
+              accept="image/*"
+              multiple="multiple"
+              onChange={(event) => handlePhotosChange(event)}
+            />
+            <button type="button" onClick={(event) => handlePhotosUpload(event, photosUploadFile)}>Upload</button>
+          </label>
+          {photosUrl.length > 0 && (
+            <div>
+              <h4>Click on the image to enlarge it.</h4>
+              <PhotoDiv>
+                {photosUrl.map((item, index) => (
+                  <PhotoReview
+                    key={index}
+                    photo={item}
+                  />
+                ))}
+              </PhotoDiv>
 
-          </div>
-        )}
-        <button type="button" onClick={() => handleSubmit()}> Submit </button>
-      </Form>
+            </div>
+          )}
+          <br />
+          <Button type="button" onClick={() => handleSubmit()}> Submit </Button>
+        </Form>
+      </div>
     </ModalBackground>
   );
 }
