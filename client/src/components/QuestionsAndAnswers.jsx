@@ -14,7 +14,7 @@ const SearchContainer = styled('input')`
   width:700px;
   border-radius:5px;
   background:#EAF6F6;
-  position:absolute;
+  margin-right: -35px;
 `;
 const Button = styled('button')`
   background-color: #DAEAF1;
@@ -28,6 +28,13 @@ const Button = styled('button')`
 
 const SearchDiv = styled('div')`
    position:relative;
+   margin-bottom:20px;
+`;
+
+const InnerContainer = styled('span')`
+   left: 320px
+   position: absolute;
+   top: 20px;
 `;
 export default function QuestionsAndAnswers({ productId, productName }) {
   const [qalist, setQalist] = useState([]);
@@ -86,9 +93,9 @@ export default function QuestionsAndAnswers({ productId, productName }) {
       <br />
       <SearchDiv>
         <SearchContainer type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS ......" onChange={(event) => handleSearch(event)} />
-        <span className="material-symbols-outlined">
+        <InnerContainer className="material-symbols-outlined">
           search
-        </span>
+        </InnerContainer>
       </SearchDiv>
       <div style={{ maxHeight: '800px', overflow: 'scroll' }}>
         {qalist.length > 0
