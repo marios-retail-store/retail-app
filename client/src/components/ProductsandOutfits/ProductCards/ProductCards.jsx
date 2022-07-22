@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import StarRating from '../../shared/star/StarRating.jsx';
 
 function ProductCards({
-  card, style, clickFunc, actionButton, buttonText,
+  card, style, clickFunc, actionButton, buttonText, rating,
 }) {
   const productDefaultPrice = card.default_price ? `$${card.default_price}` : null;
   const productSalePrice = style.sale_price ? `$${style.sale_price}` : null;
   const productTitle = `${card.name} (${style.name})`;
   const productImageURL = style.photos[0].url || 'https://www.beelights.gr/assets/images/empty-image.png';
   const productCategory = card.category;
-  const productRating = 4;
+
   return (
     // eslint-disable-next-line max-len
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
@@ -41,9 +41,7 @@ function ProductCards({
           )}
         </ProductPricing>
         <div className="product-rating">
-
-          {/* {productRating >= 0 ? <small>good</small> : ''} */}
-          <StarRating averageRating={productRating} />
+          {rating && <StarRating averageRating={rating} />}
         </div>
       </ProductInfo>
 
@@ -114,6 +112,7 @@ const DiscountText = styled('small')`
 const MoneyText = styled('small')``;
 
 ProductCards.propTypes = {
+  rating: PropTypes.number,
   card: PropTypes.shape({
     id: PropTypes.number,
     category: PropTypes.string,
@@ -140,6 +139,7 @@ ProductCards.propTypes = {
   buttonText: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
 ProductCards.defaultProps = {
+  rating: undefined,
   actionButton: PropTypes.func,
   buttonText: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };

@@ -2,8 +2,10 @@ require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const axios = require('axios');
+const compression = require('compression');
 
 const app = express();
+app.use(compression());
 
 app.use(require('morgan')('tiny'));
 
@@ -19,6 +21,7 @@ app.all('/api/*', (req, res) => {
     data: req.body,
     headers: {
       Authorization: process.env.TOKEN,
+      'Accept-Encoding': 'gzip, compress, br',
     },
   })
     .then((response) => {
