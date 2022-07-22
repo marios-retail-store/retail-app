@@ -78,6 +78,7 @@ const Product = styled('div')`
     font-family: 'Kanit',sans-serif;
     color: rgb(50,50,50);
     cursor: pointer;
+    background-color: #EAF6F6;
 `;
 
 const ActionButton = styled('button')`

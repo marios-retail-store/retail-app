@@ -112,7 +112,7 @@ text-align: start;
 const Comparison = styled('div')`
     position: fixed;
     top: 50vh;
-    background: white;
+    background: #EAF6F6;
     border: 1px solid black;
     max-height: 70%;
     height: auto;
