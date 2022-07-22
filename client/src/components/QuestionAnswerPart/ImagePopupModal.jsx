@@ -11,7 +11,7 @@ const ModalBackground = styled('div')`
   left: 0;
   position: fixed;
   z-index: 90;
-  backdrop-filter: blur(50px);
+  ${'' /* backdrop-filter: blur(50px); */}
 `;
 const UIContainer = styled('div')`
   position: fixed;
