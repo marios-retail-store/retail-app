@@ -15,6 +15,7 @@ const Container = styled('div')`
 
 const SearchContainer = styled('input')`
   margin-right: -35px;
+  width:700px;
   user-select: none;
   height: 50px;
   padding: 0 15px;
@@ -76,7 +77,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
           .sort((a, b) => b.question_helpfulness - a.question_helpfulness));
       })
       .catch(() => console.log('Error during get request on Q/A part for questions and answers list'));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [searchText, setSearchText] = useState('');
@@ -123,7 +124,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
                 productName={productName}
               />
             )))
-          : <QuestionModal productId={qalist.product_id} productName={productName} />}
+          : <QuestionModal productId={productId} productName={productName} />}
       </div>
       <br />
       {isLastPage ? null : (
@@ -139,7 +140,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
           <BoldSubHeading>COLLAPSE ALL</BoldSubHeading>
         </Button>
       )}
-      <QuestionModal productId={qalist.product_id} productName={productName} />
+      <QuestionModal productId={productId} productName={productName} />
     </Container>
 
   );

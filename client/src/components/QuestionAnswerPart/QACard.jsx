@@ -54,8 +54,6 @@ export default function QACard({ ele, productName }) {
     return (b.helpfulness - a.helpfulness);
   });
   const [showModal, setShowModal] = useState(false);
-  const [questionId, setQuestionId] = useState(0);
-  const [questionText, setQuestionText] = useState('');
   const [report, setReport] = useState(false);
   const [displayedAns, setDisplayedAns] = useState(answerslist.slice(0, 2));
   const [showCollapseBtn, setShowCollapeBtn] = useState(false);
@@ -70,10 +68,8 @@ export default function QACard({ ele, productName }) {
     setDisplayedAns(answerslist.slice(0, 2));
   };
 
-  const handleClickAddAnsButton = function (event, id) {
+  const handleClickAddAnsButton = function () {
     setShowModal(true);
-    setQuestionText(event.target.value);
-    setQuestionId(id);
   };
   const handleReport = function (event, reportingId) {
     const options = {
@@ -95,9 +91,9 @@ export default function QACard({ ele, productName }) {
       {showModal && (
       <AnswerModal
         setShowModal={setShowModal}
-        questionText={questionText}
+        questionText={ele.question_body}
         productName={productName}
-        questionId={questionId}
+        questionId={ele.question_id}
       />
       )}
       <Container>
@@ -119,9 +115,7 @@ export default function QACard({ ele, productName }) {
           <span>
             <SimpleButton
               type="button"
-              value={ele.question_body}
-              id={ele.question_id}
-              onClick={(event) => handleClickAddAnsButton(event)}
+              onClick={() => handleClickAddAnsButton()}
             >
               <CustomParagraph>Add Answer</CustomParagraph>
             </SimpleButton>
@@ -129,7 +123,6 @@ export default function QACard({ ele, productName }) {
         </span>
       </Container>
       {displayedAns.map((a, aIndex) => (
-        // style={{ maxHeight: '200px', overflow: 'scroll' }}
         <div key={aIndex}>
           <CustomSubHeading>A:&nbsp;</CustomSubHeading>
           <CustomParagraph>{a.body}</CustomParagraph>
