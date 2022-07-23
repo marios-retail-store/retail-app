@@ -4,11 +4,12 @@
   "description": "found within the readme",
   "main": "index.js",
   "scripts": {
-    "test": "jest --env=jsdom --collectCoverage",
-    "lint": "lint-staged",
+    "start": "node server.js",
+    "server-dev": "nodemon server.js",
     "build": "webpack",
     "client-dev": "webpack --watch",
-    "server-dev": "nodemon server.js",
+    "test": "jest --env=jsdom --collectCoverage",
+    "lint": "lint-staged",
     "prepare": "husky install"
   },
   "repository": {
