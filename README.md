@@ -48,9 +48,11 @@ A complete redesign of an ecommerce website.
 - [React-Testing-Library](https://testing-library.com/docs/react-testing-library/intro)  v13.3
 
 ## Setup
+
 ```
 $ git clone https://github.com/marios-retail-store/retail-app.git
 $ cd retail-app
 $ npm install
+$ npm build
 $ npm start
 ```
