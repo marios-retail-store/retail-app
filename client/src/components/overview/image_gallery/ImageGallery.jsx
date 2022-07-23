@@ -91,6 +91,8 @@ function ImageGallery({ style }) {
     setCurrentImgIndex(index);
   };
 
+  const imageUrl = photos[currentImgIndex].url || '../../../../empty-image.png';
+
   return (
     <>
       {inExpandedState && (
@@ -105,9 +107,7 @@ function ImageGallery({ style }) {
         <ImageContainer
           onClick={() => { setInExpandedState(true); }}
         >
-          {photos[currentImgIndex].url === null
-            ? <ErrorMsg>No Image Found</ErrorMsg>
-            : <StyledImg draggable="false" src={photos[currentImgIndex].url} alt="product image" />}
+          <StyledImg draggable="false" src={imageUrl} alt="product image" />
         </ImageContainer>
         {currentImgIndex > 0 && (
           <ArrowContainerLeft

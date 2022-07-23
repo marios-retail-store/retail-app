@@ -11,7 +11,7 @@ describe('Custom Dropdown', () => {
     render(<CustomDropdown
       placeholder="placeholder_test"
       options={['option1', 'option2']}
-      width={100}
+      width="100px"
       height={20}
     />);
 
@@ -23,7 +23,7 @@ describe('Custom Dropdown', () => {
     render(<CustomDropdown
       placeholder="placeholder_test"
       options={['option1', 'option2']}
-      width={100}
+      width="100px"
       height={20}
     />);
 
@@ -45,7 +45,7 @@ describe('Custom Dropdown', () => {
     render(<CustomDropdown
       placeholder="placeholder_test"
       options={['option1', 'option2']}
-      width={100}
+      width="100px"
       height={20}
       disabled
     />);
@@ -67,7 +67,7 @@ describe('Custom Dropdown', () => {
     render(<CustomDropdown
       placeholder="placeholder_test"
       options={['option1', 'option2']}
-      width={100}
+      width="100px"
       height={20}
     />);
 

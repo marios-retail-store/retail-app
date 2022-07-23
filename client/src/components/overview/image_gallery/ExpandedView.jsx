@@ -126,7 +126,7 @@ function ExpandedView({
             )}
         <ExpandedViewImage
           toggleZoom={toggleZoom}
-          url={photos[currentImgIndex].url}
+          url={photos[currentImgIndex].url || '../../../../empty-image.png'}
           isZoomedIn={isZoomedIn}
           mousePosition={mousePosition}
         />

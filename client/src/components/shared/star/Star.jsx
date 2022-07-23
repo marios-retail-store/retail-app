@@ -40,7 +40,7 @@ function Star({ filled }) {
       filledPercentage = 100;
       break;
     default:
-      throw new Error('pass 0, 0.25, 0.5, 0.75 or 1 into the Star Component');
+      filledPercentage = (Math.round(filled * 4) / 4) * 100;
   }
 
   return (
