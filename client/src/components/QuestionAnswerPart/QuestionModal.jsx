@@ -49,7 +49,7 @@ export default function QuestionModal({ productId, productName }) {
       body: quesText,
       name: quesAsker,
       email: quesEmail,
-      product_id: Number(productId),
+      product_id: productId,
     },
   };
 
@@ -116,6 +116,6 @@ export default function QuestionModal({ productId, productName }) {
 }
 
 QuestionModal.propTypes = {
-  productId: PropTypes.string,
+  productId: PropTypes.number,
   productName: PropTypes.string,
 }.isRequired;

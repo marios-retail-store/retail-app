@@ -150,7 +150,7 @@ export default function AnswerModal({
           {questionText}
         </h4>
         <Form>
-          <label htmlFor="answer">
+          <label>
             Your Answer *  &nbsp;
             <textarea
               style={{ width: '350px', height: '100px' }}
@@ -165,7 +165,7 @@ export default function AnswerModal({
             />
           </label>
           <br />
-          <label htmlFor="nickname">
+          <label>
             Nickname *  &nbsp;
             <SmallDiv
               placeholder="Example: jack543"
@@ -174,7 +174,7 @@ export default function AnswerModal({
             />
             <p> For privacy reasons, do not use your full name or email address !!</p>
           </label>
-          <label htmlFor="email">
+          <label>
             Email * &nbsp;
             <SmallDiv
               autoComplete="off"
@@ -185,7 +185,7 @@ export default function AnswerModal({
             />
             <p> For authentication reasons, you will not be emailed !!</p>
           </label>
-          <label htmlFor="files">
+          <label>
             Select photos (Limit 5)
             <input
               type="file"
