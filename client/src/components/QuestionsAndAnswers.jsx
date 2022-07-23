@@ -14,10 +14,6 @@ const Container = styled('div')`
 `;
 
 const SearchContainer = styled('input')`
-  ${'' /* height:65px; */}
-  width:700px;
-  ${'' /* border-radius:5px; */}
-  ${'' /* background:#EAF6F6; */}
   margin-right: -35px;
   user-select: none;
   height: 50px;
@@ -79,7 +75,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
         setQalist(response.data.results
           .sort((a, b) => b.question_helpfulness - a.question_helpfulness));
       })
-      .catch((err) => console.log('Error during get request on Q/A part for questions and answers list'));
+      .catch(() => console.log('Error during get request on Q/A part for questions and answers list'));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

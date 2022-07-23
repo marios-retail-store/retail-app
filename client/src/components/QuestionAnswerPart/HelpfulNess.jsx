@@ -1,14 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Paragraph } from '../shared/styles.js';
-
-const CustomParagraph = styled(Paragraph)`
-  letter-spacing: 0em;
-  display: inline;
-`;
 
 const Button = styled('button')`
   border:none;
@@ -22,7 +15,7 @@ export default function HelpfulNess({ count, id }) {
   const [helpful, setHelpful] = useState(false);
   const [helpfulCount, setHelpfulCount] = useState(count);
 
-  const handleClick = function (event) {
+  const handleClick = function () {
     const options = {
       url: `api/qa/questions/${id}/helpful`,
       method: 'PUT',
@@ -35,7 +28,7 @@ export default function HelpfulNess({ count, id }) {
         setHelpful(true);
         setHelpfulCount(helpfulCount + 1);
       })
-        .catch((err) => {
+        .catch(() => {
           console.log('Error during put request to update question helpfulness');
         });
     }
@@ -45,7 +38,7 @@ export default function HelpfulNess({ count, id }) {
       Helpful?&nbsp;&nbsp;&nbsp;
       <Button
         type="button"
-        onClick={(event) => handleClick(event)}
+        onClick={() => handleClick()}
       >
         Yes
       </Button>

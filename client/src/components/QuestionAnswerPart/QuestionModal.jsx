@@ -7,22 +7,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { BoldSubHeading, SharedButton } from '../shared/styles.js';
 
-// const Button = styled('button')`
-// background-color: #DAEAF1;
-//   border-radius: 10px;
-//   padding: 15px 32px;
-//   text-align: center;
-//   display: inline-block;
-//   font-size: 16px;
-// `;
-
 const Button = styled(SharedButton)`
-  ${'' /* background-color: #DAEAF1; */}
-  ${'' /* border-radius: 10px; */}
-  ${'' /* padding: 15px 32px; */}
-  ${'' /* text-align: center; */}
   display: inline-block;
-  ${'' /* font-size: 16px; */}
 `;
 const SubButton = styled('button')`
 background-color: #D3CEDF;

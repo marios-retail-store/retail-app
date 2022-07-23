@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ModalBackground = styled('div')`
-  ${'' /* background-color: rgba(200, 200, 200, .5); */}
   background-color: #F5EDDC;
   width: 100%;
   height: 100%;
@@ -11,7 +10,6 @@ const ModalBackground = styled('div')`
   left: 0;
   position: fixed;
   z-index: 90;
-  ${'' /* backdrop-filter: blur(50px); */}
 `;
 const UIContainer = styled('div')`
   position: fixed;
@@ -62,21 +60,10 @@ const ImgContainer = styled('div')`
 `;
 
 const StyledImg = styled('img')`
-  ${(props) => {
-    if (props.fillScreenWithImg) {
-      return `
-        width: 100%;
-        height: 100%;
-      `;
-    }
-    return `
       max-width: 100%;
       max-height: 100%;
+      object-fit: contain;
     `;
-  }}
-
-  object-fit: contain;
-`;
 
 function ImagePopupModal({ url, closeView }) {
   return (

@@ -83,7 +83,7 @@ export default function QACard({ ele, productName }) {
     if (!report) {
       axios(options).then(() => {
         setReport(true);
-      }).catch((err) => { console.log('Error during reporing request'); });
+      }).catch(() => { console.log('Error during reporing request'); });
     } else {
       alert('Have received your report. Thanks');
     }
