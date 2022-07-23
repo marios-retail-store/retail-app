@@ -117,18 +117,13 @@ export default function QuestionsAndAnswers({ productId, productName }) {
           ? (qalist
             .filter((obj) => obj.question_body.includes(searchText))
             .slice(0, 4 + morePageNum * 2)
-            .map((ele, index) => {
-              if (index === 0) {
-                console.log('1:', ele);
-              }
-              return (
-                <QACard
-                  ele={ele}
-                  key={ele.question_id}
-                  productName={productName}
-                />
-              );
-            }))
+            .map((ele) => (
+              <QACard
+                ele={ele}
+                key={ele.question_id}
+                productName={productName}
+              />
+            )))
           : <QuestionModal productId={productId} productName={productName} />}
       </div>
       <br />

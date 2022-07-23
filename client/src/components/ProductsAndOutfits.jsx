@@ -11,8 +11,6 @@ import ComparisonModal from './ProductsandOutfits/Modal/ComparisonModal.jsx';
 
 function ProductsAndOutfits({ currentProduct, style, rating }) {
   const { productId } = useParams();
-  const count = 0;
-  console.log(productId);
   const [myOutfit, setCurrentOutfit] = useState(undefined);
   const [relatedProducts, setRelatedProducts] = useState(undefined);
   const [comparisonProduct, setComparisonProduct] = useState({});
@@ -31,13 +29,11 @@ function ProductsAndOutfits({ currentProduct, style, rating }) {
 
   const setStorage = (cache, inputObj) => {
     const currentCache = JSON.parse(window.localStorage.getItem(cache));
-    console.log();
-    window.localStorage.setItem(cache, JSON.stringify({...currentCache, ...inputObj}));
+    window.localStorage.setItem(cache, JSON.stringify({ ...currentCache, ...inputObj }));
   };
   const getStorage = () => {
     RelatedProductStorage = JSON.parse(window.localStorage.getItem('RelatedProducts'));
     OutfitStorage = JSON.parse(window.localStorage.getItem('Outfit'));
-    console.log('related:', RelatedProductStorage);
     if (OutfitStorage) {
       setCurrentOutfit(OutfitStorage);
     } else {
@@ -59,11 +55,8 @@ function ProductsAndOutfits({ currentProduct, style, rating }) {
   };
 
   useEffect(() => {
-    // debugger;
     getStorage();
-    console.log('afterGet', RelatedProductStorage);
     setLoading(true);
-    console.log(RelatedProductStorage || RelatedProductStorage[productId].finished);
     if (RelatedProductStorage === null || !RelatedProductStorage[productId].finished) {
       axios.get(`/api/products/${productId}/related`)
         .then(({ data }) => data)
@@ -99,8 +92,6 @@ function ProductsAndOutfits({ currentProduct, style, rating }) {
               0,
             ) / product.length).toFixed(2),
           ));
-          console.log('setRelated before', RelatedProductStorage);
-          console.log('setRelated after', RelatedProductStorage);
           setLoading(false);
           return { [productId]: { items: { products: filtered, styles, ratings }, finished: !!1 } };
         }))
