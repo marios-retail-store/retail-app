@@ -11,14 +11,15 @@ import ComparisonModal from './ProductsandOutfits/Modal/ComparisonModal.jsx';
 
 function ProductsAndOutfits({ currentProduct, style, rating }) {
   const { productId } = useParams();
+  const count = 0;
+  console.log(productId);
   const [myOutfit, setCurrentOutfit] = useState(undefined);
   const [relatedProducts, setRelatedProducts] = useState(undefined);
   const [comparisonProduct, setComparisonProduct] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  let OutfitStorage = window.localStorage.getItem('Outfit');
-  const cache = window.localStorage.getItem('CacheStatus');
-  let RelatedProductStorage = JSON.parse(cache);
+  let RelatedProductStorage = JSON.parse(window.localStorage.getItem('RelatedProducts'));
+  let OutfitStorage = JSON.parse(window.localStorage.getItem('Outfit'));
   const avgRating = Number(
     // eslint-disable-next-line react/prop-types
     (rating.results.reduce(
@@ -28,93 +29,90 @@ function ProductsAndOutfits({ currentProduct, style, rating }) {
     ) / rating.results.length).toFixed(2),
   );
 
-  if (!OutfitStorage) {
-    window.localStorage.setItem('Outfit', JSON.stringify({ products: [], styles: [], ratings: [] }));
-    OutfitStorage = window.localStorage.getItem('Outfit');
-  }
-  if (!cache) {
-    window.localStorage.setItem('CacheStatus', JSON.stringify({ [productId]: { finished: false } }));
-    RelatedProductStorage = JSON.parse(window.localStorage.getItem('CacheStatus'));
-  }
-  if (cache) {
-    if (!RelatedProductStorage[productId]) {
-      RelatedProductStorage[productId] = { items: {}, finished: false };
-      window.localStorage.setItem('CacheStatus', JSON.stringify(RelatedProductStorage));
-    }
-  }
-  const setStorage = () => {
-    window.localStorage.setItem('Outfit', JSON.stringify(myOutfit));
+  const setStorage = (cache, inputObj) => {
+    const currentCache = JSON.parse(window.localStorage.getItem(cache));
+    console.log();
+    window.localStorage.setItem(cache, JSON.stringify({...currentCache, ...inputObj}));
   };
   const getStorage = () => {
-    RelatedProductStorage = JSON.parse(window.localStorage.getItem('CacheStatus'));
+    RelatedProductStorage = JSON.parse(window.localStorage.getItem('RelatedProducts'));
+    OutfitStorage = JSON.parse(window.localStorage.getItem('Outfit'));
+    console.log('related:', RelatedProductStorage);
     if (OutfitStorage) {
-      setCurrentOutfit(JSON.parse(OutfitStorage));
+      setCurrentOutfit(OutfitStorage);
+    } else {
+      setStorage('Outfit', { products: [], styles: [], ratings: [] });
+      setCurrentOutfit(JSON.parse(window.localStorage.getItem('Outfit')));
     }
-    if (RelatedProductStorage !== null) {
-      if (Object.prototype.hasOwnProperty.call(RelatedProductStorage[productId], 'items')) {
+    if (RelatedProductStorage) {
+      if (RelatedProductStorage[productId] && RelatedProductStorage[productId].items) {
         setRelatedProducts(RelatedProductStorage[productId].items);
+      } else {
+        setStorage('RelatedProducts', { [productId]: { finished: false } });
       }
+    } else {
+      setStorage('RelatedProducts', { [productId]: { finished: false } });
     }
-
-    return [OutfitStorage, relatedProducts];
+    RelatedProductStorage = JSON.parse(window.localStorage.getItem('RelatedProducts'));
+    OutfitStorage = JSON.parse(window.localStorage.getItem('Outfit'));
+    return [OutfitStorage, RelatedProductStorage];
   };
-  if (!myOutfit) {
-    getStorage();
-  }
+
   useEffect(() => {
+    // debugger;
+    getStorage();
+    console.log('afterGet', RelatedProductStorage);
+    setLoading(true);
+    console.log(RelatedProductStorage || RelatedProductStorage[productId].finished);
     if (RelatedProductStorage === null || !RelatedProductStorage[productId].finished) {
       axios.get(`/api/products/${productId}/related`)
         .then(({ data }) => data)
         .catch((err) => {
           console.error('failed getting product', err);
         })
-        .then((productIds) => {
-          Promise.all([
-            axios.all(productIds.map((id) => axios.get(`/api/products/${id}/`)
-              .then(({ data }) => data))),
-            axios.all(productIds.map((id) => axios.get(`/api/products/${id}/styles`)
-              .then(({ data }) => data))),
-            axios.all(productIds.map((id) => axios.get(`/api/reviews?product_id=${id}&count=999999`)
-              .then(({ data }) => data)
-              .then(({ results }) => results))),
-          ])
-            .then(axios.spread((products, styles, reviews) => {
+        .then((productIds) => Promise.all([
+          axios.all(productIds.map((id) => axios.get(`/api/products/${id}/`)
+            .then(({ data }) => data))),
+          axios.all(productIds.map((id) => axios.get(`/api/products/${id}/styles`)
+            .then(({ data }) => data))),
+          axios.all(productIds.map((id) => axios.get(`/api/reviews?product_id=${id}&count=999999`)
+            .then(({ data }) => data)
+            .then(({ results }) => results))),
+        ]))
+        .then(axios.spread((products, styles, reviews) => {
+          // eslint-disable-next-line consistent-return
+          const filtered = products.filter((product, i) => {
+            const Unique = products.findIndex((prod) => prod.name === product.name) === i;
+
+            const isNotCurrentProduct = product.id !== Number(productId);
+
+            if (Unique && isNotCurrentProduct) {
               // eslint-disable-next-line consistent-return
-              const filtered = products.filter((product, i) => {
-                const Unique = products.findIndex((prod) => prod.name === product.name) === i;
-
-                const isNotCurrentProduct = product.id !== Number(productId);
-
-                if (Unique && isNotCurrentProduct) {
-                  // eslint-disable-next-line consistent-return
-                  return product;
-                }
-                styles.splice(i, 1);
-                reviews.splice(i, 1);
-              });
-              const ratings = reviews.map((product) => Number(
-                (product.reduce(
-                  (acc, review) => (acc + review.rating),
-                  0,
-                ) / product.length).toFixed(2),
-              ));
-              setRelatedProducts({ products: filtered, styles, ratings });
-              RelatedProductStorage[productId] = {
-                items: {
-                  products: filtered,
-                  styles,
-                  ratings,
-                },
-                finished: true,
-              };
-              window.localStorage.setItem('CacheStatus', JSON.stringify(RelatedProductStorage));
-              setLoading(false);
-            }));
+              return product;
+            }
+            styles.splice(i, 1);
+            reviews.splice(i, 1);
+          });
+          const ratings = reviews.map((product) => Number(
+            (product.reduce(
+              (acc, review) => (acc + review.rating),
+              0,
+            ) / product.length).toFixed(2),
+          ));
+          console.log('setRelated before', RelatedProductStorage);
+          console.log('setRelated after', RelatedProductStorage);
+          setLoading(false);
+          return { [productId]: { items: { products: filtered, styles, ratings }, finished: !!1 } };
+        }))
+        .then((result) => {
+          setStorage('RelatedProducts', result);
+          setRelatedProducts(result[productId].items);
+          setLoading(false);
         });
     } else {
       setLoading(false);
     }
-  }, [cache, RelatedProductStorage, productId, relatedProducts]);
+  }, [productId]);
 
   const deleteOutfitCard = (cardIndex) => {
     const clone = myOutfit;
@@ -122,7 +120,7 @@ function ProductsAndOutfits({ currentProduct, style, rating }) {
     clone.styles.splice(cardIndex, 1);
     clone.ratings.splice(cardIndex, 1);
     setCurrentOutfit({ ...clone });
-    setStorage();
+    setStorage('Outfit', myOutfit);
   };
 
   const clickProductCard = (cardInfo) => {
@@ -136,7 +134,7 @@ function ProductsAndOutfits({ currentProduct, style, rating }) {
     myOutfit.products.push(currentProduct);
     myOutfit.styles.push(style);
     myOutfit.ratings.push(avgRating);
-    setStorage();
+    setStorage('Outfit', myOutfit);
     getStorage();
     setCurrentOutfit(myOutfit);
   };
@@ -170,7 +168,6 @@ function ProductsAndOutfits({ currentProduct, style, rating }) {
           styles={myOutfit.styles}
           ratings={myOutfit.ratings}
           type="outfit"
-          clickFunc={clickProductCard}
           addToOutfit={addOutfitCard}
           actionBtnFunc={deleteOutfitCard}
         />

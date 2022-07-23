@@ -35,6 +35,7 @@ const addCard = {
 function Carousel({
   products, styles, type, actionBtnFunc, addToOutfit, clickFunc, ratings,
 }) {
+  console.log(products)
   const [current, setCurrent] = useState(0);
   const { length } = products;
   const cardAmount = type === 'outfit' ? (Math.floor(window.innerWidth / 332)) - 1 : (Math.floor(window.innerWidth / 332));

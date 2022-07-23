@@ -61,7 +61,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
 
   const options = {
 
-    url: 'api/qa/questions',
+    url: '/api/qa/questions',
     method: 'GET',
     params: {
       product_id: productId,
