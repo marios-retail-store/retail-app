@@ -1,7 +1,7 @@
 {
   "name": "retail-app",
   "version": "1.0.0",
-  "description": "found within the readme",
+  "description": "Ecommerce website redesign",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/marios-retail-store/retail-app.git"
   },
-  "author": "Team Mario!",
+  "author": "Yuxiu Zhang, Corbin Jarett-Dunbar, Cornelius Renken",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/marios-retail-store/retail-app/issues"
