@@ -42,6 +42,7 @@ A complete redesign of an ecommerce website.
 - [Styled Components](https://styled-components.com/) v5.3
 - [Webpack](https://webpack.js.org/) v5.73
 
+- [Husky](https://www.npmjs.com/package/husky) v8.0
 - [Airbnb Linter](https://www.npmjs.com/package/eslint-config-airbnb) v19.0
 
 - [Jest](https://jestjs.io/) v28.1
