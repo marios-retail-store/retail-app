@@ -35,7 +35,6 @@ const addCard = {
 function Carousel({
   products, styles, type, actionBtnFunc, addToOutfit, clickFunc, ratings,
 }) {
-  console.log(products)
   const [current, setCurrent] = useState(0);
   const { length } = products;
   const cardAmount = type === 'outfit' ? (Math.floor(window.innerWidth / 332)) - 1 : (Math.floor(window.innerWidth / 332));
@@ -64,7 +63,7 @@ function Carousel({
               card={p}
               style={style}
               actionButton={(e) => onClickButtonHandler(e, i, p)}
-              buttonText={type === 'outfit' ? 'x' : <NewStar filled={0} />}
+              buttonText={type === 'outfit' ? 'X' : <NewStar filled={0} />}
               clickFunc={() => clickFunc(p, style)}
               rating={ratings && ratings[i]}
             />

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, Navigate } from 'react-router-dom';
-// import axios from 'axios';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import StarRating from '../../shared/star/StarRating.jsx';
 
@@ -20,9 +19,10 @@ function ProductCards({
   const productImageURL = newUrl || '../../../../empty-image.png';
   const productCategory = card.category;
 
-  let children = (
+  const children = (
     <>
-    <ImageDiv>
+      {style.name !== 'add' && <ActionButton type="button" onClick={actionButton}>{buttonText}</ActionButton>}
+      <ImageDiv>
         <CardImage data-testid="image" src={productImageURL} alt="product" />
       </ImageDiv>
       <ProductInfo>
@@ -48,10 +48,11 @@ function ProductCards({
           {rating && <StarRating averageRating={rating} />}
         </div>
       </ProductInfo>
-      </>
-  )
+    </>
+  );
 
-  let result = style.name === 'add' ? <AddToOutfit onClick={() => clickFunc()}>{children}</AddToOutfit> : <ProductClickable to={`/products/${card.id}`}> {children} </ProductClickable>;
+  // eslint-disable-next-line react/jsx-one-expression-per-line
+  const result = style.name === 'add' ? <AddToOutfit onClick={() => clickFunc()}>{children}</AddToOutfit> : <ProductClickable style={{ textDecoration: 'none' }} to={`/products/${card.id}`}> {children} </ProductClickable>;
   return (result);
 }
 
@@ -65,7 +66,7 @@ const CardImage = styled('img')`
   max-width: 100%;
   object-fit: cover;
   draggable: false;
-  `;
+`;
 
 const ProductClickable = styled(Link)`
     border: 1px solid grey;
@@ -108,6 +109,7 @@ const ActionButton = styled('button')`
     border: none;
     background: none;
     cursor: pointer;
+    color: aqua;
 `;
 
 const ProductInfo = styled('div')`
