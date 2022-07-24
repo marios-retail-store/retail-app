@@ -9,12 +9,12 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route
-          path=":productId"
+          path="/products/:productId"
           element={<App />}
         />
         <Route
           path="*"
-          element={<Navigate to="/40344" />}
+          element={<Navigate to="/products/40344" />}
         />
       </Routes>
     </BrowserRouter>

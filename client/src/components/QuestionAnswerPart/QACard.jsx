@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -122,8 +121,8 @@ export default function QACard({ ele, productName }) {
           </span>
         </span>
       </Container>
-      {displayedAns.map((a, aIndex) => (
-        <div key={aIndex}>
+      {displayedAns.map((a) => (
+        <div key={a.question_id}>
           <CustomSubHeading>A:&nbsp;</CustomSubHeading>
           <CustomParagraph>{a.body}</CustomParagraph>
           <div style={{
@@ -154,9 +153,9 @@ export default function QACard({ ele, productName }) {
           </div>
           <Container>
             {a.photos.length > 0 && a.photos.map(
-              (photo, index) => (
+              (photo) => (
                 <PhotoReview
-                  key={index}
+                  key={photo}
                   photo={photo}
                 />
               ),

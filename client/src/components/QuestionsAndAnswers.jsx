@@ -61,7 +61,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
 
   const options = {
 
-    url: 'api/qa/questions',
+    url: '/api/qa/questions',
     method: 'GET',
     params: {
       product_id: productId,
@@ -78,7 +78,7 @@ export default function QuestionsAndAnswers({ productId, productName }) {
       })
       .catch(() => console.log('Error during get request on Q/A part for questions and answers list'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [productId]);
 
   const [searchText, setSearchText] = useState('');
   const handleSearch = function (event) {
@@ -117,10 +117,10 @@ export default function QuestionsAndAnswers({ productId, productName }) {
           ? (qalist
             .filter((obj) => obj.question_body.includes(searchText))
             .slice(0, 4 + morePageNum * 2)
-            .map((ele, index) => (
+            .map((ele) => (
               <QACard
                 ele={ele}
-                key={index}
+                key={ele.question_id}
                 productName={productName}
               />
             )))
