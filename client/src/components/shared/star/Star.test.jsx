@@ -6,13 +6,6 @@ import { toBeInTheDocument, toHaveBeenCalledWith } from '@testing-library/jest-d
 import Star from './Star.jsx';
 
 describe('Star', () => {
-  it('should throw an error for an invalid filled argument', () => {
-    const renderStar = () => render(<Star
-      filled={0.3}
-    />);
-    expect(renderStar).toThrow();
-  });
-
   it('should correctly crop the star to reflect the rating', () => {
     const tryFindFilledStar = () => screen.getByTestId('filled-star');
     render(<Star

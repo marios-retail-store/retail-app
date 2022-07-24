@@ -109,10 +109,15 @@ function ImageList({
           return undefined;
         }
         const onClick = () => { setCurrentImgIndex(index); };
-        const content = photo.thumbnail_url === null
-          ? <ErrorCross className="material-symbols-outlined" onClick={onClick}>close</ErrorCross>
-          : <ImgThumbnail draggable="false" onClick={onClick} src={photo.thumbnail_url} alt="thumbnail of different product view in list" />;
-
+        let thumbnailUrl = photo.thumbnail_url;
+        if (thumbnailUrl === null) {
+          thumbnailUrl = '../../../../empty-image.png';
+        } else {
+          // keep at 60px instead of the 55px used for this container, as style selector uses 60px
+          thumbnailUrl = thumbnailUrl.split('&w=');
+          thumbnailUrl[1] = '60&h=60&q=60';
+          thumbnailUrl = thumbnailUrl.join('&w=');
+        }
         if (index === currentImgIndex) {
           return (
             <ThumbnailContainerHighlight
@@ -120,7 +125,7 @@ function ImageList({
               key={photo.thumbnail_url + index.toString()}
             >
               <HighlightOverlay />
-              {content}
+              <ImgThumbnail draggable="false" onClick={onClick} src={thumbnailUrl} alt="thumbnail of different product view in list" />
             </ThumbnailContainerHighlight>
           );
         }
@@ -129,7 +134,7 @@ function ImageList({
             // have to add index as api has duplicate images
             key={photo.thumbnail_url + index.toString()}
           >
-            {content}
+            <ImgThumbnail draggable="false" onClick={onClick} src={thumbnailUrl} alt="thumbnail of different product view in list" />
           </ThumbnailContainer>
         );
       })}

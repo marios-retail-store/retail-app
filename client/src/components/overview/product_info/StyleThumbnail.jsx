@@ -41,11 +41,20 @@ const StyleImg = styled('img')`
 `;
 
 function StyleThumbnail({ style, selected, selectStyle }) {
+  let thumbnailUrl = style.photos[0].thumbnail_url;
+  if (thumbnailUrl === null) {
+    thumbnailUrl = '../../../../empty-image.png';
+  } else {
+    // keep at 60px instead of the 55px used for this container, as style selector uses 60px
+    thumbnailUrl = thumbnailUrl.split('&w=');
+    thumbnailUrl[1] = '60&h=60&q=60';
+    thumbnailUrl = thumbnailUrl.join('&w=');
+  }
   return (
     <Container>
       <StyleImg
         onClick={selectStyle}
-        src={style.photos[0].thumbnail_url}
+        src={thumbnailUrl}
         alt="thumbnail in style selector"
         draggable="false"
       />
