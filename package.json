@@ -24,7 +24,6 @@
   "homepage": "https://github.com/marios-retail-store/retail-app#readme",
   "dependencies": {
     "axios": "^0.27.2",
-    "babel-loader": "^8.2.5",
     "compression": "^1.7.4",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
@@ -42,6 +41,7 @@
     "@babel/preset-react": "^7.18.6",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
+    "babel-loader": "^8.2.5",
     "eslint": "^8.19.0",
     "eslint-config-airbnb": "^19.0.4",
     "expect-puppeteer": "^6.1.1",
