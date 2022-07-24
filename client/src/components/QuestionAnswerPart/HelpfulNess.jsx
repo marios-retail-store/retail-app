@@ -17,7 +17,7 @@ export default function HelpfulNess({ count, id }) {
 
   const handleClick = function () {
     const options = {
-      url: `api/qa/questions/${id}/helpful`,
+      url: `/api/qa/questions/${id}/helpful`,
       method: 'PUT',
       data: {
         question_helpfulness: helpfulCount + 1,
