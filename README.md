@@ -1,5 +1,4 @@
-![marios-retail-store-banner-transparent](https://user-images.githubusercontent.com/101947579/180621657-dbe9e55a-7f85-4ca0-8804-b84c1aebf6db.png)
-
+![marios-retail-store-banner-blue](https://user-images.githubusercontent.com/101947579/180874633-ce7a1835-9e03-4ed7-9cc7-771b02e5b55b.png)
 
 [Info](#info) | [Demo](#demo) | [Used Technologies](#used-technologies) | [Setup](#setup)
 ## Info
