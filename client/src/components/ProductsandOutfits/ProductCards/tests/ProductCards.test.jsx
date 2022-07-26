@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 // eslint-disable-next-line no-unused-vars
 import { toBeInTheDocument, toHaveStyle } from '@testing-library/jest-dom';
+import { MemoryRouter } from 'react-router-dom';
 import ProductCards from '../ProductCards.jsx';
 import { products, pStyles } from '../../exampleData.js';
 
@@ -20,35 +21,75 @@ describe('rendering of Product Cards', () => {
   const whiteStyle = Joggers.styles.white;
 
   it('Contains the Category of a product', () => {
-    render(<ProductCards card={joggerCard} style={goldenStyle} clickFunc={() => {}} />);
+    render(
+      <MemoryRouter>
+        <ProductCards
+          card={joggerCard}
+          style={goldenStyle}
+          clickFunc={() => {}}
+        />
+      </MemoryRouter>,
+    );
     const category = screen.getByText('PANTS');
     // screen.debug(); // this 'console logs' the test DOM
     expect(category).toBeInTheDocument();
   });
 
   it('Contains the Name of a product', () => {
-    render(<ProductCards card={joggerCard} style={goldenStyle} clickFunc={() => {}} />);
+    render(
+      <MemoryRouter>
+        <ProductCards
+          card={joggerCard}
+          style={goldenStyle}
+          clickFunc={() => {}}
+        />
+      </MemoryRouter>,
+    );
     const name = screen.getByText(/Morning Joggers/);
     // screen.debug(); // this 'console logs' the test DOM
     expect(name).toBeInTheDocument();
   });
 
   it('Contains the Default Style Name of a product (extra text?)', () => {
-    render(<ProductCards card={joggerCard} style={goldenStyle} clickFunc={() => {}} />);
+    render(
+      <MemoryRouter>
+        <ProductCards
+          card={joggerCard}
+          style={goldenStyle}
+          clickFunc={() => {}}
+        />
+      </MemoryRouter>,
+    );
     const extra = screen.getByText(/Goldenrod/);
     // screen.debug(); // this 'console logs' the test DOM
     expect(extra).toBeInTheDocument();
   });
 
   it('Contains the default price of a product', () => {
-    render(<ProductCards card={joggerCard} style={goldenStyle} clickFunc={() => {}} />);
+    render(
+      <MemoryRouter>
+        <ProductCards
+          card={joggerCard}
+          style={goldenStyle}
+          clickFunc={() => {}}
+        />
+      </MemoryRouter>,
+    );
     const originalPrice = screen.getByText('$40.00');
     // screen.debug(); // this 'console logs' the test DOM
     expect(originalPrice).toBeInTheDocument();
   });
 
   it('Strikes-through the original price if there is a sale', () => {
-    render(<ProductCards card={joggerCard} style={goldenStyle} clickFunc={() => {}} />);
+    render(
+      <MemoryRouter>
+        <ProductCards
+          card={joggerCard}
+          style={goldenStyle}
+          clickFunc={() => {}}
+        />
+      </MemoryRouter>,
+    );
     const salePrice = screen.getByText('$40.00');
     // screen.debug(); // this 'console logs' the test DOM
     expect(salePrice).toBeInTheDocument();
@@ -56,7 +97,15 @@ describe('rendering of Product Cards', () => {
   });
 
   it('Colors the sale text red if there is a sale for a product', () => {
-    render(<ProductCards card={joggerCard} style={goldenStyle} clickFunc={() => {}} />);
+    render(
+      <MemoryRouter>
+        <ProductCards
+          card={joggerCard}
+          style={goldenStyle}
+          clickFunc={() => {}}
+        />
+      </MemoryRouter>,
+    );
     const salePrice = screen.getByText('$35.00');
     // screen.debug(); // this 'console logs' the test DOM
     expect(salePrice).toBeInTheDocument();
@@ -64,7 +113,15 @@ describe('rendering of Product Cards', () => {
   });
 
   it('Does not strike-through the original price OR have a red sale price if the product is not on sale', () => {
-    render(<ProductCards card={joggerCard} style={whiteStyle} clickFunc={() => {}} />);
+    render(
+      <MemoryRouter>
+        <ProductCards
+          card={joggerCard}
+          style={whiteStyle}
+          clickFunc={() => {}}
+        />
+      </MemoryRouter>,
+    );
     const price = screen.getByText('$40.00');
     // screen.debug(); // this 'console logs' the test DOM
     expect(price).toBeInTheDocument();
@@ -73,7 +130,15 @@ describe('rendering of Product Cards', () => {
   });
 
   it('Uses the same image for the card that would be the primary image for a product', () => {
-    render(<ProductCards card={joggerCard} style={goldenStyle} clickFunc={() => {}} />);
+    render(
+      <MemoryRouter>
+        <ProductCards
+          card={joggerCard}
+          style={goldenStyle}
+          clickFunc={() => {}}
+        />
+      </MemoryRouter>,
+    );
     const image = screen.getByTestId('image');
     // screen.debug(); // this 'console logs' the test DOM
     expect(image).toBeInTheDocument();
