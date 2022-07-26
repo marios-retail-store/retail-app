@@ -159,7 +159,7 @@ ProductCards.propTypes = {
       url: PropTypes.string,
     })),
   }).isRequired,
-  clickFunc: PropTypes.func.isRequired,
+  clickFunc: PropTypes.func,
   actionButton: PropTypes.func,
   buttonText: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 };
