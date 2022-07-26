@@ -98,7 +98,7 @@ export default function AnswerModal({
 
   const handleSubmit = function () {
     const option = {
-      url: `api/qa/questions/${questionId}/answers`,
+      url: `/api/qa/questions/${questionId}/answers`,
       method: 'POST',
       data: {
         body: answer,

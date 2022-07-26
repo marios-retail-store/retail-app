@@ -72,7 +72,7 @@ export default function QACard({ ele, productName }) {
   };
   const handleReport = function (event, reportingId) {
     const options = {
-      url: `api/qa/questions/${reportingId}/report`,
+      url: `/api/qa/questions/${reportingId}/report`,
       method: 'PUT',
     };
     if (!report) {
@@ -122,7 +122,7 @@ export default function QACard({ ele, productName }) {
         </span>
       </Container>
       {displayedAns.map((a) => (
-        <div key={a.question_id}>
+        <div key={a.id}>
           <CustomSubHeading>A:&nbsp;</CustomSubHeading>
           <CustomParagraph>{a.body}</CustomParagraph>
           <div style={{
