@@ -28,7 +28,7 @@ describe('rendering of Carousel', () => {
     expect(kicks).toBeInTheDocument();
   });
 
-  xit('Contains a product card\'s Name', () => {
+  it('Contains a product card\'s Name', () => {
     render(
       <MemoryRouter>
         <Carousel
@@ -49,7 +49,7 @@ describe('rendering of Carousel', () => {
     expect(kicks).toBeInTheDocument();
   });
 
-  xit('Displays 4 Cards In the Carousel', () => {
+  it('Displays 4 Cards In the Carousel', () => {
     render(
       <MemoryRouter>
         <Carousel
@@ -71,7 +71,7 @@ describe('rendering of Carousel', () => {
     // screen.debug(); // this 'console logs' the test DOM
   });
 
-  xit('Has a parent carousel div that has an overflow property of hidden', () => {
+  it('Has a parent carousel div that has an overflow property of hidden', () => {
     render(
       <MemoryRouter>
         <Carousel
