@@ -8,7 +8,6 @@ import Header from './Header.jsx';
 
 function App() {
   const { productId } = useParams();
-  console.log(productId)
   const [product, setProduct] = useState(undefined);
   const [styles, setStyles] = useState(undefined);
   const [selectedStyleId, setSelectedStyleId] = useState(0);
