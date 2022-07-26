@@ -103,6 +103,7 @@ function ProductsAndOutfits({ currentProduct, style, rating }) {
     } else {
       setLoading(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
 
   const deleteOutfitCard = (cardIndex) => {
@@ -112,10 +113,6 @@ function ProductsAndOutfits({ currentProduct, style, rating }) {
     clone.ratings.splice(cardIndex, 1);
     setCurrentOutfit({ ...clone });
     setStorage('Outfit', myOutfit);
-  };
-
-  const clickProductCard = (cardInfo) => {
-    window.location.pathname = `/${cardInfo.id}`;
   };
 
   const addOutfitCard = () => {
@@ -150,7 +147,6 @@ function ProductsAndOutfits({ currentProduct, style, rating }) {
           styles={relatedProducts.styles}
           ratings={relatedProducts.ratings}
           type="related"
-          clickFunc={clickProductCard}
           actionBtnFunc={showModal}
         />
         <CarouselTitle>My Outfit</CarouselTitle>
@@ -184,7 +180,6 @@ function ProductsAndOutfits({ currentProduct, style, rating }) {
             styles={myOutfit.styles}
             ratings={myOutfit.ratings}
             type="outfit"
-            clickFunc={clickProductCard}
             addToOutfit={addOutfitCard}
             actionBtnFunc={deleteOutfitCard}
           />
