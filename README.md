@@ -1,6 +1,15 @@
 ![marios-retail-store-banner-blue](https://user-images.githubusercontent.com/101947579/180874633-ce7a1835-9e03-4ed7-9cc7-771b02e5b55b.png)
 
-[Info](#info) | [Demo](#demo) | [Used Technologies](#used-technologies) | [Setup](#setup)
+[Screenshots](#screenshots) | [Info](#info) | [Used Technologies](#used-technologies) | [Setup](#setup)
+
+## Screenshots
+
+<img width="1512" alt="Overview" src="https://user-images.githubusercontent.com/101947579/190292903-8ffc8fc0-4049-4d02-84eb-eabf9d2878d3.png">
+
+<img width="1512" alt="Related Products" src="https://user-images.githubusercontent.com/101947579/190292910-87a01bf9-50ad-4d82-a5e0-e03137de3d1a.png">
+
+<img width="1512" alt="Questions   Answers" src="https://user-images.githubusercontent.com/101947579/190292879-d3589d03-c2e1-431b-8032-7e30cabfe3dd.png">
+
 ## Info
 A complete redesign of an ecommerce website.
 
@@ -23,11 +32,6 @@ A complete redesign of an ecommerce website.
   - Time to First Paint: 0.8 seconds
   - Time to First Meaningful Paint: 2.0 seconds
   - Time to Interactive: 2.5 seconds
-
-## Demo
-
---insert gifs here--
-
 
 ## Used Technologies
 - [Axios](https://axios-http.com/) v0.27
@@ -53,6 +57,6 @@ A complete redesign of an ecommerce website.
 $ git clone https://github.com/marios-retail-store/retail-app.git
 $ cd retail-app
 $ npm install
-$ npm build
+$ npm run build
 $ npm start
 ```
